@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "Chapter Map" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Chapter Map" %>">
+    <%= stylesheet_link_tag "gmaps4rails" %>   
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
@@ -31,5 +32,6 @@
         </div>
       </div> <!--! end of .container -->
     </div> <!--! end of #main -->
+  <%= yield :scripts %>
   </body>
 </html>
