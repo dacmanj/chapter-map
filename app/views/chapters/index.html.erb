@@ -35,11 +35,4 @@
 
 <%= link_to 'New Chapter', new_chapter_path %>
 
-<h2>Import Chapters</h2>
-
-<%= form_tag import_chapters_path, multipart: true do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag "Import" %>
-<% end %>
-
 

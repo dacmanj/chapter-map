@@ -13,11 +13,16 @@ class ChaptersController < ApplicationController
   # GET /chapters/1
   # GET /chapters/1.json
   def show
-    @chapter = Chapter.find(params[:id])
+    if params[:id] == 'import'
+      render 'import'
+    else
+      @chapter = Chapter.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @chapter }
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @chapter }
+      end
+
     end
   end
 
@@ -54,7 +59,7 @@ class ChaptersController < ApplicationController
   end
 
   def import
-    Chapter.import(params[:file])
+    Chapter.import(params[:file]) 
     redirect_to root_url, notice: "Chapters imported."
   end
 
