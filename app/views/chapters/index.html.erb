@@ -1,9 +1,9 @@
 <h1>Listing chapters</h1>
 
-<%= gmaps4rails(@json) %>
+<% #= gmaps4rails(@json) %>
 
 
-<table>
+<table class="table table-striped">
   <tr>
     <th>Name</th>
     <th>Website</th>
@@ -12,39 +12,21 @@
     <th>State</th>
     <th>Zip</th>
     <th>Email 1</th>
-    <th>Email 2</th>
-    <th>Email 3</th>
-    <th>Helpline</th>
-    <th>Phone 1</th>
-    <th>Phone 2</th>
-    <th>Latitude</th>
-    <th>Longitude</th>
     <th>Ein</th>
-    <th></th>
-    <th></th>
     <th></th>
   </tr>
 
 <% @chapters.each do |chapter| %>
   <tr>
-    <td><%= chapter.name %></td>
-    <td><%= chapter.website %></td>
+    <td><%= link_to chapter.name, edit_chapter_path(chapter) %></td>
+    <td><%= link_to 'Website', chapter.website %></td>
     <td><%= chapter.street %></td>
     <td><%= chapter.city %></td>
     <td><%= chapter.state %></td>
     <td><%= chapter.zip %></td>
     <td><%= chapter.email_1 %></td>
-    <td><%= chapter.email_2 %></td>
-    <td><%= chapter.email_3 %></td>
-    <td><%= chapter.helpline %></td>
-    <td><%= chapter.phone_1 %></td>
-    <td><%= chapter.phone_2 %></td>
-    <td><%= chapter.latitude %></td>
-    <td><%= chapter.longitude %></td>
     <td><%= chapter.ein %></td>
-    <td><%= link_to 'Show', chapter %></td>
-    <td><%= link_to 'Edit', edit_chapter_path(chapter) %></td>
-    <td><%= link_to 'Destroy', chapter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to content_tag(:i, "", class: "icon-trash icon-red") + "", chapter, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger remove_fields" %> </td>
   </tr>
 <% end %>
 </table>
@@ -52,3 +34,12 @@
 <br />
 
 <%= link_to 'New Chapter', new_chapter_path %>
+
+<h2>Import Chapters</h2>
+
+<%= form_tag import_chapters_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
+
+

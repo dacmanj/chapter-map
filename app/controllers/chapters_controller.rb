@@ -3,7 +3,6 @@ class ChaptersController < ApplicationController
   # GET /chapters.json
   def index
     @chapters = Chapter.all
-    @json = Chapter.all.to_gmaps4rails
 
     respond_to do |format|
       format.html # index.html.erb
@@ -52,6 +51,11 @@ class ChaptersController < ApplicationController
         format.json { render json: @chapter.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def import
+    Chapter.import(params[:file])
+    redirect_to root_url, notice: "Chapters imported."
   end
 
   # PUT /chapters/1
