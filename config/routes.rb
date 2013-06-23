@@ -9,6 +9,8 @@ ChapterMap::Application.routes.draw do
     collection do post :delete_multiple end
   end
 
+  match 'embed' => 'home#embed'
+
   root :to => "home#index"
   resources :users
   match '/auth/:provider/callback' => 'sessions#create'
