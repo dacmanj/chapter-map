@@ -32,7 +32,9 @@
 		<% unless chapter.email_1.nil? %>
 			<div><%= chapter.phone_1 %></div>
 		<% end %>
-		<%= link_to 'Edit', edit_chapter_path(chapter.id) %>
+		<% if user_signed_in? %>
+			<%= link_to 'Edit', edit_chapter_path(chapter.id) %>
+		<% end %>
 	</div>
 
 	<% end %>

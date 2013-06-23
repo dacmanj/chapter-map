@@ -1,4 +1,5 @@
 <a href="<%=chapter.website%>"><b><%= chapter.name %></b></a>
-<p><%= chapter.address %></p>
-<p><%= chapter.phone_1%></p>
-<p>	<%= link_to 'Edit', edit_chapter_path(chapter.id) %></p>
+<div><%= "#{chapter.street}" %></div>
+<div><%= "#{chapter.city}, #{chapter.state} #{chapter.zip}" %></div>
+<div><%= chapter.phone_1%></div>
+<div><%= link_to 'Edit', edit_chapter_path(chapter.id) %></div>

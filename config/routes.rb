@@ -10,7 +10,7 @@ ChapterMap::Application.routes.draw do
   end
 
   root :to => "home#index"
-  resources :users, :only => [:index, :show, :edit, :update ]
+  resources :users
   match '/auth/:provider/callback' => 'sessions#create'
   match '/signin' => 'sessions#new', :as => :signin
   match '/signout' => 'sessions#destroy', :as => :signout

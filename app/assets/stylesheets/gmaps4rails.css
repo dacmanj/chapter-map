@@ -9,11 +9,6 @@
   width: 800px;
 }
 
-.gmaps4rails_map {
-  width: 800px;
-  height: 400px;
-}
-
 .bing_map {
    position: absolute;
    top: 20;
