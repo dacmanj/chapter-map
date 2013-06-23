@@ -22,6 +22,7 @@
 #  updated_at    :datetime         not null
 #  gmaps         :boolean
 #  gmaps_address :string(255)
+#  radius        :integer
 #
 
 require 'spec_helper'

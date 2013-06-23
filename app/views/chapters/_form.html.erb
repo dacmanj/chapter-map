@@ -4,7 +4,7 @@
   <div class="form-inputs">
     <%= f.input :name %>
     <%= f.input :website %>
-    <%= f.input :street, :as => :text %>
+    <%= f.input :street, :as => :text, :input_html => { :cols => 40, :rows => 3 } %>
     <%= f.input :city %>
     <%= f.input :state %>
     <%= f.input :zip %>
@@ -14,6 +14,7 @@
     <%= f.input :helpline %>
     <%= f.input :phone_1 %>
     <%= f.input :phone_2 %>
+    <%= f.input :radius %>
     <%= f.label :geocode do %>
       <%= check_box_tag :geocode %>Refresh Latitude/Longitude
     <% end %>

@@ -1,46 +1,27 @@
-<%= gmaps4rails(@json) %>
-
+<%= gmaps("markers" => { "data" => @json, "options" => { "do_clustering" => true, "clusterer_gridSize" => 15 } }, 
+		"circles" => { "data" => @circles_json}
+)%>
 <div class="well">
-<%= form_tag root_path, :class => "form-inline" do %>
-	<%=text_field_tag :zip, params[:zip] || "", :placeholder => 'Address/Zip Code' %>
-	<%=submit_tag "Search", :class => "btn btn-danger"%>
-
-<% end %>
+	<%= form_tag root_path, :class => "form-inline" do %>
+		<%=text_field_tag :zip, params[:zip] || "", :placeholder => 'Address/Zip Code' %>
+		<%=submit_tag "Search", :class => "btn btn-danger"%>
+	<% end %>
 </div>
-  <% @chapters_by_state.each do | state, chapters | %>
-	<h1>
-		PFLAG Chapters
-	</h1>
-	<h3>
-	 	<%= state %><hr>
-	</h3>
-		<% @chapters.each do |chapter| %>
-			<div class="well">
-				<div>
-					<%if chapter.website.nil? %>
-						<%=chapter.name%>
-					<% else %>
-						<%= link_to chapter.name, chapter.website %>
-					<% end %>
+<h1>
+	PFLAG Chapters
+</h1>
 
-				</div>
-				<% unless chapter.street.nil? %>
-					<div style="white-space: pre-wrap;"><%= chapter.street %></div>
-				<% end %>
-				<div><%= "#{chapter.city}, #{chapter.state} #{chapter.zip}" %></div>
-				<% unless chapter.email_1.nil? %>
-					<div><%= link_to chapter.email_1, 'mailto:' + chapter.email_1%></div>
-				<% end %>
-				<% unless chapter.email_2.nil? %>
-					<div><%= link_to chapter.email_2, 'mailto:' + chapter.email_2%></div>
-				<% end %>
-				<% unless chapter.email_1.nil? %>
-					<div><%= chapter.phone_1 %></div>
-				<% end %>
-				<% if user_signed_in? %>
-					<%= link_to 'Edit', edit_chapter_path(chapter.id) %>
-				<% end %>
-			</div>
-
+<% if @chapters_by_state.nil? %>
+	<% @chapters.each do |chapter| %>
+		<%= render :partial => 'chapters/chapter_listing', :locals => {:chapter => chapter } %>
+	<% end %>
+<% else %>
+	<% @chapters_by_state.each do | state, chapters | %>
+		<h3>
+		 	<%= state %><hr>
+		</h3>
+		<% chapters.each do |chapter| %>
+			<%= render :partial => 'chapters/chapter_listing', :locals => {:chapter => chapter } %>
 		<% end %>
-  <% end %>
+	<% end %>
+<% end %>

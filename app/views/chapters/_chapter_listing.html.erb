@@ -1,0 +1,26 @@
+<div class="well">
+	<div>
+		<%if chapter.website.nil? %>
+			<%=chapter.name%>
+		<% else %>
+			<%= link_to chapter.name, chapter.website %>
+		<% end %>
+
+	</div>
+	<% unless chapter.street.nil? %>
+		<div style="white-space: pre-wrap;"><%= chapter.street %></div>
+	<% end %>
+	<div><%= "#{chapter.city}, #{chapter.state} #{chapter.zip}" %></div>
+	<% unless chapter.email_1.nil? %>
+		<div><%= link_to chapter.email_1, 'mailto:' + chapter.email_1%></div>
+	<% end %>
+	<% unless chapter.email_2.nil? %>
+		<div><%= link_to chapter.email_2, 'mailto:' + chapter.email_2%></div>
+	<% end %>
+	<% unless chapter.email_1.nil? %>
+		<div><%= chapter.phone_1 %></div>
+	<% end %>
+	<% if user_signed_in? %>
+		<%= link_to 'Edit', edit_chapter_path(chapter.id) %>
+	<% end %>
+</div>
