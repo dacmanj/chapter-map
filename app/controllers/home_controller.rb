@@ -2,6 +2,7 @@ class HomeController < ApplicationController
   def index
     if params[:zip].nil?
        @chapters = Chapter.order("state ASC").all
+       @chapters_by_state = @chapters.group_by { |t| t.state }.sort
     else
         @chapters = Chapter.near(params[:zip],params[:distance] || 50)
     end
