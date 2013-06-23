@@ -8,6 +8,7 @@ group :assets do
 end
 gem "annotate", :group => :development
 gem "gmaps4rails"
+gem "geocoder"
 gem "roo"
 gem "jquery-rails"
 gem "rspec-rails", ">= 2.12.2", :group => [:development, :test]

@@ -2,7 +2,11 @@ ChapterMap::Application.routes.draw do
   resources :chapters
 
   resources :chapters do
-    collection { post :import }
+    collection do post :import end
+  end
+
+  resources :chapters do
+    collection do post :delete_multiple end
   end
 
   root :to => "home#index"

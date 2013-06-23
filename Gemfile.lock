@@ -73,6 +73,7 @@ GEM
     figaro (0.6.4)
       bundler (~> 1.0)
       rails (>= 3, < 5)
+    geocoder (1.1.8)
     gmaps4rails (1.5.6)
     hashie (2.0.5)
     hike (1.2.3)
@@ -198,6 +199,7 @@ DEPENDENCIES
   email_spec (>= 1.4.0)
   factory_girl_rails (>= 4.2.0)
   figaro (>= 0.6.3)
+  geocoder
   gmaps4rails
   jquery-rails
   omniauth (>= 1.1.3)

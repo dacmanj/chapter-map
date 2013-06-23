@@ -31,6 +31,7 @@ class Chapter < ActiveRecord::Base
                   :msg => "Sorry, not even Google could figure out where that is",
                   :validate => false
 
+  geocoded_by :address
 
   def geocode?
     (!address.blank? && (latitude.blank? || longitude.blank?)) #|| address_changed?

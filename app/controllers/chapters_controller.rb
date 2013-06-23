@@ -2,7 +2,11 @@ class ChaptersController < ApplicationController
   # GET /chapters
   # GET /chapters.json
   def index
-    @chapters = Chapter.all
+    if params[:zip].nil?
+     @chapters = Chapter.all
+    else
+      @chapters = Chapter.near(params[:zip],params[:distance] || 20)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -90,4 +94,14 @@ class ChaptersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def delete_multiple
+    @chapters = Chapter.find(params[:chapter_ids])
+    @chapters.each do |chapter|
+      chapter.destroy
+    end
+    flash[:notice] = "Deleted chapters!"
+    redirect_to chapters_path
+  end
+
 end

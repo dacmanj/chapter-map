@@ -1,10 +1,11 @@
-<h1>Listing chapters</h1>
+<%=form_tag delete_multiple_chapters_path do %>
 
-<% #= gmaps4rails(@json) %>
+<h1>Listing chapters</h1>
 
 
 <table class="table table-striped">
   <tr>
+    <th></th>
     <th>Name</th>
     <th>Website</th>
     <th>Street</th>
@@ -16,23 +17,25 @@
     <th></th>
   </tr>
 
-<% @chapters.each do |chapter| %>
-  <tr>
-    <td><%= link_to chapter.name, edit_chapter_path(chapter) %></td>
-    <td><%= link_to 'Website', chapter.website %></td>
-    <td><%= chapter.street %></td>
-    <td><%= chapter.city %></td>
-    <td><%= chapter.state %></td>
-    <td><%= chapter.zip %></td>
-    <td><%= chapter.email_1 %></td>
-    <td><%= chapter.ein %></td>
-    <td><%= link_to content_tag(:i, "", class: "icon-trash icon-red") + "", chapter, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger remove_fields" %> </td>
-  </tr>
-<% end %>
+  <% @chapters.each do |chapter| %>
+    <tr>
+      <td><%= check_box_tag "chapter_ids[]", chapter.id %></td>    
+      <td><%= link_to chapter.name, edit_chapter_path(chapter) %></td>
+      <td><%= link_to 'Website', chapter.website %></td>
+      <td><%= chapter.street %></td>
+      <td><%= chapter.city %></td>
+      <td><%= chapter.state %></td>
+      <td><%= chapter.zip %></td>
+      <td><%= chapter.email_1 %></td>
+      <td><%= chapter.ein %></td>
+      <td><%= link_to content_tag(:i, "", class: "icon-trash icon-red") + "", chapter, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger remove_fields" %> </td>
+    </tr>
+  <% end %>
 </table>
 
 <br />
-
+<%= submit_tag "Delete Checked", :class => "btn btn-danger remove_fields"%>
 <%= link_to 'New Chapter', new_chapter_path %>
 
+<% end %>
 
