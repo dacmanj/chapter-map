@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
     if params[:zip].nil?
-       @chapters = Chapter.all
+       @chapters = Chapter.order("state ASC").all
     else
         @chapters = Chapter.near(params[:zip],params[:distance] || 50)
     end
