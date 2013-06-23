@@ -14,6 +14,9 @@
     <%= f.input :helpline %>
     <%= f.input :phone_1 %>
     <%= f.input :phone_2 %>
+    <%= f.label :geocode do %>
+      <%= check_box_tag :geocode %>Refresh Latitude/Longitude
+    <% end %>
     <%= f.input :latitude %>
     <%= f.input :longitude %>
     <%= f.input :ein %>
