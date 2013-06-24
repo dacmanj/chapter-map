@@ -1,12 +1,13 @@
 <%=form_tag delete_multiple_chapters_path do %>
 
-<h1>Listing chapters</h1>
+<h1>Chapters</h1>
 
 
 <table class="table table-striped">
   <tr>
     <th></th>
     <th>Name</th>
+    <th>Category</th>
     <th>Website</th>
     <th>Street</th>
     <th>City</th>
@@ -21,6 +22,7 @@
     <tr>
       <td><%= check_box_tag "chapter_ids[]", chapter.id %></td>    
       <td><%= link_to chapter.name, edit_chapter_path(chapter) %></td>
+      <td><%= chapter.category %></td>
       <td><%= link_to 'Website', chapter.website %></td>
       <td><%= chapter.street %></td>
       <td><%= chapter.city %></td>
@@ -36,6 +38,11 @@
 <br />
 <%= submit_tag "Delete Checked", :class => "btn btn-danger remove_fields"%>
 <%= link_to 'New Chapter', new_chapter_path %>
+
+<div>
+  Download:
+  <%= link_to "CSV", chapters_path(format: "csv") %>
+</div>
 
 <% end %>
 

@@ -11,6 +11,8 @@ class ChaptersController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
+      format.csv { send_data Chapter.to_csv(@chapters) }
+
       format.json { render json: @chapters }
     end
   end

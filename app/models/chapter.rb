@@ -26,7 +26,7 @@
 #
 
 class Chapter < ActiveRecord::Base
-  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius
+  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :type
   acts_as_gmappable :lat => 'latitude', :lng => 'longitude', :process_geocoding => :geocode?,
                   :address => "address", :normalized_address => "gmaps_address",
                   :msg => "Sorry, not even Google could figure out where that is",
@@ -64,6 +64,15 @@ class Chapter < ActiveRecord::Base
     when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
     when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
     else raise "Unknown file type: #{file.original_filename}"
+    end
+  end
+
+  def self.to_csv(chapters, options = {})
+    CSV.generate(options) do |csv|
+      csv << column_names
+      chapters.each do |chapter|
+        csv << chapter.attributes.values_at(*column_names)
+      end
     end
   end
 

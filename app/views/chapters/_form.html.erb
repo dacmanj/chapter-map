@@ -3,6 +3,7 @@
 
   <div class="form-inputs">
     <%= f.input :name %>
+    <%= f.input :category, :collection => { :Chapter => "Chapter", :Representative => "Representative" } %>
     <%= f.input :website %>
     <%= f.input :street, :as => :text, :input_html => { :cols => 40, :rows => 3 } %>
     <%= f.input :city %>
