@@ -7,6 +7,7 @@
 		<% end %>
 
 	</div>
+	<%= "<div> #{chapter.category}</div>" unless chapter.category.nil? %>
 	<% unless chapter.street.nil? %>
 		<div style="white-space: pre-wrap;"><%= chapter.street %></div>
 	<% end %>
@@ -21,6 +22,11 @@
 		<div><%= chapter.phone_1 %></div>
 	<% end %>
 	<% if user_signed_in? %>
-		<%= link_to 'Edit', edit_chapter_path(chapter.id) %>
+		<div>
+			<%= "EIN: #{chapter.ein.chars.to_a[0..1].join}-#{chapter.ein.chars.to_a[2..8].join}" unless chapter.ein.nil? || chapter.ein.length == 0 || chapter.ein.length > 9 %>
+		</div>
+		<div>
+			<%= link_to 'Edit', edit_chapter_path(chapter.id) %>
+		</div>
 	<% end %>
 </div>
