@@ -4,7 +4,8 @@ class HomeController < ApplicationController
        @chapters = Chapter.order("state ASC").all
        @chapters_by_state = @chapters.group_by { |t| t.state }
     else
-       @chapters = Chapter.near(params[:zip],params[:distance] || 50)
+      distance = params[:distance] unless params[:distance].nil? || params[:distance].to_f == 0 
+       @chapters = Chapter.near(params[:zip], distance || 50)
     end
      @json = @chapters.to_gmaps4rails do |chapter, marker|
         marker.infowindow render_to_string(:partial => "/chapters/infowindow", :locals => { :chapter => chapter})
