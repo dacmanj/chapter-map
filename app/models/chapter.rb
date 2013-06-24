@@ -2,35 +2,40 @@
 #
 # Table name: chapters
 #
-#  id            :integer          not null, primary key
-#  name          :string(255)
-#  website       :string(255)
-#  street        :string(255)
-#  city          :string(255)
-#  state         :string(255)
-#  zip           :string(255)
-#  email_1       :string(255)
-#  email_2       :string(255)
-#  email_3       :string(255)
-#  helpline      :string(255)
-#  phone_1       :string(255)
-#  phone_2       :string(255)
-#  latitude      :float
-#  longitude     :float
-#  ein           :string(255)
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  gmaps         :boolean
-#  gmaps_address :string(255)
-#  radius        :integer
+#  id                 :integer          primary key
+#  name               :string(255)
+#  website            :string(255)
+#  street             :string(255)
+#  city               :string(255)
+#  state              :string(255)
+#  zip                :string(255)
+#  email_1            :string(255)
+#  email_2            :string(255)
+#  email_3            :string(255)
+#  helpline           :string(255)
+#  phone_1            :string(255)
+#  phone_2            :string(255)
+#  latitude           :float
+#  longitude          :float
+#  ein                :string(255)
+#  created_at         :timestamp        not null
+#  updated_at         :timestamp        not null
+#  gmaps              :boolean
+#  gmaps_address      :string(255)
+#  radius             :integer
+#  category           :string(255)
+#  separate_exemption :boolean
+#  inactive           :boolean
 #
 
 class Chapter < ActiveRecord::Base
-  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category
+  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption
   acts_as_gmappable :lat => 'latitude', :lng => 'longitude', :process_geocoding => :geocode?,
                   :address => "address", :normalized_address => "gmaps_address",
                   :msg => "Sorry, not even Google could figure out where that is",
                   :validate => false
+
+  scope :active, where("inactive IS NOT ?",true)
 
   geocoded_by :address
 

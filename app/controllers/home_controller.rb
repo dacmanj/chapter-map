@@ -1,11 +1,11 @@
 class HomeController < ApplicationController
   def index
     if params[:zip].nil?
-       @chapters = Chapter.order("state ASC").all
+       @chapters = Chapter.active.order("state ASC").all
        @chapters_by_state = @chapters.group_by { |t| t.state }
     else
       distance = params[:distance] unless params[:distance].nil? || params[:distance].to_f == 0 
-       @chapters = Chapter.near(params[:zip], distance || 50)
+       @chapters = Chapter.active.near(params[:zip], distance || 50)
     end
      @json = @chapters.to_gmaps4rails do |chapter, marker|
         marker.infowindow render_to_string(:partial => "/chapters/infowindow", :locals => { :chapter => chapter})
@@ -28,17 +28,17 @@ class HomeController < ApplicationController
 
     end
 
-    @circles_json = @chapters.map {|c| {:lat => c.latitude, :lng => c.longitude, :radius => c.radius || 100000 }}.to_json
+    #@circles_json = @chapters.map {|c| {:lat => c.latitude, :lng => c.longitude, :radius => c.radius || 100000 }}.to_json
 
   end
 
   def embed
     if params[:zip].nil?
-       @chapters = Chapter.order("state ASC").all
+       @chapters = Chapter.active.order("state ASC").all
        @chapters_by_state = @chapters.group_by { |t| t.state }
     else
       distance = params[:distance] unless params[:distance].nil? || params[:distance].to_f == 0 
-       @chapters = Chapter.near(params[:zip], distance || 50)
+       @chapters = Chapter.active.near(params[:zip], distance || 50)
     end
      @json = @chapters.to_gmaps4rails do |chapter, marker|
         marker.infowindow render_to_string(:partial => "/chapters/infowindow", :locals => { :chapter => chapter})
@@ -61,7 +61,7 @@ class HomeController < ApplicationController
 
     end
 
-    @circles_json = @chapters.map {|c| {:lat => c.latitude, :lng => c.longitude, :radius => c.radius || 100000 }}.to_json
+    #@circles_json = @chapters.map {|c| {:lat => c.latitude, :lng => c.longitude, :radius => c.radius || 100000 }}.to_json
 
     render 'index', :layout => 'embed'    
 

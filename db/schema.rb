@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130624133941) do
+ActiveRecord::Schema.define(:version => 20130624200657) do
 
   create_table "chapters", :force => true do |t|
     t.string    "name"
@@ -29,12 +29,14 @@ ActiveRecord::Schema.define(:version => 20130624133941) do
     t.float     "latitude"
     t.float     "longitude"
     t.string    "ein"
-    t.timestamp "created_at",    :null => false
-    t.timestamp "updated_at",    :null => false
+    t.timestamp "created_at",         :null => false
+    t.timestamp "updated_at",         :null => false
     t.boolean   "gmaps"
     t.string    "gmaps_address"
     t.integer   "radius"
     t.string    "category"
+    t.boolean   "separate_exemption"
+    t.boolean   "inactive"
   end
 
   create_table "users", :force => true do |t|

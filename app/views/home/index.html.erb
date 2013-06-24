@@ -1,6 +1,6 @@
-<%= gmaps("markers" => { "data" => @json, "options" => { "do_clustering" => true, "clusterer_gridSize" => 15 } }, 
-		"circles" => { "data" => @circles_json}
-)%>
+<%= gmaps("markers" => { "data" => @json, "options" => { "do_clustering" => true, "clusterer_gridSize" => 15 } }
+)%> <!--, "circles" => { "data" => @circles_json}-->
+
 <div class="well">
 	<%= form_tag root_path, :class => "form-inline" do %>
 		<%=text_field_tag :zip, params[:zip] || "", :placeholder => 'Address/Zip Code' %>
