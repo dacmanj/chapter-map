@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   def index
     if params[:zip].nil?
        @chapters = Chapter.order("state ASC").all
-       @chapters_by_state = @chapters.group_by { |t| t.state }.sort
+       @chapters_by_state = @chapters.group_by { |t| t.state }
     else
        @chapters = Chapter.near(params[:zip],params[:distance] || 50)
     end
@@ -34,7 +34,9 @@ class HomeController < ApplicationController
   #                  :width   => 32,
   #                  :height  => 32
   #                 })
-        marker.json({ :id => chapter.id, :foo => "bar" })
+        marker.title   "#{chapter.name}"
+        marker.json({ :id => chapter.id})
+
     end
 
     render :layout => 'embed'    
