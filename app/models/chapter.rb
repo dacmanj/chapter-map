@@ -41,8 +41,8 @@ class Chapter < ActiveRecord::Base
     self.ein = ein.gsub(/[^0-9]/, "") if attribute_present?("ein")
   end
 
-  validates_length_of :ein, :minimum => 9, :maximum => 9
-
+  validates_length_of :ein, :minimum => 9, :maximum => 9, :unless => Proc.new {|c| c.ein.blank? }
+  
   geocoded_by :address
 
   def geocode?

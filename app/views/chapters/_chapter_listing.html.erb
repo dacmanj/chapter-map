@@ -7,7 +7,9 @@
 		<% end %>
 
 	</div>
-	<%= "<div> #{chapter.category}</div>" unless chapter.category.nil? %>
+	<% unless chapter.category.blank? %>
+	<div><%=chapter.category%></div>
+ 	<%end%>
 	<% unless chapter.street.nil? %>
 		<div style="white-space: pre-wrap;"><%= chapter.street %></div>
 	<% end %>
@@ -23,7 +25,7 @@
 	<% end %>
 	<% if user_signed_in? %>
 		<div>
-			<%= "EIN: " + format_EIN(chapter.ein) %>
+			<%= "EIN: " + format_EIN(chapter.ein) unless chapter.ein.blank? %>
 		</div>
 		<div>
 			<%= link_to 'Edit', edit_chapter_path(chapter.id) %>
