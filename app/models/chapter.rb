@@ -37,6 +37,12 @@ class Chapter < ActiveRecord::Base
 
   scope :active, where("inactive IS NOT ?",true)
 
+  before_validation do
+    self.ein = ein.gsub(/[^0-9]/, "") if attribute_present?("ein")
+  end
+
+  validates_length_of :ein, :minimum => 9, :maximum => 9
+
   geocoded_by :address
 
   def geocode?
