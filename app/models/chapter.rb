@@ -35,7 +35,7 @@ class Chapter < ActiveRecord::Base
                   :msg => "Sorry, not even Google could figure out where that is",
                   :validate => false
 
-  scope :active, where("inactive != ?",true)
+  scope :active, where("inactive = ? OR inactive is ?",false,nil)
 
   before_validation do
     self.ein = ein.gsub(/[^0-9]/, "") if attribute_present?("ein")
