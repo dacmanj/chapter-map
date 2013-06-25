@@ -2,4 +2,6 @@
 <div><%= "#{chapter.street}" %></div>
 <div><%= "#{chapter.city}, #{chapter.state} #{chapter.zip}" %></div>
 <div><%= chapter.phone_1%></div>
-<div><%= link_to 'Edit', edit_chapter_path(chapter.id) %></div>
+<% unless not user_signed_in? %>
+	<div><%= link_to 'Edit', edit_chapter_path(chapter.id) %></div>
+<% end%>
