@@ -35,6 +35,10 @@ class User < ActiveRecord::Base
         end
       end
     else
+      if Chapter.find_by_email(email).blank?
+        raise UserDomainError, "#{email} is not assigned to an authorized chapter leader."
+      end
+
       create! do |user|
         user.provider = auth['provider']
         user.uid = auth['uid']

@@ -7,3 +7,7 @@ a:visited, a:hover {
 	color: black;
 	background-color: transparent;
 }
+
+a:visited.btn-primary {
+	color: white;
+}

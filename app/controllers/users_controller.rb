@@ -71,4 +71,14 @@ class UsersController < ApplicationController
     end
   end
 
+
+  def delete_multiple
+    @users = User.find(params[:user_ids])
+    @users.each do |user|
+      user.destroy
+    end
+    flash[:notice] = "Deleted users!"
+    redirect_to users_path
+  end
+
 end

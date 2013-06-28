@@ -89,6 +89,11 @@ class Chapter < ActiveRecord::Base
     end
   end
 
+  def self.search(name)
+    name = name.downcase
+    Chapter.find(:all, :conditions => ["lower(name) LIKE ?","%#{name}%"])    
+  end
+
   def self.find_by_email(email)
     email.downcase!
     Chapter.find(:all, :conditions => ["lower(email_1) = ? OR lower(email_2) = ? OR lower(email_3) = ?", email,email,email]) 

@@ -1,8 +1,14 @@
-<%=form_tag delete_multiple_chapters_path do %>
-
 <h1>Chapters</h1>
 
 
+<%= form_tag chapters_path, :method => 'get', :class => "form-inline" do %>
+
+    <%= text_field_tag :search, params[:search], :class => "control-label" %>
+      <%= submit_tag "Search", :name => nil, :class => "btn" %>
+<% end %>
+
+
+<%=form_tag delete_multiple_chapters_path do %>
 <table class="table table-striped">
   <tr>
     <% unless !admin_user? %>
@@ -42,7 +48,7 @@
 <br />
 <% unless !admin_user? %>
 <%= submit_tag "Delete Checked", :class => "btn btn-danger remove_fields"%>
-<%= link_to 'New Chapter', new_chapter_path %>
+<%= link_to 'New Chapter', new_chapter_path, class: "btn btn-primary" %>
 <% end %>
 <div>
   Download:
