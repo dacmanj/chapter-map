@@ -22,14 +22,14 @@ class ApplicationController < ActionController::Base
 
     def correct_user?
       @user = User.find(params[:id])
-      unless current_user == @user || current_user.admin?
+      unless current_user == @user || admin_user?
         redirect_to root_url, :alert => "Access denied."
       end
     end
 
     def chapter_leader?
       @chapter = Chapter.find(params[:id])
-      unless @chapter.users.include?(User.find(3)) || current_user.admin?
+      unless @chapter.users.include?(current_user) || admin_user?
         redirect_to root_url, :alert => "Access denied."
       end
     end
