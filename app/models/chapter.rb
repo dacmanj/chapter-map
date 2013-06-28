@@ -29,7 +29,9 @@
 #
 
 class Chapter < ActiveRecord::Base
-  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption
+  has_and_belongs_to_many :users
+
+  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes
   acts_as_gmappable :lat => 'latitude', :lng => 'longitude', :process_geocoding => :geocode?,
                   :address => "address", :normalized_address => "gmaps_address",
                   :msg => "Sorry, not even Google could figure out where that is",
@@ -85,6 +87,11 @@ class Chapter < ActiveRecord::Base
         csv << chapter.attributes.values_at(*column_names)
       end
     end
+  end
+
+  def self.find_by_email(email)
+    email.downcase!
+    Chapter.find(:all, :conditions => ["lower(email_1) = ? OR lower(email_2) = ? OR lower(email_3) = ?", email,email,email]) 
   end
 
 end

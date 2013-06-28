@@ -55,8 +55,20 @@ class UsersController < ApplicationController
     end
   end
 
-def show
+  def show
     @user = User.find(params[:id])
+  end
+
+  # DELETE /users/1
+  # DELETE /users/1.json
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+
+    respond_to do |format|
+      format.html { redirect_to users_url }
+      format.json { head :no_content }
+    end
   end
 
 end

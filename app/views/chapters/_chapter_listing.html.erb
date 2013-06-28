@@ -23,7 +23,7 @@
 	<% unless chapter.email_1.blank? %>
 		<div><%= chapter.phone_1 %></div>
 	<% end %>
-	<% if user_signed_in? %>
+	<% if admin_user? %>
 		<div>
 			<%= "EIN: " + format_EIN(chapter.ein) unless chapter.ein.blank? %>
 		</div>

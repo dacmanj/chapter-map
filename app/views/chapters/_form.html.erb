@@ -15,13 +15,16 @@
     <%= f.input :helpline %>
     <%= f.input :phone_1 %>
     <%= f.input :phone_2 %>
-    <%= f.input :radius %>
     <%= f.label :geocode do %>
       <%= check_box_tag :geocode %>Refresh Latitude/Longitude
     <% end %>
     <%= f.input :latitude %>
     <%= f.input :longitude %>
-    <%= f.input :ein %>
+    <%= if admin_user? 
+          f.input :ein 
+        else
+          f.input :ein, :readonly => true 
+        end %>
     <%= f.input :separate_exemption %>
     <%= f.input :inactive %>
 

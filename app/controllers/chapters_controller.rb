@@ -1,12 +1,15 @@
 class ChaptersController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :admin_only, :except => [:index, :edit]
+  before_filter :chapter_leader?, :except => [:index, :new]
+  
   # GET /chapters
   # GET /chapters.json
   def index
-    if params[:zip].nil?
-     @chapters = Chapter.all
+    if admin_user?
+      @chapters = Chapter.all
     else
-      @chapters = Chapter.near(params[:zip],params[:distance] || 20)
+      @chapters = current_user.chapters
     end
 
     respond_to do |format|

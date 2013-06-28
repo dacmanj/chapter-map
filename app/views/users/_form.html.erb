@@ -1,23 +1,14 @@
-<%= form_for(@user) do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-
-  <%= f.label :email %>
-  <%= f.text_field :email %>
-
-  <%= f.label :provider %>
-  <%= f.text_field :provider, :value => "google_oauth2" %>
-
-  <%= f.label :uid %>
-  <%= f.text_field :uid %>
-
-  <%= f.label :administrator? %>
-  <%= f.check_box :admin %>
-
-  <br />
+<%= simple_form_for(@user) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :email %>
+  <%= f.input :provider %>
+  <%= f.input :uid %>
+  <%= f.input :admin %>
+    <%= select :user, :chapter_ids, grouped_options_for_select(chapters_by_state_for_select, @user.chapter_ids), {}, :multiple => true %>
+    <br />
 
   <div class="form-actions">
-    <%= f.button :Submit, class: "btn btn-primary" %>
+    <%= f.button :submit %>
     <%= link_to content_tag(:i, "", class: "icon-trash icon-white") + ' Delete', @user, method: :delete, :class => "btn btn-danger" %>
 
   </div>

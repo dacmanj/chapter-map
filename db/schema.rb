@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130624200657) do
+ActiveRecord::Schema.define(:version => 20130628144647) do
 
   create_table "chapters", :force => true do |t|
     t.string    "name"
@@ -37,6 +37,11 @@ ActiveRecord::Schema.define(:version => 20130624200657) do
     t.string    "category"
     t.boolean   "separate_exemption"
     t.boolean   "inactive"
+  end
+
+  create_table "chapters_users", :force => true do |t|
+    t.integer "chapter_id"
+    t.integer "user_id"
   end
 
   create_table "users", :force => true do |t|

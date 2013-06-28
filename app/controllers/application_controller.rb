@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :user_signed_in?
   helper_method :correct_user?
+  helper_method :chapter_leader?
   helper_method :admin_only
   helper_method :admin_user?
 
@@ -26,6 +27,13 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def chapter_leader?
+      @chapter = Chapter.find(params[:id])
+      unless @chapter.users.include?(User.find(3)) || current_user.admin?
+        redirect_to root_url, :alert => "Access denied."
+      end
+    end
+
     def admin_user?
       begin
         current_user.admin? || current_user.email == 'dmanuel@pflag.org'
@@ -35,7 +43,7 @@ class ApplicationController < ActionController::Base
     end
 
     def admin_only
-      unless !current_user.nil? && current_user.admin?
+      unless !current_user.blank? && current_user.admin?
         redirect_to root_url, :alert => "Access denied."
       end
     end
