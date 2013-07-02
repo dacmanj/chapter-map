@@ -11,34 +11,34 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130701172431) do
+ActiveRecord::Schema.define(:version => 20130702003306) do
 
   create_table "chapters", :force => true do |t|
-    t.string    "name"
-    t.string    "website"
-    t.string    "street"
-    t.string    "city"
-    t.string    "state"
-    t.string    "zip"
-    t.string    "email_1"
-    t.string    "email_2"
-    t.string    "email_3"
-    t.string    "helpline"
-    t.string    "phone_1"
-    t.string    "phone_2"
-    t.float     "latitude"
-    t.float     "longitude"
-    t.string    "ein"
-    t.timestamp "created_at",                :null => false
-    t.timestamp "updated_at",                :null => false
-    t.boolean   "gmaps"
-    t.string    "gmaps_address"
-    t.integer   "radius"
-    t.string    "category"
-    t.boolean   "separate_exemption"
-    t.boolean   "inactive"
-    t.string    "database_identifier"
-    t.string    "chapter_legacy_identifier"
+    t.string   "name"
+    t.string   "website"
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "email_1"
+    t.string   "email_2"
+    t.string   "email_3"
+    t.string   "helpline"
+    t.string   "phone_1"
+    t.string   "phone_2"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "ein"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.boolean  "gmaps"
+    t.string   "gmaps_address"
+    t.integer  "radius"
+    t.string   "category"
+    t.boolean  "separate_exemption"
+    t.boolean  "inactive"
+    t.string   "database_identifier"
+    t.string   "chapter_legacy_identifier"
   end
 
   create_table "chapters_users", :force => true do |t|
@@ -46,14 +46,22 @@ ActiveRecord::Schema.define(:version => 20130701172431) do
     t.integer "user_id"
   end
 
+  create_table "identities", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "users", :force => true do |t|
-    t.string    "name"
-    t.string    "email"
-    t.string    "provider"
-    t.string    "uid"
-    t.timestamp "created_at", :null => false
-    t.timestamp "updated_at", :null => false
-    t.boolean   "admin"
+    t.string   "name"
+    t.string   "email"
+    t.string   "provider"
+    t.string   "uid"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.boolean  "admin"
   end
 
 end

@@ -10,6 +10,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 end
+
 gem "annotate", :group => :development
 gem "gmaps4rails"
 gem "geocoder"
@@ -24,6 +25,8 @@ gem "bootstrap-sass", ">= 2.3.0.0"
 gem "omniauth", ">= 1.1.3"
 gem "omniauth-google-oauth2"
 gem "omniauth-facebook"
+gem "omniauth-identity"
+gem "bcrypt-ruby"
 gem "simple_form", ">= 2.1.0"
 gem "quiet_assets", ">= 1.0.2", :group => :development
 gem "figaro", ">= 0.6.3"

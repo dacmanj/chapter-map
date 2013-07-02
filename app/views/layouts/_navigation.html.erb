@@ -10,10 +10,7 @@
 
   <% else %>
     <li>
-    <%= link_to 'Login with Google', signin_path %>
-    </li>
-    <li>
-    <%= link_to 'Login with Facebook', '/auth/facebook' %>
+    <%= link_to 'Login', signin_path %>
     </li>
   <% end %>
   <% if admin_user? %>

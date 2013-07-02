@@ -1,4 +1,6 @@
 ChapterMap::Application.routes.draw do
+  resources :identities
+  resources :sessions
   resources :chapters
 
   resources :chapters do
