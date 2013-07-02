@@ -6,11 +6,11 @@
   </p>
   <p>
     <strong>Provider:</strong>
-    <%= current_user.provider %>
+    <%= current_user.authentications.first.provider %>
   </p>
   <p>
     <strong>OmniAuth UID:</strong>
-    <%= current_user.uid %>
+    <%= current_user.authentications.first.uid %>
   </p>
   <p><%= link_to "Log out", logout_path %></p>
 <% else %>
@@ -22,17 +22,15 @@
 
     <a href="/auth/facebook" class="auth_provider">
       <%= image_tag "/assets/facebook_64.png", size: "64x64", alt: "Facebook" %>
-      Facebook
     </a>
     <a href="/auth/google_oauth2" class="auth_provider">
       <%= image_tag "/assets/google_64.png", size: "64x64", alt: "Google" %>
-      Google
     </a>
   </div>
   
   <p>
     <strong>Don't use these services?</strong>
-    <%= link_to "Create an account", new_identity_path %> or login below.
+    <%= link_to "Create an account", new_user_path %> or login below.
   </p>
   
   <%= form_tag "/auth/identity/callback" do %>

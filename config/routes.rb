@@ -1,5 +1,4 @@
 ChapterMap::Application.routes.draw do
-  resources :identities
   resources :sessions
   resources :chapters
 
@@ -11,6 +10,10 @@ ChapterMap::Application.routes.draw do
     collection do post :delete_multiple end
   end
 
+  resources :users do
+    collection do post :delete_multiple end
+  end
+
   match 'embed' => 'home#embed'
 
   root :to => "home#index"
@@ -18,6 +21,8 @@ ChapterMap::Application.routes.draw do
   match '/auth/:provider/callback' => 'sessions#create'
   match '/signin' => 'sessions#new', :as => :signin
   match '/signout' => 'sessions#destroy', :as => :signout
-  match '/auth/failure' => 'sessions#failure'
+
+  match "/auth/failure", to: "sessions#failure"
+  match "/logout", to: "sessions#destroy", :as => "logout"
 
 end

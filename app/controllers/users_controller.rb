@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :correct_user?, :except => [:index]
+  before_filter :authenticate_user!, :except => [:new]
+  before_filter :correct_user?, :except => [:new,:index,:delete_multiple]
   before_filter :admin_user?
 
   def index
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.json
   def new
-    @user = User.new
+    @user = env['omniauth.identity'] ||= User.new
 
     respond_to do |format|
       format.html # new.html.erb

@@ -1,4 +1,14 @@
 module ApplicationHelper
+
+	def chapters_by_state_for_select
+		Chapter.order(:state).group_by(&:state).map{|k,v| [k,v.map{|l| [l.name,l.id]}]}
+	end
+
+	def user_info
+	    return '' if not Rails.env.development?
+		" #{current_user.authentications.first.provider} #{current_user.email}"
+	end
+
 	def us_states
 	  [
 	    ['AK', 'AK'],
@@ -110,10 +120,6 @@ module ApplicationHelper
       ['Wisconsin', 'WI'],
       ['Wyoming', 'WY']
     ]
-	end
-
-	def chapters_by_state_for_select
-		Chapter.order(:state).group_by(&:state).map{|k,v| [k,v.map{|l| [l.name,l.id]}]}
 	end
 
 end

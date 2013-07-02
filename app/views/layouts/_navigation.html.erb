@@ -5,9 +5,11 @@
       <%= link_to 'Manage My Chapter Listings', chapters_path %>
     </li>
     <li>
-    <%= link_to 'Logout', signout_path %>
+    <%= link_to 'Logout'+user_info, signout_path %>
     </li>
-
+    <li>
+ 
+    </li>
   <% else %>
     <li>
     <%= link_to 'Login', signin_path %>

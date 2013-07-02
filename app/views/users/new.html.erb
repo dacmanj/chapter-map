@@ -1,5 +1,11 @@
 <h1>New User</h1>
 
-<%= render 'form' %>
+<%= simple_form_for(@user) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :email %>
 
-<%= link_to 'Back', users_path %>
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+
+<% end %>

@@ -16,6 +16,11 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def current_user=(user)
+      @current_user = user
+      session[:user_id] = user.nil? ? user : user.id
+    end
+
     def user_signed_in?
       return true if current_user
     end

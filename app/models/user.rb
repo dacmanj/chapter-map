@@ -2,54 +2,24 @@
 #
 # Table name: users
 #
-#  id         :integer          primary key
+#  id         :integer          not null, primary key
 #  name       :string(255)
 #  email      :string(255)
-#  provider   :string(255)
-#  uid        :string(255)
-#  created_at :timestamp        not null
-#  updated_at :timestamp        not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #  admin      :boolean
 #
 
-class User < ActiveRecord::Base
+class User < OmniAuth::Identity::Models::ActiveRecord
+  attr_accessible :name, :email, :admin, :chapter_ids
   has_and_belongs_to_many :chapters
+  email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  has_many :authentications
 
-  attr_accessible :provider, :uid, :name, :email, :admin, :chapter_ids
   validates_presence_of :name
-  validates_uniqueness_of :email
-
-  def self.create_with_omniauth(auth)
-    email = auth["info"]["email"]
-    domain = /@(.+$)/.match(email)[1]
-    if (domain.casecmp("pflag.org") != 0)
-#      raise UserDomainError, "#{domain} is not an authorized domain."
-      create! do |user|
-        user.provider = auth['provider']
-        user.uid = auth['uid']
-        user.admin = false
-        user.chapters.push(Chapter.find_by_email(email))
-        if auth['info']
-           user.name = auth['info']['name'] || ""
-           user.email = auth['info']['email'] || ""
-        end
-      end
-    else
-      if Chapter.find_by_email(email).blank?
-        raise UserDomainError, "#{email} is not assigned to an authorized chapter leader."
-      end
-
-      create! do |user|
-        user.provider = auth['provider']
-        user.uid = auth['uid']
-        user.admin = true
-        if auth['info']
-           user.name = auth['info']['name'] || ""
-           user.email = auth['info']['email'] || ""
-        end
-      end
-    end
-  end
+  validates :email, :presence   => true,
+            :format     => { :with => email_regex },
+            :uniqueness => { :case_sensitive => false }
 
   def name_and_email
     unless name.blank? || email.blank?
@@ -65,8 +35,34 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.create_with_omniauth(auth)
+    email = auth["info"]["email"]
+    domain = /@(.+$)/.match(email)[1]
+    if (domain.casecmp("pflag.org") != 0)
+      if Chapter.find_by_email(email).blank?
+        raise UserDomainError, "#{email} is not assigned to an authorized chapter leader."
+      end
+      create! do |user|
+        user.admin = false
+        user.password = rand(36**10).to_s(36)
+        user.chapters.push(Chapter.find_by_email(email))
+        if auth['info']
+           user.name = auth['info']['name'] || ""
+           user.email = auth['info']['email'] || ""
+        end
+      end
+    else
+      create! do |user|
+        user.admin = true
+        user.password = rand(36**10).to_s(36)
+        if auth['info']
+           user.name = auth['info']['name'] || ""
+           user.email = auth['info']['email'] || ""
+        end
+      end
+    end
+  end
 end
-
 
 class UserDomainError < StandardError
 end
