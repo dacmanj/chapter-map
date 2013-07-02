@@ -15,6 +15,7 @@ ChapterMap::Application.routes.draw do
   end
 
   match 'embed' => 'home#embed'
+  match 'import' => 'chapters#import'
 
   root :to => "home#index"
   resources :users

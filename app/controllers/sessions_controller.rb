@@ -64,7 +64,8 @@ class SessionsController < ApplicationController
         # Reset the session after successful login, per
         # 2.8 Session Fixation – Countermeasures:
         # http://guides.rubyonrails.org/security.html#session-fixation-countermeasures
-        # reset_session
+        reset_session
+        self.current_user = u
 
   end
 

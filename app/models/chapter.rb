@@ -50,7 +50,7 @@ class Chapter < ActiveRecord::Base
   geocoded_by :address
 
   def geocode?
-    (!address.blank? && (latitude.blank? || longitude.blank?)) #|| address_changed?
+    (!(street.blank? || city.blank? || state.blank?) && (latitude.blank? || longitude.blank?)) #|| address_changed?
   end
 
   def address
@@ -67,7 +67,7 @@ class Chapter < ActiveRecord::Base
       chapter = find_by_id(row["id"]) || new
       chapter.attributes = row.to_hash.slice(*accessible_attributes)
       row.delete_if do |k,v|
-        true unless ['name','website', 'street', 'city', 'state', 'zip', 'email_1', 'email_2', 'email_3', 'helpline', 'phone_1', 'phone_2', 'latitude', 'longitude', 'ein'].include? k
+        true unless ['name','website', 'street', 'city', 'state', 'zip', 'email_1', 'email_2', 'email_3', 'helpline', 'phone_1', 'phone_2', 'latitude', 'longitude', 'ein','chapter_legacy_identifier','database_identifier'].include? k
       end
       chapter.save!
     end

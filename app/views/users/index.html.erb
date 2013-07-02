@@ -6,7 +6,6 @@
     <th></th>
     <th>Name</th>
     <th>Email</th>
-    <th>Provider</th>
     <th></th>
   </tr>
 
@@ -17,7 +16,6 @@
       <%end %>
       <td><%= link_to user.name, edit_user_path(user) %></td>
       <td><%= link_to user.email, "mailto:"+user.email %></td>
-      <td><%= link_to user.provider, edit_user_path(user) %></td>
       <td><%= link_to content_tag(:i, "", class: "icon-trash icon-red") + "", user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger remove_fields"%></td>
     </tr>
   <% end %>

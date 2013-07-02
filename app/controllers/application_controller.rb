@@ -26,16 +26,19 @@ class ApplicationController < ActionController::Base
     end
 
     def correct_user?
-      @user = User.find(params[:id])
-      unless current_user == @user || admin_user?
-        redirect_to root_url, :alert => "Access denied."
-      end
+        @user = User.find(params[:id])
+        unless current_user == @user || admin_user?
+          redirect_to root_url, :alert => "Access denied."
+        end
     end
 
     def chapter_leader?
-      @chapter = Chapter.find(params[:id])
-      unless @chapter.users.include?(current_user) || admin_user?
-        redirect_to root_url, :alert => "Access denied."
+      id = params[:id]
+      if !id.blank? && id != "import" 
+        @chapter = Chapter.find(params[:id])
+        unless @chapter.users.include?(current_user) || admin_user?
+          redirect_to root_url, :alert => "Access denied."
+        end
       end
     end
 

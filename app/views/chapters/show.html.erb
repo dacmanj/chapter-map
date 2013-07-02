@@ -87,6 +87,15 @@
   <%= format_EIN @chapter.ein %>
 </p>
 
+<p>
+  <b>database_identifier:</b>
+  <%= @chapter.database_identifier %>
+</p>
+
+<p>
+  <b>legacy ID:</b>
+  <%= @chapter.chapter_legacy_identifier %>
+</p>
 
 <%= link_to 'Edit', edit_chapter_path(@chapter) %> |
 <%= link_to 'Back', chapters_path %>
