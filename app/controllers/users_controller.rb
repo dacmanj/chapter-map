@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, :except => [:new, :create]
-  before_filter :correct_user?, :except => [:new, :create, :index,:delete_multiple]
+  before_filter :authenticate_user!, :except => [:new, :create, :confirm]
+  before_filter :correct_user?, :except => [:new, :create, :index,:delete_multiple, :confirm]
   before_filter :admin_user?
 
   def index
@@ -11,10 +11,13 @@ class UsersController < ApplicationController
   # POST /chapters.json
   def create
     @user = User.create_with_omniauth(params[:user])
+    activation = rand(36**20).to_s(36)
+    @user.activation_code = activation
 
     respond_to do |format|
-      if @user.save!
-        format.html { redirect_to @user, :notice => 'User was successfully created.' }
+      if @user.save
+        UserMailer.create_user_email(@user).deliver
+        format.html { redirect_to root_path, :notice => 'User was successfully created. Check your email for a confirmation link.' }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new", :notice => @user.errors }
@@ -24,16 +27,29 @@ class UsersController < ApplicationController
   end
 
 
+
   def edit
     @user = User.find(params[:id])
   end
   
+
+  def confirm
+    @user = User.activate(params)
+    if @user
+      flash[:notice] = "User successfully confirmed. Please login!"
+      redirect_to new_session_path
+    else
+      flash[:notice] = "Invalid confirmation link"
+      redirect_to root_path
+    end
+  end
+
   def update
     @user = User.find(params[:id])
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-          format.html { redirect_to users_path, notice: 'User was successfully updated.' }
+          format.html { redirect_to chapters_path, notice: 'User profile successfully updated.' }
           format.json { head :no_content }
       else
         format.html { render action: "edit" }

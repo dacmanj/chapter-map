@@ -9,6 +9,7 @@
 #  updated_at      :datetime         not null
 #  admin           :boolean
 #  password_digest :string(255)
+#  activation_code :string(255)
 #
 
 require 'spec_helper'

@@ -1,8 +1,9 @@
-<h1>New User</h1>
+<h1>Change Password</h1>
 
 <%= simple_form_for(@user) do |f| %>
-  <%= f.input :name %>
-  <%= f.input :email %>
+  <%= f.input :name, :readonly => true %>
+  <%= f.input :email, :readonly => true %>
+
   <%= f.input :password, :as => 'password', :input_html => {:name => 'password'} %>
   <%= f.input :password_confirmation, :label => "Confirm Password", :as => 'password', :input_html => {:name => 'password_confirmation'} %>
     <br />

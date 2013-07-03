@@ -9,6 +9,7 @@
 #  updated_at      :datetime         not null
 #  admin           :boolean
 #  password_digest :string(255)
+#  activation_code :string(255)
 #
 
 class User < OmniAuth::Identity::Models::ActiveRecord
@@ -36,26 +37,50 @@ class User < OmniAuth::Identity::Models::ActiveRecord
     end
   end
 
+  def self.activate(params)
+    u = self.find_by_email_and_activation_code(params[:email],params[:code])
+    unless u.nil?
+      u.activation_code = nil
+      u.save
+      u = true
+    end
+    u
+  end
+
   def self.create_with_omniauth(auth)
     if (!auth["info"].blank?)
       email = auth["info"]["email"]
       name = auth["info"]["name"]
-    elsif (!auth["name"].blank? && !auth["email"].blank?)
+    elsif (!auth["name"].blank? && !auth["email"].blank? && !auth["password"].blank?)
       email = auth["email"]
       name = auth["name"]
+      password = auth["password"]
     end
 
+    if (auth["name"].blank? || auth["email"].blank? || auth["password"].blank?)
+      raise UserDomainError, "#{email} #{name} or #{password} blank"
+    end
+
+    raise UserDomainError, "#{email} is not found."
+
     domain = /@(.+$)/.match(email)[1]
-    if Chapter.find_by_email(email).blank?
-      raise UserDomainError, "#{email} is not assigned to an authorized chapter leader."
+    admin = domain.casecmp("pflag.org") != 0 ? false : true
+
+    if Chapter.find_by_email(email).blank? && !admin
+      raise UserDomainError, "#{email} is not found."
     end
     create! do |user|
         user.admin = false
-        user.password_digest = rand(36**10).to_s(36)
+        if password.blank?
+          user.password_digest = rand(36**10).to_s(36)
+        else
+          user.password = password
+          user.password_confirmation = password          
+        end
         user.chapters.push(Chapter.find_by_email(email))
         user.name = name || ""
         user.email = email || ""
-        user.admin = domain.casecmp("pflag.org") != 0 ? false : true
+        user.admin = admin
     end
   end
 end

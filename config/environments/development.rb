@@ -17,10 +17,9 @@ ChapterMap::Application.configure do
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
   # change to true to allow email to be sent during development
-  config.action_mailer.perform_deliveries = false
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
-
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
@@ -50,8 +49,8 @@ ChapterMap::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-#  config.assets.debug = true
+  #config.assets.debug = false
   #
-  config.assets.logger = nil
+  #config.assets.logger = nil
 
 end

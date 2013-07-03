@@ -13,9 +13,15 @@ ChapterMap::Application.routes.draw do
   resources :users do
     collection do post :delete_multiple end
   end
-
+  resources :users do
+    member do
+      get :confirm
+    end
+  end
   match 'embed' => 'home#embed'
   match 'import' => 'chapters#import'
+
+  match "/activate" => "users#confirm"
 
   root :to => "home#index"
   resources :users

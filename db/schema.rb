@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130702201041) do
+ActiveRecord::Schema.define(:version => 20130703152630) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20130702201041) do
     t.datetime "updated_at",      :null => false
     t.boolean  "admin"
     t.string   "password_digest"
+    t.string   "activation_code"
   end
 
 end

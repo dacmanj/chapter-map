@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to PFLAG.org, <%= @user.name %></h1>
+    <p>
+      You have successfully signed up to pflag.org,
+      your username is: <%= @user.email %>.<br/>
+    </p>
+    <p>
+      You must now confirm your email address by clicking this link: <%= confirm_user_url(@user, :email => @user.email, :code => @user.activation_code) %>.
+    </p>
+    <p>Thanks for signing up and have a great day!</p>
+  </body>
+</html>
