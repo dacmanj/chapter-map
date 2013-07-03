@@ -13,7 +13,7 @@
 #
 
 class User < OmniAuth::Identity::Models::ActiveRecord
-  attr_accessible :name, :email, :admin, :chapter_ids
+  attr_accessible :name, :email, :admin, :chapter_ids, :password, :password_confirmation
   has_and_belongs_to_many :chapters
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   has_many :authentications
@@ -47,24 +47,29 @@ class User < OmniAuth::Identity::Models::ActiveRecord
     u
   end
 
+  def self.special_initialize(user)
+    unless user.nil? 
+      domain = /@(.+$)/.match(user.email)[1]
+      user.activation_code = rand(36**10).to_s(36)
+      user.chapters.push(Chapter.find_by_email(user.email))
+      user.admin = domain.casecmp("pflag.org") != 0 ? false : true
+      user.save
+    end
+  end
+
   def self.create_with_omniauth(auth)
     if (!auth["info"].blank?)
       email = auth["info"]["email"]
       name = auth["info"]["name"]
-    elsif (!auth["name"].blank? && !auth["email"].blank? && !auth["password"].blank?)
+    elsif (!auth["name"].blank? && !auth["email"].blank?)
       email = auth["email"]
       name = auth["name"]
-      password = auth["password"]
     end
-
-    if (auth["name"].blank? || auth["email"].blank? || auth["password"].blank?)
-      raise UserDomainError, "#{email} #{name} or #{password} blank"
-    end
-
-    raise UserDomainError, "#{email} is not found."
 
     domain = /@(.+$)/.match(email)[1]
     admin = domain.casecmp("pflag.org") != 0 ? false : true
+    password = auth["password"]
+
 
     if Chapter.find_by_email(email).blank? && !admin
       raise UserDomainError, "#{email} is not found."
@@ -73,14 +78,12 @@ class User < OmniAuth::Identity::Models::ActiveRecord
         user.admin = false
         if password.blank?
           user.password_digest = rand(36**10).to_s(36)
-        else
-          user.password = password
-          user.password_confirmation = password          
         end
         user.chapters.push(Chapter.find_by_email(email))
         user.name = name || ""
         user.email = email || ""
         user.admin = admin
+        user.activation_code = rand(36**20).to_s(36)
     end
   end
 end

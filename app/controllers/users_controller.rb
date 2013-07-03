@@ -9,23 +9,18 @@ class UsersController < ApplicationController
 
   # POST /chapters
   # POST /chapters.json
-  def create
-    @user = User.create_with_omniauth(params[:user])
-    activation = rand(36**20).to_s(36)
-    @user.activation_code = activation
-
-    respond_to do |format|
-      if @user.save
-        UserMailer.create_user_email(@user).deliver
-        format.html { redirect_to root_path, :notice => 'User was successfully created. Check your email for a confirmation link.' }
-        format.json { render json: @user, status: :created, location: @user }
-      else
-        format.html { render action: "new", :notice => @user.errors }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
+#  def create
+#    respond_to do |format|
+#      if @user.save
+#        UserMailer.create_user_email(@user).deliver
+#        format.html { redirect_to root_path, :notice => 'User was successfully created. Check your email for a confirmation link.' }
+#        format.json { render json: @user, status: :created, location: @user }
+#      else
+#        format.html { render action: "new", :notice => @user.errors }
+#        format.json { render json: @user.errors, status: :unprocessable_entity }
+#      end
+#    end
+#  end
 
 
   def edit
@@ -36,7 +31,7 @@ class UsersController < ApplicationController
   def confirm
     @user = User.activate(params)
     if @user
-      flash[:notice] = "User successfully confirmed. Please login!"
+      flash[:notice] = "User successfully confirmed. You can now login!"
       redirect_to new_session_path
     else
       flash[:notice] = "Invalid confirmation link"

@@ -1,14 +1,9 @@
-<h1>New User</h1>
-
-<%= simple_form_for(@user) do |f| %>
-  <%= f.input :name %>
-  <%= f.input :email %>
+<%= simple_form_for @user, :url => '/auth/identity/register' do |f| %>
+  <h1>Create an Account</h1>
+  <%# specify :input_html to avoid params nesting %>
+  <%= f.input :name, :input_html => {:name => 'name'} %>
+  <%= f.input :email, :input_html => {:name => 'email'} %>
   <%= f.input :password, :as => 'password', :input_html => {:name => 'password'} %>
   <%= f.input :password_confirmation, :label => "Confirm Password", :as => 'password', :input_html => {:name => 'password_confirmation'} %>
-    <br />
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-
+  <button type='submit'>Sign Up</button>
 <% end %>

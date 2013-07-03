@@ -36,14 +36,16 @@ class SessionsController < ApplicationController
             # The authentication we found had a user associated with it so let's 
             # just log them in here
             self.current_user = @authentication.user
-            redirect_to root_path, :notice => "Signed in!"
+            redirect_to root_path, :notice => "Signed in as #{current_user.email}!"
           else
             # The authentication has no user assigned and there is no user signed in
             # Our decision here is to create a new account for the user
             # But your app may do something different (eg. ask the user
             # if he already signed up with some other service)
             if @authentication.provider == 'identity'
+
               u = User.find(@authentication.uid)
+              User.special_initialize(u)
               # If the provider is identity, then it means we already created a user
               # So we just load it up
             else
@@ -54,9 +56,14 @@ class SessionsController < ApplicationController
             end
             # We can now link the authentication with the user and log him in
             u.authentications << @authentication
-            self.current_user = u
-
-            redirect_to root_path, :notice => "Signed in!"
+            reset_session
+            if !u.activation_code.blank?
+              UserMailer.create_user_email(u).deliver
+              redirect_to root_path, :notice => 'User was successfully created. You will not be able to sign in until you click the link in your confirmation email. Check your email for a confirmation link.'
+            else
+              self.current_user = u
+              redirect_to root_path, :notice => "Signed in as #{u.email}!"
+            end
           end
         end
 
@@ -64,8 +71,8 @@ class SessionsController < ApplicationController
         # Reset the session after successful login, per
         # 2.8 Session Fixation – Countermeasures:
         # http://guides.rubyonrails.org/security.html#session-fixation-countermeasures
-        reset_session
-        self.current_user = u
+#        reset_session
+#        self.current_user = u
 
   end
 
