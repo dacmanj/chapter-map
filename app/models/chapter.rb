@@ -2,7 +2,7 @@
 #
 # Table name: chapters
 #
-#  id                        :integer          primary key
+#  id                        :integer          not null, primary key
 #  name                      :string(255)
 #  website                   :string(255)
 #  street                    :string(255)
@@ -18,8 +18,8 @@
 #  latitude                  :float
 #  longitude                 :float
 #  ein                       :string(255)
-#  created_at                :timestamp        not null
-#  updated_at                :timestamp        not null
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
 #  gmaps                     :boolean
 #  gmaps_address             :string(255)
 #  radius                    :integer

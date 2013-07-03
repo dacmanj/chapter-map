@@ -2,12 +2,13 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  admin      :boolean
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  email           :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  admin           :boolean
+#  password_digest :string(255)
 #
 
 class User < OmniAuth::Identity::Models::ActiveRecord
@@ -36,30 +37,25 @@ class User < OmniAuth::Identity::Models::ActiveRecord
   end
 
   def self.create_with_omniauth(auth)
-    email = auth["info"]["email"]
+    if (!auth["info"].blank?)
+      email = auth["info"]["email"]
+      name = auth["info"]["name"]
+    elsif (!auth["name"].blank? && !auth["email"].blank?)
+      email = auth["email"]
+      name = auth["name"]
+    end
+
     domain = /@(.+$)/.match(email)[1]
-    if (domain.casecmp("pflag.org") != 0)
-      if Chapter.find_by_email(email).blank?
-        raise UserDomainError, "#{email} is not assigned to an authorized chapter leader."
-      end
-      create! do |user|
+    if Chapter.find_by_email(email).blank?
+      raise UserDomainError, "#{email} is not assigned to an authorized chapter leader."
+    end
+    create! do |user|
         user.admin = false
-        user.password = rand(36**10).to_s(36)
+        user.password_digest = rand(36**10).to_s(36)
         user.chapters.push(Chapter.find_by_email(email))
-        if auth['info']
-           user.name = auth['info']['name'] || ""
-           user.email = auth['info']['email'] || ""
-        end
-      end
-    else
-      create! do |user|
-        user.admin = true
-        user.password = rand(36**10).to_s(36)
-        if auth['info']
-           user.name = auth['info']['name'] || ""
-           user.email = auth['info']['email'] || ""
-        end
-      end
+        user.name = name || ""
+        user.email = email || ""
+        user.admin = domain.casecmp("pflag.org") != 0 ? false : true
     end
   end
 end
