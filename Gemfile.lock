@@ -54,7 +54,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.2)
+    coffee-script-source (1.6.3)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
     diff-lcs (1.2.4)
@@ -112,7 +112,7 @@ GEM
     omniauth-google-oauth2 (0.2.0)
       omniauth (~> 1.0)
       omniauth-oauth2
-    omniauth-identity (1.1.0)
+    omniauth-identity (1.1.1)
       bcrypt-ruby (~> 3.0)
       omniauth (~> 1.0)
     omniauth-oauth2 (1.1.1)
