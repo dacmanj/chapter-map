@@ -10,8 +10,10 @@
 	<% end %>
 </div>
 <h1>
-	PFLAG Chapters <%= state_name = us_states_long.find { |item| item[1] == params[:state] }[0]
-						 "in #{state_name}" unless state_name.blank? %>
+	PFLAG Chapters <%= unless params[:state].blank? 
+						state_name = us_states_long.find { |item| item[1] == params[:state] }[0]
+						 "in #{state_name}"  
+						 end %>
 </h1>
 
 <% if @chapters_by_state.nil? %>
