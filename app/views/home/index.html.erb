@@ -3,13 +3,15 @@
 
 <div class="well">
 	<%= form_tag "", :class => "form-inline" do %>
-		<%=text_field_tag :zip, params[:zip] || "", :placeholder => 'Address/Zip Code' %>
-		<%=select_tag :distance, options_for_select((1..20).map {|x| [x*10,x*10]}), :prompt => "Search distance in miles" %>
+		<%= select_tag :state, options_for_select(us_states_long, :selected => params[:state]), :prompt => "Choose a state..." %> or 
+		<%=text_field_tag :zip, params[:zip] || "", :placeholder => 'Enter Address/Zip Code' %> and
+		<%=select_tag :distance, options_for_select((1..20).map {|x| [x*10,x*10]}, params[:distance]), :prompt => "Search distance in miles" %>
 		<%=submit_tag "Search", :class => "btn btn-danger"%>
 	<% end %>
 </div>
 <h1>
-	PFLAG Chapters
+	PFLAG Chapters <%= state_name = us_states_long.find { |item| item[1] == params[:state] }[0]
+						 "in #{state_name}" unless state_name.blank? %>
 </h1>
 
 <% if @chapters_by_state.nil? %>
