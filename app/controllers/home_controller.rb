@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
     if !params[:state].blank?
-      @chapters = Chapter.where(:state =>,params[:state]).order("name ASC")
+      @chapters = Chapter.where(:state => params[:state]).order("name ASC")
 
     elsif !params[:zip].blank?
       distance = params[:distance] unless params[:distance].blank? || params[:distance].to_f == 0 
