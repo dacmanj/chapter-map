@@ -40,5 +40,9 @@ class HomeController < ApplicationController
     render 'index', :layout => 'embed'    
     #@circles_json = @chapters.map {|c| {:lat => c.latitude, :lng => c.longitude, :radius => c.radius || 100000 }}.to_json
   end
-
+  def pflag
+    index #call index
+    render 'index', :layout => 'pflag'    
+    #@circles_json = @chapters.map {|c| {:lat => c.latitude, :lng => c.longitude, :radius => c.radius || 100000 }}.to_json
+  end
 end

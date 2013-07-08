@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Chapter Map" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Chapter Map" %>">
+    <%= stylesheet_link_tag "gmaps4rails" %>   
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <%= yield(:head) %>
+
+    <style>
+    	body.home.pflag div.offset2.span8 {
+    		width: 800px;
+    		background-color: white;
+    		padding: 15px;
+    	}
+    	body.home.pflag footer {
+    		width: 800px;
+    		background-color: white;
+    	}
+    </style>
+
+  </head>
+  <body class="<%= controller_name %> <%= action_name %>" style="background-color: #62006e">
+    <div id="main" role="main">
+      <div class="container">
+        <div class="content">
+           <div class="row">
+            <div class="span8 offset2">
+
+				<table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+						<tbody>
+							<tr>
+								<td class="top_main_bar" style="background-color: rgb(153, 153, 204); height: 25px; background-position: initial initial; background-repeat: initial initial;">
+									&nbsp;</td>
+							</tr>
+						</tbody>
+				</table>
+
+            </div>
+          </div>
+
+           <div class="row">
+            <div class="span8 offset2">
+            	<table border="0" cellpadding="0" cellspacing="0" id="purple" style="width: 100%; background-color: #62006e;">
+						<tbody>
+							<tr>
+								<td id="search_copy" style="width: 290px; color: rgb(255, 255, 255); font-size: 11px; padding: 0px 0px 0px 10px; border-collapse: collapse;" width="100%">
+									<a href="http://community.pflag.org/page.aspx?pid=618" pid="618" style="text-decoration: none; color: rgb(255, 255, 255);" tab="0">Site Search</a></td>
+								<td width="*">
+									<table cellpadding="2" cellspacing="0" class="menu508" id="PC3887_ctl00" style="width: 171px; text-align: center; font-size: 14px; font-weight: bold; color: rgb(255, 255, 255); margin: 0px; border-collapse: collapse; z-index: 1000;">
+										<tbody>
+											<tr>
+												<td class="menuItem508" id="PC3887_ctl00-menuItem000" style="padding: 9px 6px; display: block; background-color: rgb(195, 40, 49); cursor: pointer;" title="Support for Families and Friends">
+													Families &amp; Friends</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+								<td width="*">
+									<table cellpadding="2" cellspacing="0" class="menu509" id="PC3888_ctl00" style="width: 171px; text-align: center; font-size: 14px; font-weight: bold; color: rgb(255, 255, 255); margin: 0px; border-collapse: collapse; z-index: 1000;">
+										<tbody>
+											<tr>
+												<td class="menuItem509" id="PC3888_ctl00-menuItem000" style="padding: 9px 6px; display: block; background-color: rgb(246, 119, 24); cursor: pointer;" title="Support for Gay, Lesbian &amp; Bi">
+													Gay, Lesbian &amp; Bi</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+								<td width="*">
+									<table cellpadding="2" cellspacing="0" class="menu510" id="PC3889_ctl00" style="width: 171px; text-align: center; font-size: 14px; font-weight: bold; color: rgb(255, 255, 255); margin: 0px; border-collapse: collapse; z-index: 1000;">
+										<tbody>
+											<tr>
+												<td class="menuItem510" id="PC3889_ctl00-menuItem000" style="padding: 9px 6px; display: block; background-color: rgb(245, 216, 83); cursor: pointer;" title="Support for Transgender">
+													Transgender</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+
+            </div>
+          </div>
+
+           <div class="row">
+            <div class="span8 offset2">
+            	<table border="0" cellpadding="0" cellspacing="0" style="width: 795px;">
+						<tbody>
+							<tr>
+								<td id="logo" style="width: 180px;">
+									<a href="http://community.pflag.org/page.aspx?pid=194" style="text-decoration: none;"><img alt="" src="http://community.pflag.org/view.image?Id=394" style="border: 0px none;"></a></td>
+								<td id="bannercopy" style="color: rgb(195, 40, 49); font-size: 18px; font-weight: bold; background-image: url(http://community.pflag.org/view.image?id=395); padding-top: 60px; padding-left: 100px; background-repeat: no-repeat no-repeat;">
+									Find&nbsp;a PFLAG Chapter</td>
+							</tr>
+						</tbody>
+					</table>
+
+
+            </div>
+          </div>
+
+           <div class="row">
+            <div class="span8 offset2">
+            	<%= yield %>
+            </div>
+	      </div>
+
+          <div class="row">
+            <div class="span8 offset2">
+          	<table>
+	          	<tbody>
+					<tr>
+							<td align="center" id="footer" style="color: rgb(102, 0, 102); font-size: 10px; line-height: 13px; height: auto; padding: 10px 150px; text-align: center;">
+								<p style="margin-top: 4px; margin-bottom: 8px;">
+									PFLAG and PFLAG PARENTS, FAMILIES AND FRIENDS OF LESBIANS AND GAYS are registered trademarks and service marks of Parents, Families and Friends of Lesbians and Gays, Inc. &copy; Parents, Families and Friends of Lesbians and Gays, Inc.&nbsp;2013. All Rights Reserved.</p>
+								<table cellpadding="2" cellspacing="0" class="menu513" id="PC3907_ctl00" style="color: rgb(153, 153, 204); font-size: 11px; padding-bottom: 10px; margin: 0px auto; border-collapse: collapse; z-index: 1000;">
+									<tbody>
+										<tr>
+											<td class="menuItem513" id="PC3907_ctl00-menuItem000" style="color: rgb(72, 36, 88); text-decoration: underline; padding-bottom: 10px; cursor: pointer;" title="Contact Us">
+												Contact Us</td>
+											<td class="menuItem513" id="PC3907_ctl00-menuItem001" style="color: rgb(72, 36, 88); text-decoration: underline; padding-bottom: 10px; cursor: pointer;" title="About PFLAG">
+												About PFLAG</td>
+											<td class="menuItem513" id="PC3907_ctl00-menuItem002" style="color: rgb(72, 36, 88); text-decoration: underline; padding-bottom: 10px; cursor: pointer;" title="Find a Chapter">
+												Find a Chapter</td>
+											<td class="menuItem513" id="PC3907_ctl00-menuItem003" style="color: rgb(72, 36, 88); text-decoration: underline; padding-bottom: 10px; cursor: pointer;" title="Join PFLAG">
+												Join PFLAG</td>
+											<td class="menuItem513" id="PC3907_ctl00-menuItem004" style="color: rgb(72, 36, 88); text-decoration: underline; padding-bottom: 10px; cursor: pointer;" title="Site Search">
+												Site Search</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+            </div>
+	      </div>
+
+          <footer>
+          </footer>
+        </div>
+      </div> <!--! end of .container -->
+    </div> <!--! end of #main -->
+
+  <%= yield :scripts %>
+  </body>
+</html>

@@ -19,6 +19,7 @@ ChapterMap::Application.routes.draw do
     end
   end
   match 'embed' => 'home#embed'
+  match 'pflag' => 'home#pflag'
   match 'import' => 'chapters#import'
 
   match "/activate" => "users#confirm"
