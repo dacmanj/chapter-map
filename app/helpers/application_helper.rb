@@ -122,4 +122,8 @@ module ApplicationHelper
     ]
 	end
 
+	def us_states_and_int_long
+		us_states_long + [["International PFLAG Groups","IPG"]]
+	end
+
 end

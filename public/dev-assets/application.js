@@ -12515,9 +12515,14 @@ if ( typeof module === "object" && module && typeof module.exports === "object" 
 
 $().ready(function() {
 	$("#geocode").change(function() {if ($("#geocode").prop("checked")) { $("#chapter_latitude").val("").attr("readonly","true"); $("#chapter_longitude").val("").attr("readonly","true"); } else { $("#chapter_latitude").removeAttr("readonly"); $("#chapter_longitude").removeAttr("readonly");}})
+	$("body.home.index #state").change(submitChapterSearch);
 
-})
+});
 
+function sumbitChapterSearch(e) {
+	alert(e);
+	$("form.chapter-search").submit();
+}
 ;
 (function() {
 
@@ -12536,7 +12541,6 @@ $().ready(function() {
 
   Gmaps.loadMaps = function() {
     var key, load_function_name, searchLoadIncluded, value, _results;
-
     _results = [];
     for (key in Gmaps) {
       value = Gmaps[key];
@@ -12630,7 +12634,6 @@ $().ready(function() {
 
     Gmaps4Rails.prototype.findUserLocation = function(map_object) {
       var positionFailure, positionSuccessful;
-
       if (navigator.geolocation) {
         positionSuccessful = function(position) {
           map_object.userLocation = map_object.createLatLng(position.coords.latitude, position.coords.longitude);
@@ -12650,7 +12653,6 @@ $().ready(function() {
 
     Gmaps4Rails.prototype.create_direction = function() {
       var directionsDisplay, directionsService, request;
-
       directionsDisplay = new google.maps.DirectionsRenderer();
       directionsService = new google.maps.DirectionsService();
       directionsDisplay.setMap(this.serviceObject);
@@ -12683,7 +12685,6 @@ $().ready(function() {
 
     Gmaps4Rails.prototype.create_circles = function() {
       var circle, _i, _len, _ref, _results;
-
       _ref = this.circles;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -12695,7 +12696,6 @@ $().ready(function() {
 
     Gmaps4Rails.prototype.create_circle = function(circle) {
       var newCircle;
-
       if (circle === this.circles[0]) {
         if (circle.strokeColor != null) {
           this.circles_conf.strokeColor = circle.strokeColor;
@@ -12732,7 +12732,6 @@ $().ready(function() {
 
     Gmaps4Rails.prototype.clear_circles = function() {
       var circle, _i, _len, _ref, _results;
-
       _ref = this.circles;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -12748,7 +12747,6 @@ $().ready(function() {
 
     Gmaps4Rails.prototype.hide_circles = function() {
       var circle, _i, _len, _ref, _results;
-
       _ref = this.circles;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -12764,7 +12762,6 @@ $().ready(function() {
 
     Gmaps4Rails.prototype.show_circles = function() {
       var circle, _i, _len, _ref, _results;
-
       _ref = this.circles;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -12780,7 +12777,6 @@ $().ready(function() {
 
     Gmaps4Rails.prototype.create_polygons = function() {
       var polygon, _i, _len, _ref, _results;
-
       _ref = this.polygons;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -12792,7 +12788,6 @@ $().ready(function() {
 
     Gmaps4Rails.prototype.create_polygon = function(polygon) {
       var clickable, fillColor, fillOpacity, latlng, new_poly, point, polygon_coordinates, strokeColor, strokeOpacity, strokeWeight, _i, _len;
-
       polygon_coordinates = [];
       for (_i = 0, _len = polygon.length; _i < _len; _i++) {
         point = polygon[_i];
@@ -12827,7 +12822,6 @@ $().ready(function() {
 
     Gmaps4Rails.prototype.createServiceMarkersFromMarkers = function() {
       var Lat, LatLng, Lng, index, marker, _i, _len, _ref;
-
       _ref = this.markers;
       for (index = _i = 0, _len = _ref.length; _i < _len; index = ++_i) {
         marker = _ref[index];
@@ -12898,7 +12892,6 @@ $().ready(function() {
 
     Gmaps4Rails.prototype.createSidebar = function(marker_container) {
       var aSel, currentMap, html, li, ul;
-
       if (this.markers_conf.list_container) {
         ul = document.getElementById(this.markers_conf.list_container);
         li = document.createElement('li');
@@ -12922,7 +12915,6 @@ $().ready(function() {
 
     Gmaps4Rails.prototype.resetSidebarContent = function() {
       var ul;
-
       if (this.markers_conf.list_container !== null) {
         ul = document.getElementById(this.markers_conf.list_container);
         return ul.innerHTML = "";
@@ -12952,7 +12944,6 @@ $().ready(function() {
 
     Gmaps4Rails.prototype.destroy_polylines = function() {
       var polyline, _i, _len, _ref;
-
       _ref = this.polylines;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         polyline = _ref[_i];
@@ -12963,7 +12954,6 @@ $().ready(function() {
 
     Gmaps4Rails.prototype.create_polylines = function() {
       var polyline, _i, _len, _ref, _results;
-
       _ref = this.polylines;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -12979,7 +12969,6 @@ $().ready(function() {
 
     Gmaps4Rails.prototype.randomize = function(Lat0, Lng0) {
       var Lat, Lng, dx, dy;
-
       dx = this.markers_conf.max_random_distance * this.random();
       dy = this.markers_conf.max_random_distance * this.random();
       Lat = parseFloat(Lat0) + (180 / Math.PI) * (dy / 6378137);
@@ -12989,7 +12978,6 @@ $().ready(function() {
 
     Gmaps4Rails.prototype.mergeObjectWithDefault = function(object1, object2) {
       var copy_object1, key, value;
-
       copy_object1 = {};
       for (key in object1) {
         value = object1[key];
@@ -13006,7 +12994,6 @@ $().ready(function() {
 
     Gmaps4Rails.prototype.mergeWithDefault = function(objectName) {
       var default_object, object;
-
       default_object = this["default_" + objectName];
       object = this[objectName];
       this[objectName] = this.mergeObjectWithDefault(object, default_object);
@@ -13087,7 +13074,6 @@ $().ready(function() {
 
     Gmaps4RailsBing.prototype.createMarker = function(args) {
       var marker, markerLatLng;
-
       markerLatLng = this.createLatLng(args.Lat, args.Lng);
       marker;
       if (args.marker_picture === "") {
@@ -13112,7 +13098,6 @@ $().ready(function() {
 
     Gmaps4RailsBing.prototype.clearMarkers = function() {
       var marker, _i, _len, _ref, _results;
-
       _ref = this.markers;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -13128,7 +13113,6 @@ $().ready(function() {
 
     Gmaps4RailsBing.prototype.showMarkers = function() {
       var marker, _i, _len, _ref, _results;
-
       _ref = this.markers;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -13146,7 +13130,6 @@ $().ready(function() {
 
     Gmaps4RailsBing.prototype.hideMarkers = function() {
       var marker, _i, _len, _ref, _results;
-
       _ref = this.markers;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -13164,7 +13147,6 @@ $().ready(function() {
 
     Gmaps4RailsBing.prototype.extendBoundsWithMarkers = function() {
       var locationsArray, marker, _i, _len, _ref;
-
       locationsArray = [];
       _ref = this.markers;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -13182,7 +13164,6 @@ $().ready(function() {
 
     Gmaps4RailsBing.prototype.createInfoWindow = function(marker_container) {
       var currentMap;
-
       if (marker_container.description != null) {
         if (this.markers_conf.infobox === "description") {
           marker_container.info_window = new Microsoft.Maps.Infobox(marker_container.serviceObject.getLocation(), {
@@ -13326,7 +13307,6 @@ $().ready(function() {
 
     Gmaps4RailsGoogle.prototype.createMap = function() {
       var defaultOptions, mergedOptions;
-
       defaultOptions = {
         maxZoom: this.map_options.maxZoom,
         minZoom: this.map_options.minZoom,
@@ -13352,7 +13332,6 @@ $().ready(function() {
 
     Gmaps4RailsGoogle.prototype.createMarker = function(args) {
       var defaultOptions, imageAnchorPosition, markerImage, markerLatLng, mergedOptions, shadowAnchorPosition, shadowImage;
-
       markerLatLng = this.createLatLng(args.Lat, args.Lng);
       if (args.marker_picture === "" && args.rich_marker === null) {
         defaultOptions = {
@@ -13395,7 +13374,6 @@ $().ready(function() {
 
     Gmaps4RailsGoogle.prototype.includeMarkerImage = function(arr, obj) {
       var index, object, _i, _len;
-
       for (index = _i = 0, _len = arr.length; _i < _len; index = ++_i) {
         object = arr[index];
         if (object.url === obj) {
@@ -13407,7 +13385,6 @@ $().ready(function() {
 
     Gmaps4RailsGoogle.prototype.createOrRetrieveImage = function(currentMarkerPicture, markerWidth, markerHeight, imageAnchorPosition) {
       var markerImage, test_image_index;
-
       if (currentMarkerPicture === "" || currentMarkerPicture === null) {
         return null;
       }
@@ -13428,7 +13405,6 @@ $().ready(function() {
 
     Gmaps4RailsGoogle.prototype.clearMarkers = function() {
       var marker, _i, _len, _ref, _results;
-
       _ref = this.markers;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -13440,7 +13416,6 @@ $().ready(function() {
 
     Gmaps4RailsGoogle.prototype.showMarkers = function() {
       var marker, _i, _len, _ref, _results;
-
       _ref = this.markers;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -13452,7 +13427,6 @@ $().ready(function() {
 
     Gmaps4RailsGoogle.prototype.hideMarkers = function() {
       var marker, _i, _len, _ref, _results;
-
       _ref = this.markers;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -13476,7 +13450,6 @@ $().ready(function() {
 
     Gmaps4RailsGoogle.prototype.extendBoundsWithMarkers = function() {
       var marker, _i, _len, _ref, _results;
-
       _ref = this.markers;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -13500,7 +13473,6 @@ $().ready(function() {
 
     Gmaps4RailsGoogle.prototype.clusterize = function() {
       var marker, markers_array, _i, _len, _ref;
-
       if (this.markers_conf.do_clustering === true) {
         if (this.markerClusterer !== null) {
           this.clearClusterer();
@@ -13517,7 +13489,6 @@ $().ready(function() {
 
     Gmaps4RailsGoogle.prototype.createInfoWindow = function(marker_container) {
       var boxText, currentMap;
-
       if (typeof this.jsTemplate === "function" || (marker_container.description != null)) {
         if (typeof this.jsTemplate === "function") {
           marker_container.description = this.jsTemplate(marker_container);
@@ -13551,7 +13522,6 @@ $().ready(function() {
 
     Gmaps4RailsGoogle.prototype.createKmlLayer = function(kml) {
       var kml_options;
-
       kml_options = kml.options || {};
       kml_options = this.mergeObjectWithDefault(kml_options, this.kml_options);
       kml = new google.maps.KmlLayer(kml.url, kml_options);
@@ -13561,7 +13531,6 @@ $().ready(function() {
 
     Gmaps4RailsGoogle.prototype.create_polyline = function(polyline) {
       var clickable, decoded_array, element, latlng, new_poly, point, polyline_coordinates, strokeColor, strokeOpacity, strokeWeight, zIndex, _i, _j, _len, _len1;
-
       polyline_coordinates = [];
       for (_i = 0, _len = polyline.length; _i < _len; _i++) {
         element = polyline[_i];
@@ -13599,7 +13568,6 @@ $().ready(function() {
 
     Gmaps4RailsGoogle.prototype.updateBoundsWithPolylines = function() {
       var point, polyline, polyline_points, _i, _len, _ref, _results;
-
       _ref = this.polylines;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -13607,7 +13575,6 @@ $().ready(function() {
         polyline_points = polyline.serviceObject.latLngs.getArray()[0].getArray();
         _results.push((function() {
           var _j, _len1, _results1;
-
           _results1 = [];
           for (_j = 0, _len1 = polyline_points.length; _j < _len1; _j++) {
             point = polyline_points[_j];
@@ -13621,7 +13588,6 @@ $().ready(function() {
 
     Gmaps4RailsGoogle.prototype.create_kml = function() {
       var kml, _i, _len, _ref, _results;
-
       _ref = this.kml;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -13643,7 +13609,6 @@ $().ready(function() {
 
     Gmaps4RailsGoogle.prototype.updateBoundsWithPolygons = function() {
       var point, polygon, polygon_points, _i, _len, _ref, _results;
-
       _ref = this.polygons;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -13651,7 +13616,6 @@ $().ready(function() {
         polygon_points = polygon.serviceObject.latLngs.getArray()[0].getArray();
         _results.push((function() {
           var _j, _len1, _results1;
-
           _results1 = [];
           for (_j = 0, _len1 = polygon_points.length; _j < _len1; _j++) {
             point = polygon_points[_j];
@@ -13665,7 +13629,6 @@ $().ready(function() {
 
     Gmaps4RailsGoogle.prototype.updateBoundsWithCircles = function() {
       var circle, _i, _len, _ref, _results;
-
       _ref = this.circles;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -13678,7 +13641,6 @@ $().ready(function() {
 
     Gmaps4RailsGoogle.prototype.extendMapBounds = function() {
       var bound, _i, _len, _ref, _results;
-
       _ref = this.map_options.bounds;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -13690,7 +13652,6 @@ $().ready(function() {
 
     Gmaps4RailsGoogle.prototype.adaptMapToBounds = function() {
       var map_center;
-
       if (!this.map_options.auto_zoom) {
         map_center = this.boundsObject.getCenter();
         this.map_options.center_latitude = map_center.lat();
@@ -13741,7 +13702,6 @@ $().ready(function() {
 
     Gmaps4RailsMapquest.prototype.createMap = function() {
       var map;
-
       map = new MQA.TileMap(document.getElementById(this.map_options.id), this.map_options.zoom, {
         lat: this.map_options.center_latitude,
         lng: this.map_options.center_longitude
@@ -13756,7 +13716,6 @@ $().ready(function() {
 
     Gmaps4RailsMapquest.prototype.createMarker = function(args) {
       var icon, marker;
-
       marker = new MQA.Poi({
         lat: args.Lat,
         lng: args.Lng
@@ -13787,7 +13746,6 @@ $().ready(function() {
 
     Gmaps4RailsMapquest.prototype.clearMarkers = function() {
       var marker, _i, _len, _results;
-
       _results = [];
       for (_i = 0, _len = markers.length; _i < _len; _i++) {
         marker = markers[_i];
@@ -13798,7 +13756,6 @@ $().ready(function() {
 
     Gmaps4RailsMapquest.prototype.showMarkers = function() {
       var marker, _i, _len, _results;
-
       _results = [];
       for (_i = 0, _len = markers.length; _i < _len; _i++) {
         marker = markers[_i];
@@ -13809,7 +13766,6 @@ $().ready(function() {
 
     Gmaps4RailsMapquest.prototype.hideMarkers = function() {
       var marker, _i, _len, _results;
-
       _results = [];
       for (_i = 0, _len = markers.length; _i < _len; _i++) {
         marker = markers[_i];
@@ -13828,7 +13784,6 @@ $().ready(function() {
 
     Gmaps4RailsMapquest.prototype.extendBoundsWithMarkers = function() {
       var marker, _i, _len, _ref, _results;
-
       if (this.markers.length >= 2) {
         this.boundsObject = new MQA.RectLL(this.markers[0].serviceObject.latLng, this.markers[1].serviceObject.latLng);
         _ref = this.markers;
@@ -13931,7 +13886,6 @@ $().ready(function() {
 
     Gmaps4RailsOpenlayers.prototype.createMap = function() {
       var map;
-
       map = new OpenLayers.Map(this.map_options.id);
       map.addLayer(new OpenLayers.Layer.OSM());
       map.setCenter(this.createLatLng(this.map_options.center_latitude, this.map_options.center_longitude), this.map_options.zoom);
@@ -13940,7 +13894,6 @@ $().ready(function() {
 
     Gmaps4RailsOpenlayers.prototype.createMarker = function(args) {
       var marker, style_mark;
-
       style_mark = OpenLayers.Util.extend({}, OpenLayers.Feature.Vector.style['default']);
       style_mark.fillOpacity = 1;
       if (this.markersLayer === null) {
@@ -13994,7 +13947,6 @@ $().ready(function() {
 
     Gmaps4RailsOpenlayers.prototype.extendBoundsWithMarkers = function() {
       var marker, _i, _len, _ref, _results;
-
       console.log("here");
       _ref = this.markers;
       _results = [];
@@ -14007,7 +13959,6 @@ $().ready(function() {
 
     Gmaps4RailsOpenlayers.prototype.createClusterer = function(markers_array) {
       var clusters, funcs, options, strategy, style;
-
       options = {
         pointRadius: "${radius}",
         fillColor: "#ffcc66",
@@ -14020,14 +13971,12 @@ $().ready(function() {
         context: {
           width: function(feature) {
             var _ref;
-
             return (_ref = feature.cluster) != null ? _ref : {
               2: 1
             };
           },
           radius: function(feature) {
             var pix;
-
             pix = 2;
             if (feature.cluster) {
               pix = Math.min(feature.attributes.count, 7) + 2;
@@ -14056,7 +14005,6 @@ $().ready(function() {
 
     Gmaps4RailsOpenlayers.prototype.clusterize = function() {
       var marker, markers_array, _i, _len, _ref;
-
       if (this.markers_conf.do_clustering === true) {
         if (this.markerClusterer !== null) {
           this.clearClusterer();
@@ -14087,7 +14035,6 @@ $().ready(function() {
 
     Gmaps4RailsOpenlayers.prototype.onFeatureSelect = function(evt) {
       var feature, popup;
-
       feature = evt.feature;
       popup = new OpenLayers.Popup.FramedCloud("featurePopup", feature.geometry.getBounds().getCenterLonLat(), new OpenLayers.Size(300, 200), feature.infoWindow, null, true, this.onPopupClose);
       feature.popup = popup;
@@ -14097,7 +14044,6 @@ $().ready(function() {
 
     Gmaps4RailsOpenlayers.prototype.onFeatureUnselect = function(evt) {
       var feature;
-
       feature = evt.feature;
       if (feature.popup) {
         this.map.removePopup(feature.popup);
@@ -14108,7 +14054,6 @@ $().ready(function() {
 
     Gmaps4RailsOpenlayers.prototype.create_polyline = function(polyline) {
       var clickable, element, latlng, line_points, line_style, polyline_coordinates, strokeColor, strokeOpacity, strokeWeight, zIndex, _i, _len;
-
       if (this.polylinesLayer === null) {
         this.polylinesLayer = new OpenLayers.Layer.Vector("Polylines", null);
         this.serviceObject.addLayer(this.polylinesLayer);
@@ -14167,10 +14112,6 @@ $().ready(function() {
     return Gmaps4RailsOpenlayers;
 
   })(Gmaps4Rails);
-
-}).call(this);
-(function() {
-
 
 }).call(this);
 (function() {

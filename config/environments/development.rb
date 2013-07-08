@@ -1,4 +1,4 @@
-ChapterMap::Application.configure do
+ ChapterMap::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on
@@ -49,7 +49,7 @@ ChapterMap::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  #config.assets.debug = false
+  config.assets.debug = true
   #
   #config.assets.logger = nil
 
