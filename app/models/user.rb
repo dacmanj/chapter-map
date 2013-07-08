@@ -83,7 +83,7 @@ class User < OmniAuth::Identity::Models::ActiveRecord
         user.name = name || ""
         user.email = email || ""
         user.admin = admin
-        user.activation_code = rand(36**20).to_s(36)
+        user.activation_code = rand(36**20).to_s(36) unless auth["provider"] != "identify"
     end
   end
 end

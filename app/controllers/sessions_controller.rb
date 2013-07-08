@@ -55,11 +55,12 @@ class SessionsController < ApplicationController
               # from providers at the model level in create_with_omniauth
             end
             # We can now link the authentication with the user and log him in
-            u.authentications << @authentication
             reset_session
+            u.authentications << @authentication
             if !u.activation_code.blank?
               UserMailer.create_user_email(u).deliver
               redirect_to root_path, :notice => 'User was successfully created. You will not be able to sign in until you click the link in your confirmation email. Check your email for a confirmation link.'
+              reset_session
             else
               self.current_user = u
               redirect_to root_path, :notice => "Signed in as #{u.email}!"
