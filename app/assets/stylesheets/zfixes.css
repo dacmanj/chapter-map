@@ -11,3 +11,7 @@ a:visited, a:hover {
 a:visited.btn-primary {
 	color: white;
 }
+
+div.well.chapter_listing {
+	width: 40%;
+}
