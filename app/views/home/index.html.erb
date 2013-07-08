@@ -26,9 +26,14 @@
 	<% @chapters_by_state.each do | state, chapters | %>
 		<h3>
 			<%= unless state.blank? 
-						state_name = us_states_long.find { |item| item[1] == state }[0]
-						 "#{state_name}"  
-						 end %>
+					state_name = us_states_long.find { |item| item[1] == state }
+				if state_name.blank?
+					state_name = state
+				else
+					state_name = state_name[0]
+				end
+				"#{state_name}"  
+			end %>
 			<hr>
 		</h3>
 		<% chapters.each do |chapter| %>
