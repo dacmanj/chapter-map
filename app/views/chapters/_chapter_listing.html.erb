@@ -1,11 +1,12 @@
 <div class="well chapter_listing">
 	<div>
-		<%if chapter.website.nil? %>
-			<%=chapter.name%>
-		<% else %>
-			<%= link_to chapter.name, chapter.website %>
-		<% end %>
-
+		<strong>
+			<%if chapter.website.nil? %>
+				<%=chapter.name%>
+			<% else %>
+				<%= link_to chapter.name, chapter.website %>
+			<% end %>
+		</strong>
 	</div>
 	<% unless chapter.category.blank? %>
 	<div><%=chapter.category%></div>

@@ -1,12 +1,14 @@
 <%= gmaps("markers" => { "data" => @json, "options" => { "do_clustering" => true, "clusterer_gridSize" => 15 } }
 )%> <!--, "circles" => { "data" => @circles_json}-->
 
-<div class="well">
+<div class="well chapter-search">
 	<%= form_tag "", :class => "form-vertical chapter-search" do %>
 		<%= select_tag :state, options_for_select(us_states_long, :selected => params[:state]), :prompt => "Choose a state..." %> or 
 		<%=text_field_tag :zip, params[:zip] || "", :placeholder => 'Enter Address/Zip Code' %> and
 		<%=select_tag :distance, options_for_select((1..20).map {|x| [x*10,x*10]}, params[:distance]), :prompt => "Search distance in miles" %>
 		<%=submit_tag "Search", :class => "btn btn-danger"%>
+      	<%= link_to "Clear Search","#", :class => "reset-search btn btn-danger" %>
+
 	<% end %>
 </div>
 <h1>
@@ -23,7 +25,11 @@
 <% else %>
 	<% @chapters_by_state.each do | state, chapters | %>
 		<h3>
-		 	<%= state %><hr>
+			<%= unless state.blank? 
+						state_name = us_states_long.find { |item| item[1] == state }[0]
+						 "#{state_name}"  
+						 end %>
+			<hr>
 		</h3>
 		<% chapters.each do |chapter| %>
 			<%= render :partial => 'chapters/chapter_listing', :locals => {:chapter => chapter } %>

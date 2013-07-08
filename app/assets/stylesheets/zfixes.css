@@ -15,3 +15,15 @@ a:visited.btn-primary {
 div.well.chapter_listing {
 	width: 40%;
 }
+
+a.btn {
+	color: white;
+}
+
+@media print 
+{
+    div.chapter-search
+    {
+        display:none;
+    }
+}
