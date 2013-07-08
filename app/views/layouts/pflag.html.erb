@@ -14,16 +14,28 @@
     	body.home.pflag div.offset2.span8 {
     		width: 800px;
     		background-color: white;
-    		padding: 15px;
     	}
+    	body.home.pflag div#main-content-yield {
+    		padding: 15px;
+    		width: 770px;
+    	}
+
+    	body.home.pflag div#main {
+    		margin-top: -55px;
+
+    	}
+
     	body.home.pflag footer {
     		width: 800px;
     		background-color: white;
     	}
+    	body.home.pflag {
+    		background-color: #482458;
+    	}
     </style>
 
   </head>
-  <body class="<%= controller_name %> <%= action_name %>" style="background-color: #62006e">
+  <body class="<%= controller_name %> <%= action_name %>">
     <div id="main" role="main">
       <div class="container">
         <div class="content">
@@ -105,7 +117,7 @@
           </div>
 
            <div class="row">
-            <div class="span8 offset2">
+            <div class="span8 offset2" id="main-content-yield">
             	<%= yield %>
             </div>
 	      </div>
