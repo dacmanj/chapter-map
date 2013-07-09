@@ -12,6 +12,14 @@
     <strong>OmniAuth UID:</strong>
     <%= current_user.authentications.first.uid %>
   </p>
+  <h3>Link an account:</h3>
+      <a href="/auth/facebook" class="auth_provider">
+      <%= image_tag "/assets/facebook_64.png", size: "64x64", alt: "Facebook" %>
+    </a>
+    <a href="/auth/google_oauth2" class="auth_provider">
+      <%= image_tag "/assets/google_64.png", size: "64x64", alt: "Google" %>
+    </a>
+
   <p><%= link_to "Log out", logout_path %></p>
 <% else %>
   <h1>Sign In</h1>
