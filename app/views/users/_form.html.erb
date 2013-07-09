@@ -2,8 +2,10 @@
   <%= f.input :name %>
   <%= f.input :email %>
   <%= f.input :admin %>
-    <%= select :user, :chapter_ids, grouped_options_for_select(chapters_by_state_for_select, @user.chapter_ids), {}, :multiple => true %>
-    <br />
+  <%= select :user, :chapter_ids, grouped_options_for_select(chapters_by_state_for_select, @user.chapter_ids), {}, :multiple => true %>
+<br />
+
+
 
   <div class="form-actions">
     <%= f.button :submit %>
