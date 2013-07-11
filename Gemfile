@@ -34,7 +34,7 @@ gem "omniauth", ">= 1.1.3"
 gem "omniauth-google-oauth2"
 gem "omniauth-facebook"
 gem "omniauth-identity"
-gem "bcrypt-ruby"
+gem "bcrypt-ruby",'~> 3.0.0'
 gem "simple_form", ">= 2.1.0"
 gem "figaro", ">= 0.6.3"
 gem "better_errors", ">= 0.7.2", :group => :development
