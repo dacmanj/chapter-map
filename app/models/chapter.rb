@@ -33,7 +33,7 @@
 class Chapter < ActiveRecord::Base
   has_and_belongs_to_many :users
 
-  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes
+  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :chapter_legacy_identifier, :database_identifier
   acts_as_gmappable :lat => 'latitude', :lng => 'longitude', :process_geocoding => :geocode?,
                   :address => "address", :normalized_address => "gmaps_address",
                   :msg => "Sorry, not even Google could figure out where that is",
@@ -64,11 +64,9 @@ class Chapter < ActiveRecord::Base
     header.map! { |h| h.downcase }
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      chapter = find_by_id(row["id"]) || new
+      logger.info("row: " + row.to_hash.slice(*accessible_attributes).map{|k,v| "#{k}=#{v}" }.join(','))
+      chapter = find_by_id(row["id"]) || find_by_ein(row["ein"]) || new
       chapter.attributes = row.to_hash.slice(*accessible_attributes)
-      row.delete_if do |k,v|
-        true unless ['name','website', 'street', 'city', 'state', 'zip', 'email_1', 'email_2', 'email_3', 'helpline', 'phone_1', 'phone_2', 'latitude', 'longitude', 'ein','chapter_legacy_identifier','database_identifier'].include? k
-      end
       chapter.save!
     end
   end

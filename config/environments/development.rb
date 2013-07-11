@@ -53,4 +53,7 @@
   #
   #config.assets.logger = nil
 
+  config.logger = Logger.new(STDOUT)
+
+
 end
