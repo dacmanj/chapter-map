@@ -64,6 +64,7 @@ class Chapter < ActiveRecord::Base
     header.map! { |h| h.downcase }
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
+      row["ein"] = ein.gsub(/[^0-9]/, "") unless row["ein"].blank?
       logger.info("row: " + row.to_hash.slice(*accessible_attributes).map{|k,v| "#{k}=#{v}" }.join(','))
       chapter = find_by_id(row["id"]) || find_by_ein(row["ein"]) || new
       chapter.attributes = row.to_hash.slice(*accessible_attributes)
