@@ -1,7 +1,10 @@
 <%= gmaps("markers" => { "data" => @json, "options" => { "do_clustering" => true, "clusterer_gridSize" => 15 } }
 )%> <!--, "circles" => { "data" => @circles_json}-->
 
+
 <div class="well chapter-search">
+	<%= render :partial => 'chapters/map_intro' %>
+
 	<%= form_tag "", :class => "form-vertical chapter-search" do %>
 		<div class="control-group">
 
