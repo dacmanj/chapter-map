@@ -1,4 +1,5 @@
-<%= gmaps("markers" => { "data" => @json, "options" => { "do_clustering" => true, "clusterer_gridSize" => 15 } }
+<% gmaps_options = { "do_clustering" => true, "clusterer_gridSize" => 15 } %>
+<%= gmaps("markers" => { "data" => @json, "options" => gmaps_options }
 )%> <!--, "circles" => { "data" => @circles_json}-->
 
 

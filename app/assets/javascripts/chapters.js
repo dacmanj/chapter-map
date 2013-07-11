@@ -17,4 +17,3 @@ function clearSearch(e) {
 function submitChapterSearch() {
 	(($("#state option:selected").val() != "") || ($("#zip").val() != "")) && $("form.chapter-search").submit();
 }
-
