@@ -20,7 +20,7 @@ end
 gem "quiet_assets", ">= 1.0.2", :group => :development
 
 
-gem "gmaps4rails"
+gem "gmaps4rails", "~> 2.0.0.pre"
 gem "geocoder"
 gem "roo"
 gem "jquery-rails"
