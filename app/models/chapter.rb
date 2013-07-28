@@ -2,7 +2,7 @@
 #
 # Table name: chapters
 #
-#  id                        :integer          not null, primary key
+#  id                        :integer          primary key
 #  name                      :string(255)
 #  website                   :string(255)
 #  street                    :string(255)
@@ -18,8 +18,8 @@
 #  latitude                  :float
 #  longitude                 :float
 #  ein                       :string(255)
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
+#  created_at                :timestamp        not null
+#  updated_at                :timestamp        not null
 #  gmaps                     :boolean
 #  gmaps_address             :string(255)
 #  radius                    :integer
@@ -32,8 +32,11 @@
 
 class Chapter < ActiveRecord::Base
   has_and_belongs_to_many :users
+  has_many :assets
+  has_attached_file :bylaws
 
-  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :chapter_legacy_identifier, :database_identifier
+
+  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :chapter_legacy_identifier, :database_identifier, :asset_ids, :bylaws
   acts_as_gmappable :lat => 'latitude', :lng => 'longitude', :process_geocoding => :geocode?,
                   :address => "address", :normalized_address => "gmaps_address",
                   :msg => "Sorry, not even Google could figure out where that is",

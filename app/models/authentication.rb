@@ -2,12 +2,12 @@
 #
 # Table name: authentications
 #
-#  id         :integer          not null, primary key
+#  id         :integer          primary key
 #  user_id    :integer
 #  provider   :string(255)
 #  uid        :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  created_at :timestamp        not null
+#  updated_at :timestamp        not null
 #
 
 class Authentication < ActiveRecord::Base
