@@ -28,6 +28,10 @@
 #  inactive                  :boolean
 #  database_identifier       :string(255)
 #  chapter_legacy_identifier :string(255)
+#  bylaws_file_name          :string(255)
+#  bylaws_content_type       :string(255)
+#  bylaws_file_size          :integer
+#  bylaws_updated_at         :datetime
 #
 
 require 'spec_helper'

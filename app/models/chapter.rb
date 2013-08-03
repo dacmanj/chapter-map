@@ -28,6 +28,10 @@
 #  inactive                  :boolean
 #  database_identifier       :string(255)
 #  chapter_legacy_identifier :string(255)
+#  bylaws_file_name          :string(255)
+#  bylaws_content_type       :string(255)
+#  bylaws_file_size          :integer
+#  bylaws_updated_at         :datetime
 #
 
 class Chapter < ActiveRecord::Base
@@ -36,11 +40,13 @@ class Chapter < ActiveRecord::Base
   has_attached_file :bylaws
 
 
-  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :chapter_legacy_identifier, :database_identifier, :asset_ids, :bylaws
+  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :chapter_legacy_identifier, :database_identifier, :asset_ids, :bylaws, :assets_attributes
   acts_as_gmappable :lat => 'latitude', :lng => 'longitude', :process_geocoding => :geocode?,
                   :address => "address", :normalized_address => "gmaps_address",
                   :msg => "Sorry, not even Google could figure out where that is",
                   :validate => false
+
+  accepts_nested_attributes_for :assets
 
   scope :active, where("inactive = ? OR inactive is ?",false,nil)
 

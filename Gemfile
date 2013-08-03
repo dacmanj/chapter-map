@@ -21,7 +21,7 @@ end
 
 gem "quiet_assets", ">= 1.0.2", :group => :development
 
-
+gem "nested_form"
 gem "gmaps4rails", "~> 2.0.0.pre"
 gem "geocoder"
 gem "roo"

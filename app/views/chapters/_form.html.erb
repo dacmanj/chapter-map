@@ -1,4 +1,4 @@
-<%= simple_form_for(@chapter) do |f| %>
+<%= simple_nested_form_for(@chapter) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -29,9 +29,16 @@
     <%= f.input :inactive %>
     <%= f.input :database_identifier %>
     <%= f.input :chapter_legacy_identifier %>
-    <%= f.association :assets %>
     <div>
-      <%= f.input :bylaws, :as => :file %>
+
+    <%= f.fields_for :assets do |asset_form| %>
+      <%= asset_form.label :tag %>
+      <%= asset_form.text_field :tag %>
+      <%= asset_form.file_field :attachment %>
+      <%= "<a href='#{asset_form.object.attachment}'>#{asset_form.object.attachment_file_name}</a>".html_safe %>
+      <%= asset_form.link_to_remove "Remove this file" %>
+    <% end %>
+    <p><%= f.link_to_add "Add a file", :assets %></p>
     </div>
 
   </div>
