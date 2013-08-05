@@ -31,21 +31,31 @@
     <%= f.input :chapter_legacy_identifier %>
     <div>
 
-    <%= f.fields_for :assets do |asset_form| %>
-      <%= asset_form.label :tag %>
-      <%= asset_form.text_field :tag %>
-      <%= asset_form.file_field :attachment %>
-      <%= "<a href='#{asset_form.object.attachment}'>#{asset_form.object.attachment_file_name}</a>".html_safe %>
-      <%= asset_form.link_to_remove "Remove this file" %>
-    <% end %>
-    <p><%= f.link_to_add "Add a file", :assets %></p>
+      <div class="well form-horizontal">
+        <h2>Chapter File Storage</h2>
+
+          <%= f.fields_for :assets do |asset_form| %>
+            <div class="well">
+              <% if asset_form.object.attachment_file_name.nil? %>
+
+                <%= asset_form.input :tag, collection: Asset.tags, prompt: "Select type of file" %>
+                <%= asset_form.input :attachment %>
+              <% else %>
+                <%= "<a href='#{asset_form.object.attachment}'>#{asset_form.object.tag}: #{asset_form.object.attachment_file_name}</a>".html_safe %>
+              <% end %>
+              <%= asset_form.link_to_remove "<i class='icon-trash icon-white'></i>Remove File".html_safe, class: "btn btn-danger" %>
+
+            </div>
+          <% end %>
+          <p><%= f.link_to_add "Add File", :assets, class: "btn btn-primary" %></p>
+      </div>
     </div>
 
   </div>
 
   <div class="form-actions">
     <%= f.button :submit %>
-    <%= link_to content_tag(:i, "", class: "icon-trash icon-white") + ' Delete', @chapter, method: :delete, :class => "btn btn-danger" %>
+    <%= link_to content_tag(:i, "", class: "icon-trash icon-white") + ' Delete', @chapter, method: :delete, :class => "btn btn-danger" unless !admin_user? %>
 
   </div>
 <% end %>

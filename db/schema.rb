@@ -25,43 +25,43 @@ ActiveRecord::Schema.define(:version => 20130803180050) do
   end
 
   create_table "authentications", :force => true do |t|
-    t.integer   "user_id"
-    t.string    "provider"
-    t.string    "uid"
-    t.timestamp "created_at", :null => false
-    t.timestamp "updated_at", :null => false
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "chapters", :force => true do |t|
-    t.string    "name"
-    t.string    "website"
-    t.string    "street"
-    t.string    "city"
-    t.string    "state"
-    t.string    "zip"
-    t.string    "email_1"
-    t.string    "email_2"
-    t.string    "email_3"
-    t.string    "helpline"
-    t.string    "phone_1"
-    t.string    "phone_2"
-    t.float     "latitude"
-    t.float     "longitude"
-    t.string    "ein"
-    t.timestamp "created_at",                :null => false
-    t.timestamp "updated_at",                :null => false
-    t.boolean   "gmaps"
-    t.string    "gmaps_address"
-    t.integer   "radius"
-    t.string    "category"
-    t.boolean   "separate_exemption"
-    t.boolean   "inactive"
-    t.string    "database_identifier"
-    t.string    "chapter_legacy_identifier"
-    t.string    "bylaws_file_name"
-    t.string    "bylaws_content_type"
-    t.integer   "bylaws_file_size"
-    t.datetime  "bylaws_updated_at"
+    t.string   "name"
+    t.string   "website"
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "email_1"
+    t.string   "email_2"
+    t.string   "email_3"
+    t.string   "helpline"
+    t.string   "phone_1"
+    t.string   "phone_2"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "ein"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.boolean  "gmaps"
+    t.string   "gmaps_address"
+    t.integer  "radius"
+    t.string   "category"
+    t.boolean  "separate_exemption"
+    t.boolean  "inactive"
+    t.string   "database_identifier"
+    t.string   "chapter_legacy_identifier"
+    t.string   "bylaws_file_name"
+    t.string   "bylaws_content_type"
+    t.integer  "bylaws_file_size"
+    t.datetime "bylaws_updated_at"
   end
 
   create_table "chapters_users", :force => true do |t|
@@ -70,13 +70,13 @@ ActiveRecord::Schema.define(:version => 20130803180050) do
   end
 
   create_table "users", :force => true do |t|
-    t.string    "name"
-    t.string    "email"
-    t.timestamp "created_at",      :null => false
-    t.timestamp "updated_at",      :null => false
-    t.boolean   "admin"
-    t.string    "password_digest"
-    t.string    "activation_code"
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.boolean  "admin"
+    t.string   "password_digest"
+    t.string   "activation_code"
   end
 
 end

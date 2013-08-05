@@ -18,4 +18,8 @@ class Asset < ActiveRecord::Base
   attr_accessible :attachment, :tag
   has_attached_file :attachment
 
+  def self.tags
+  	["EIN Letter","IRS Determination Letter","Affiliation Agreement", "Bylaws", "Articles of Incorporation"]
+  end
+
 end
