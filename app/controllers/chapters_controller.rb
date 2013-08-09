@@ -31,7 +31,6 @@ class ChaptersController < ApplicationController
       render 'import'
     else
       @chapter = Chapter.find(params[:id])
-      render 
 
       respond_to do |format|
         format.html # show.html.erb

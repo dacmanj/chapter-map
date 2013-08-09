@@ -2,6 +2,7 @@ show_ajax_message = (msg, type) ->
   $("#flash-message").html "<div class='alert alert-#{type} fade in' id='flash-#{type}'>#{msg}</div>"
   $("#flash-#{type}").delay(5000).slideUp 'slow'
 
+console.log "ajaxhandler loading..."
 $(document).ajaxComplete (event, request) ->
   msg = request.getResponseHeader("X-Message")
   type = request.getResponseHeader("X-Message-Type")
