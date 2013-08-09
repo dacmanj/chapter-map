@@ -88,7 +88,9 @@ class ChaptersController < ApplicationController
         format.html { redirect_to @chapter, notice: 'Chapter was successfully updated.' }
         format.json { render :json => { notice: 'Chapter was successfully updated'} }
       else
-        flash.now[:errors] = @chapter.errors
+        @chapter.errors.each do |type,msg|
+          flash.now[:error] = "Error: #{type}: #{msg}"
+        end
         format.html { render action: "edit" }
         format.json { render json: @chapter.errors, status: :unprocessable_entity }
       end
