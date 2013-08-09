@@ -55,7 +55,9 @@ class Chapter < ActiveRecord::Base
   end
 
   validates_length_of :ein, :minimum => 9, :maximum => 9, :unless => Proc.new {|c| c.ein.blank? }
-  
+  validates :name, presence: true
+  validates :ein, numericality: true
+
   geocoded_by :address
 
   def geocode?

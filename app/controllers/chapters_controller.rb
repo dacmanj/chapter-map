@@ -31,6 +31,7 @@ class ChaptersController < ApplicationController
       render 'import'
     else
       @chapter = Chapter.find(params[:id])
+      render 
 
       respond_to do |format|
         format.html # show.html.erb
@@ -84,9 +85,11 @@ class ChaptersController < ApplicationController
 
     respond_to do |format|
       if @chapter.update_attributes(params[:chapter])
+        flash.now[:notice] = 'Chapter was successfully updated'
         format.html { redirect_to @chapter, notice: 'Chapter was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render :json => { notice: 'Chapter was successfully updated'} }
       else
+        flash.now[:errors] = @chapter.errors
         format.html { render action: "edit" }
         format.json { render json: @chapter.errors, status: :unprocessable_entity }
       end
