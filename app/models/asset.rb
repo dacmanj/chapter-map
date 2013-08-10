@@ -17,8 +17,8 @@ class Asset < ActiveRecord::Base
   belongs_to :chapter
   attr_accessible :attachment, :tag
   has_attached_file :attachment
-  validate :attachment_presence => true
-  validate :tag, :presence => true
+#  validate :attachment_presence => true
+#  validate :tag, :presence => true
 
   include Rails.application.routes.url_helpers
 
@@ -41,6 +41,7 @@ class Asset < ActiveRecord::Base
 	{
 	  "name" => read_attribute(:attachment_file_name),
 	  "chapter" => self.chapter.name || "",
+	  "tag" => self.tag,
 	  "chapter_id" => read_attribute(:chapter_id),
 	  "size" => read_attribute(:attachment_file_size),
 	  "url" => attachment.url(:original),
