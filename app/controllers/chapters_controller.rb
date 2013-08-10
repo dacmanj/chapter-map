@@ -33,7 +33,7 @@ class ChaptersController < ApplicationController
       @chapter = Chapter.find(params[:id])
 
       respond_to do |format|
-        format.html # show.html.erb
+        format.html { redirect_to :action => 'edit' }
         format.json { render json: @chapter }
       end
 
@@ -63,7 +63,7 @@ class ChaptersController < ApplicationController
 
     respond_to do |format|
       if @chapter.save
-        format.html { redirect_to @chapter, notice: 'Chapter was successfully created.' }
+        format.html { render action: "edit", notice: 'Chapter was successfully created.' }
         format.json { render json: @chapter, status: :created, location: @chapter }
       else
         format.html { render action: "new" }
@@ -84,12 +84,12 @@ class ChaptersController < ApplicationController
 
     respond_to do |format|
       if @chapter.update_attributes(params[:chapter])
-        flash.now[:notice] = 'Chapter was successfully updated'
-        format.html { redirect_to @chapter, notice: 'Chapter was successfully updated.' }
+        flash[:notice] = 'Chapter was successfully updated'
+        format.html { render action: "edit", notice: 'Chapter was successfully updated.' }
         format.json { render :json => { notice: 'Chapter was successfully updated'} }
       else
         @chapter.errors.each do |type,msg|
-          flash.now[:error] = "Error: #{type}: #{msg}"
+          flash[:error] = "Error: #{type}: #{msg}"
         end
         format.html { render action: "edit" }
         format.json { render json: @chapter.errors, status: :unprocessable_entity }

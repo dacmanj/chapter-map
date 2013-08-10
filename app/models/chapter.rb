@@ -46,7 +46,7 @@ class Chapter < ActiveRecord::Base
                   :msg => "Sorry, not even Google could figure out where that is",
                   :validate => false
 
-  accepts_nested_attributes_for :assets
+  accepts_nested_attributes_for :assets, :allow_destroy => true
 
   scope :active, where("inactive = ? OR inactive is ?",false,nil)
 

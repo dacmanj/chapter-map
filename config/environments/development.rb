@@ -58,11 +58,12 @@
   config.assets.compress = true
 
   # Expands the lines which load the assets
-  config.assets.debug = false
+  config.assets.debug = true
   #
   #config.assets.logger = nil
 
   config.logger = Logger.new(STDOUT)
+  config.serve_static_assets = false
 
 
 end
