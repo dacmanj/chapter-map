@@ -3,6 +3,7 @@ ruby '1.9.3'
 gem 'rails', '3.2.13'
 gem 'paperclip'
 gem 'aws-sdk'
+gem 's3_direct_upload'
 
 gem 'sqlite3', :group => :development
 gem 'pg', :group => :production

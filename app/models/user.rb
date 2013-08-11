@@ -29,6 +29,13 @@ class User < OmniAuth::Identity::Models::ActiveRecord
     end
   end
 
+  def assets
+    if !self.admin
+      return self.chapters.collect(&:assets).flatten
+    else
+      return Asset.all
+    end
+  end
 
   def self.find_by_email(email)
     unless email.blank?

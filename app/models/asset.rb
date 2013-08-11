@@ -33,19 +33,27 @@ class Asset < ActiveRecord::Base
   		c.assets.each do |a|
 	  		@assets_list.push a
 	  	end
-	end
-
+   	end
   end
+
+  def chapter_name
+    if self.chapter.nil?
+      return ""
+    else
+      return self.chapter.name
+    end
+  end
+
 
   def to_jq
 	{
 	  "name" => read_attribute(:attachment_file_name),
-	  "chapter" => self.chapter.name || "",
+	  "chapter" => self.chapter_name || "",
 	  "tag" => self.tag,
 	  "chapter_id" => read_attribute(:chapter_id),
 	  "size" => read_attribute(:attachment_file_size),
 	  "url" => attachment.url(:original),
-	  "delete_url" => assets_path(self),
+	  "delete_url" => asset_path(self),
 	  "delete_type" => "DELETE" 
 	}
   end

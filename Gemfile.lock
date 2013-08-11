@@ -181,6 +181,11 @@ GEM
       rspec-mocks (~> 2.14.0)
     ruby-ole (1.2.11.7)
     rubyzip (0.9.9)
+    s3_direct_upload (0.1.6)
+      coffee-rails (>= 3.2.1)
+      jquery-fileupload-rails (~> 0.4.1)
+      rails (>= 3.2)
+      sass-rails (>= 3.2.5)
     sass (3.2.10)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -242,6 +247,7 @@ DEPENDENCIES
   rails (= 3.2.13)
   roo
   rspec-rails (>= 2.12.2)
+  s3_direct_upload
   sass-rails (~> 3.2.3)
   simple_form (>= 2.1.0)
   sqlite3

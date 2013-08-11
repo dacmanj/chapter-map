@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
 
     def authenticate_user!
       if !current_user
-        redirect_to root_url, :alert => 'You need to sign in for access to this page.'
+        redirect_to new_session_path, :alert => 'You need to sign in for access to this page.'
       elsif !current_user.activation_code.blank?
         redirect_to root_url, :alert => 'You must confirm your email address before signing in. Check your email for your activation link.'       
       end

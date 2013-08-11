@@ -8,7 +8,7 @@
         <span class="btn btn-success fileinput-button">
           <i class="icon-plus icon-white"></i>
           <span>Add files...</span>
-          <%= f.file_field :upload %>
+          <%= f.file_field :attachment %>
         </span>
         <button type="submit" class="btn btn-primary start">
           <i class="icon-upload icon-white"></i>
@@ -56,8 +56,8 @@
   {% for (var i=0, file; file=o.files[i]; i++) { %}
   <tr class="template-upload fade">
     <td class="preview"><span class="fade"></span></td>
-    <td class="chapter"><span>{%=file.chapter%}</span></td>
-    <td class="tag"><span>{%=file.tag%}</span></td>
+    <td class="chapter"><span><select><%= chapters_for_upload_select %></select>{%=file.chapter%}</span></td>
+    <td class="tag"><select><%= options_for_select(Asset.tags) %> </select><span>{%=file.tag%}</span></td>
     <td class="name"><span>{%=file.name%}</span></td>
     <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
     {% if (file.error) { %}
@@ -90,6 +90,8 @@
     <tr class="template-download fade">
       {% if (file.error) { %}
         <td></td>
+        <td class="chapter"><span>{%=file.chapter%}</span></td>
+        <td class="tag"><span>{%=file.tag%}</span></td>
         <td class="name"><span>{%=file.name%}</span></td>
         <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
         <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
@@ -100,7 +102,7 @@
         <td class="chapter">
           {%=file.chapter%}
         </td>
-        <td class="chapter">
+        <td class="tag">
           {%=file.tag%}
         </td>
         <td class="name">
