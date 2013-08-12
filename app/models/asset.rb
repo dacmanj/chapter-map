@@ -23,7 +23,7 @@ class Asset < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
   def self.tags
-  	["EIN Letter","IRS Determination Letter","Affiliation Agreement", "Bylaws", "Articles of Incorporation"]
+  	["EIN Letter","IRS Determination Letter","Affiliation Agreement", "Bylaws", "Articles of Incorporation","Other"]
   end
 
   def self.search

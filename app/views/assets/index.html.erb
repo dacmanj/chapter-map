@@ -66,8 +66,8 @@
   {% for (var i=0, file; file=o.files[i]; i++) { %}
   <tr class="template-upload fade">
     <td class="preview"><span class="fade"></span></td>
-    <td class="chapter"><span><select name="chapter_id" data-id="{%=file.id%}" value="{%=file.chapter_id%}"><option value="{%=file.chapter_id%}">{%=file.chapter%}</option><%= chapters_for_upload_select %></select></span></td>
-    <td class="tag"><select name="tag" data-id="{%=file.id%}" value="{%=file.tag%}"><option value="">Choose a tag...</option><%= options_for_select(Asset.tags) %> </select></td> 
+    <td class="chapter"><span>{%=file.chapter%}</span></td>
+    <td class="tag">{%=file.tag%}</td> 
     <td class="name"><span>{%=file.name%}</span></td>
     <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
     {% if (file.error) { %}
