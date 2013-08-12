@@ -1,6 +1,16 @@
 <div class="container">
+  <%= form_for Asset.new, :html => { :multipart => true, :id => "fileupload", :class => "form-horizontal"  } do |f| %>
+
   <h2>Upload file</h2>
-  <%= form_for Asset.new, :html => { :multipart => true, :id => "fileupload"  } do |f| %>
+  <div class="control-group">
+    <%= f.label :default_chapter_for_uploads %>
+      <div class="control">
+        <select name="asset[chapter_id]" id="default_chapter">
+          <option value="">Choose a chapter...</option>
+          <%= chapters_for_upload_select %>
+        </select>
+    </div>
+  </div>
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
     <div class="row fileupload-buttonbar">
       <div class="span7">
@@ -56,8 +66,8 @@
   {% for (var i=0, file; file=o.files[i]; i++) { %}
   <tr class="template-upload fade">
     <td class="preview"><span class="fade"></span></td>
-    <td class="chapter"><span><select><option value="">Choose a chapter...</option><%= chapters_for_upload_select %></select>{%=file.chapter%}</span></td>
-    <td class="tag"><select><option value="">Choose a tag...</option><%= options_for_select(Asset.tags) %> </select><span>{%=file.tag%}</span></td>
+    <td class="chapter"><span><select name="chapter_id" data-id="{%=file.id%}" value="{%=file.chapter_id%}"><option value="">Choose a chapter...</option><%= chapters_for_upload_select %></select></span></td>
+    <td class="tag"><select name="tag" data-id="{%=file.id%}" value="{%=file.tag%}"><option value="">Choose a tag...</option><%= options_for_select(Asset.tags) %> </select></td> 
     <td class="name"><span>{%=file.name%}</span></td>
     <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
     {% if (file.error) { %}
@@ -91,17 +101,17 @@
     <tr class="template-download fade" data-id="{%=file.id%}">
       {% if (file.error) { %}
         <td></td>
-        <td class="chapter"><span>{%=file.chapter%}</span></td>
-        <td class="tag"><span>{%=file.tag%}</span></td>
-        <td class="name"><span>{%=file.name%}</span></td>
+        <td class="chapter"><span>{%=file.chapter_id%}</span></td>
+        <td class="chapter"><span><select name="chapter_id" data-id="{%=file.id%}" value="{%=file.chapter_id%}"><option value="">Choose a chapter...</option><%= chapters_for_upload_select %></select></span></td>
+        <td class="tag"><select name="tag" data-id="{%=file.id%}" value="{%=file.tag%}"><option value="">Choose a tag...</option><%= options_for_select(Asset.tags) %> </select></td>
         <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
         <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
         {% } else { %}
         <td class="preview">{% if (file.thumbnail_url) { %}
           <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
           {% } %}</td>
-        <td class="chapter"><span><select name="chapter_id" data-id="{%=file.id%}"><option value="">Choose a chapter...</option><%= chapters_for_upload_select %></select></span></td>
-        <td class="tag"><select name="tag" data-id="{%=file.id%}"><option value="">Choose a tag...</option><%= options_for_select(Asset.tags) %> </select></td>
+        <td class="chapter"><span><select name="chapter_id" data-id="{%=file.id%}" value="{%=file.chapter_id%}"><option value="">Choose a chapter...</option><%= chapters_for_upload_select %></select></span></td>
+        <td class="tag"><select name="tag" data-id="{%=file.id%}" value="{%=file.tag%}"><option value="">Choose a tag...</option><%= options_for_select(Asset.tags) %> </select></td>
         <td class="name">
           <a href="{%=file.url%}" title="{%=file.name%}" rel="{%=file.thumbnail_url&&'gallery'%}">{%=file.name%}</a>
         </td>
@@ -131,9 +141,26 @@
 
   }
 
+  function loadSelectValues() {
+    //convert value attributes to selections
+    $("select[value]").each(function(i,v) {
+      if ($(v).attr("value") < 1)
+        $(v).removeAttr("value");
+      else
+        $(v).val($(v).attr("value")).removeAttr("value");
+    });
+  }
+
+  function formDataDefault(form) {
+    console.log(form.serializeArray());
+  }
+
   $(function () {
       // Initialize the jQuery File Upload widget:
       $('#fileupload').fileupload({autoUpload: true });
+      $("#default_chapter option").eq(1).attr("selected",true);
+      $(".asset-ajax").delegate("select[name=chapter_id], select[name=tag]", "change", updateAssetAjax);
+      $(".asset-ajax").change(loadSelectValues);
       // 
       // Load existing files:
       $.getJSON($('#fileupload').prop('action'), function (files) {
@@ -144,19 +171,15 @@
         template = fu._renderDownload(files)
           .appendTo($('#fileupload .files'));
 
-        $("tbody.files tr").each(function(k,v) {
-            $("td.chapter select",v).val(files[k].chapter_id); //load chapter
-            $("td.tag select",v).val(files[k].tag); //load tag
+
+          // Force reflow:
+          fu._reflow = fu._transition && template.length &&
+            template[0].offsetWidth;
+          template.addClass('in');
+          loadSelectValues();
+          $('#loading').remove();
       });
 
-      $(".asset-ajax").delegate("select[name=chapter_id], select[name=tag]", "change", updateAssetAjax);
-
-        // Force reflow:
-        fu._reflow = fu._transition && template.length &&
-          template[0].offsetWidth;
-        template.addClass('in');
-        $('#loading').remove();
-      });
 
   });
 </script>
