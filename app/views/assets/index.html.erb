@@ -35,7 +35,7 @@
     <div class="fileupload-loading"></div>
     <br>
     <!-- The table listing the files available for upload/download -->
-    <table class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
+    <table class="table table-striped asset-ajax"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
     </table>
   <% end %>
 
@@ -56,8 +56,8 @@
   {% for (var i=0, file; file=o.files[i]; i++) { %}
   <tr class="template-upload fade">
     <td class="preview"><span class="fade"></span></td>
-    <td class="chapter"><span><select><%= chapters_for_upload_select %></select>{%=file.chapter%}</span></td>
-    <td class="tag"><select><%= options_for_select(Asset.tags) %> </select><span>{%=file.tag%}</span></td>
+    <td class="chapter"><span><select><option value="">Choose a chapter...</option><%= chapters_for_upload_select %></select>{%=file.chapter%}</span></td>
+    <td class="tag"><select><option value="">Choose a tag...</option><%= options_for_select(Asset.tags) %> </select><span>{%=file.tag%}</span></td>
     <td class="name"><span>{%=file.name%}</span></td>
     <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
     {% if (file.error) { %}
@@ -87,7 +87,8 @@
 <!-- The template to display files available for download -->
 <script id="template-download" type="text/x-tmpl">
   {% for (var i=0, file; file=o.files[i]; i++) { %}
-    <tr class="template-download fade">
+    <input type="hidden" value="{%=file.id%}" name="id" data-id="{%=file.id%}"/>
+    <tr class="template-download fade" data-id="{%=file.id%}">
       {% if (file.error) { %}
         <td></td>
         <td class="chapter"><span>{%=file.chapter%}</span></td>
@@ -99,12 +100,8 @@
         <td class="preview">{% if (file.thumbnail_url) { %}
           <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
           {% } %}</td>
-        <td class="chapter">
-          {%=file.chapter%}
-        </td>
-        <td class="tag">
-          {%=file.tag%}
-        </td>
+        <td class="chapter"><span><select name="chapter_id" data-id="{%=file.id%}"><option value="">Choose a chapter...</option><%= chapters_for_upload_select %></select></span></td>
+        <td class="tag"><select name="tag" data-id="{%=file.id%}"><option value="">Choose a tag...</option><%= options_for_select(Asset.tags) %> </select></td>
         <td class="name">
           <a href="{%=file.url%}" title="{%=file.name%}" rel="{%=file.thumbnail_url&&'gallery'%}">{%=file.name%}</a>
         </td>
@@ -119,13 +116,24 @@
         <input type="checkbox" name="delete" value="1">
       </td>
     </tr>
+    </form>
     {% } %}
 </script>
 
 <script type="text/javascript" charset="utf-8">
+  function updateAssetAjax(e) {
+    var id = $(this).attr("data-id");
+    var name = $(this).attr("name");
+    var value = $(this).val();
+    var updateJson = { asset: {id: id }};
+    updateJson["asset"][name] = value;
+    $.ajax({ url: "/assets/"+id, data: updateJson, dataType: "JSON", type: 'PUT' });
+
+  }
+
   $(function () {
       // Initialize the jQuery File Upload widget:
-      $('#fileupload').fileupload();
+      $('#fileupload').fileupload({autoUpload: true });
       // 
       // Load existing files:
       $.getJSON($('#fileupload').prop('action'), function (files) {
@@ -135,6 +143,14 @@
         console.log(files);
         template = fu._renderDownload(files)
           .appendTo($('#fileupload .files'));
+
+        $("tbody.files tr").each(function(k,v) {
+            $("td.chapter select",v).val(files[k].chapter_id); //load chapter
+            $("td.tag select",v).val(files[k].tag); //load tag
+      });
+
+      $(".asset-ajax").delegate("select[name=chapter_id], select[name=tag]", "change", updateAssetAjax);
+
         // Force reflow:
         fu._reflow = fu._transition && template.length &&
           template[0].offsetWidth;

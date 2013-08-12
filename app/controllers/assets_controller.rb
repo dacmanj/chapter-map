@@ -66,9 +66,9 @@ class AssetsController < ApplicationController
     @asset = Asset.find(params[:id])
 
     respond_to do |format|
-      if @Asset.update_attributes(params[:asset])
-        format.html { redirect_to @asset, notice: 'Asset was successfully updated.' }
-        format.json { head :no_content }
+      if @asset.update_attributes(params[:asset])
+        format.html { redirect_to assets_url, notice: 'Asset was successfully updated.' }
+        format.json { render json: {files: [@asset.to_jq]}, status: :created, location: @asset  }
       else
         format.html { render action: "edit" }
         format.json { render json: @asset.errors, status: :unprocessable_entity }

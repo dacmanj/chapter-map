@@ -15,7 +15,7 @@
 
 class Asset < ActiveRecord::Base
   belongs_to :chapter
-  attr_accessible :attachment, :tag
+  attr_accessible :attachment, :tag, :chapter_id
   has_attached_file :attachment
 #  validate :attachment_presence => true
 #  validate :tag, :presence => true
@@ -47,8 +47,10 @@ class Asset < ActiveRecord::Base
 
   def to_jq
 	{
+    "id" => read_attribute(:id),
 	  "name" => read_attribute(:attachment_file_name),
 	  "chapter" => self.chapter_name || "",
+    "chapter_id" => self.chapter_id || "",
 	  "tag" => self.tag,
 	  "chapter_id" => read_attribute(:chapter_id),
 	  "size" => read_attribute(:attachment_file_size),
