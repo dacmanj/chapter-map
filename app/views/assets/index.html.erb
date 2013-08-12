@@ -163,7 +163,6 @@
     return function () {
       originalFn.apply(originalFn, arguments); // call the original function
       loadSelectValues();      // other stuff
-      console.log("!@#!@#!@#!@#!@#");
     };
   })(window.tmpl); // pass the reference of the original function
 
@@ -248,7 +247,6 @@
             rows = rows.add(row);
         });
         loadSelectValues();
-        console.log("ASDfaslkjdhf");
         return rows;
     }
 </script>

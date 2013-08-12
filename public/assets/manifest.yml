@@ -13,3 +13,7 @@ glyphicons-halflings.png: glyphicons-halflings.png
 glyphicons-halflings/index.png: glyphicons-halflings.png
 jquery.min.map: jquery.min.map
 jquery/index.min.map: jquery.min.map
+loading.gif: loading.gif
+loading/index.gif: loading.gif
+progressbar.gif: progressbar.gif
+progressbar/index.gif: progressbar.gif
