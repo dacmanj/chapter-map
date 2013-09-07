@@ -20,24 +20,39 @@
     <% end %>
     <%= f.input :latitude %>
     <%= f.input :longitude %>
-    <%= if admin_user? 
-          f.input :ein 
-        else
-          f.input :ein, :readonly => true 
-        end %>
+    <% if current_user.admin? %>
+      <%= f.input :ein %>
+    <% else %>
+      <%= f.input :ein, :readonly => true %>
+    <% end %>
     <%= f.input :separate_exemption %>
     <%= f.input :inactive %>
-    <%= f.input :database_identifier %>
-    <%= f.input :chapter_legacy_identifier %>
+    <% if current_user.admin? %>
+    <div class="well">
+      <h2>Admin Fields</h2>
+      <%= f.input :database_identifier %>
+      <%= f.input :chapter_legacy_identifier %>
+      <%= f.input :email_1_import_id %>
+      <%= f.input :email_2_import_id %>
+      <%= f.input :email_3_import_id %>
+      <%= f.input :helpline_import_id %>
+      <%= f.input :phone_1_import_id %>
+      <%= f.input :phone_2_import_id %>
+      <%= f.input :address_import_id %>
+      <%= f.input :independent_import_id %>
+      <%= f.input :ein_import_id %>
+    </div>
+
+    <% end %>
     <div>
 
       <div class="well form-horizontal">
         <h2>Chapter File Storage</h2>
-        <%= link_to "Manage My Chapter Files", file_path %>
+        <%= link_to "Manage My Chapter Files", attachments_path %>
 
-          <%= f.fields_for :file do |attachment_form| %>
+          <%= f.fields_for :attachments do |attachment_form| %>
             <div class="well">
-              <% if attachment_form.object.attachment_file_name.nil? %>
+              <% if attachment_form.object.blank? %>
 
                 <%= attachment_form.input :tag, collection: Asset.tags, prompt: "Select type of file" %>
                 <%= attachment_form.input :attachment %>
@@ -48,7 +63,7 @@
 
             </div>
           <% end %>
-          <p><%= f.link_to_add "Add File", :file, class: "btn btn-primary" %></p>
+          <p><%= f.link_to_add "Add File", :attachments, class: "btn btn-primary" %></p>
       </div>
     </div>
 

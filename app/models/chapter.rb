@@ -51,11 +51,9 @@ class Chapter < ActiveRecord::Base
   has_attached_file :bylaws
 
 
-  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :chapter_legacy_identifier, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes
-  acts_as_gmappable :lat => 'latitude', :lng => 'longitude', :process_geocoding => :geocode?,
-                  :address => "address", :normalized_address => "gmaps_address",
-                  :msg => "Sorry, not even Google could figure out where that is",
-                  :validate => false
+  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :chapter_legacy_identifier, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes, :email_1_import_id, :email_2_import_id, :email_3_import_id, :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, :independent_import_id, :ein_import_id
+  acts_as_gmappable :lat => 'latitude', :lng => 'longitude',:validation => false, :process_geocoding => :geocode, :check_process => true, :checker => "gmaps",
+                  :address => "address", :normalized_address => "gmaps_address"
 
   accepts_nested_attributes_for :attachments, :allow_destroy => true
 
@@ -71,49 +69,50 @@ class Chapter < ActiveRecord::Base
 
   geocoded_by :address
 
-    RAISERS_EDGE_FIELD_MAP = {"CnBio_ID" => "database_identifier",
-      "CnBio_Import_ID" => "CnBio_Import_ID",
-      "CnBio_Org_Name" => "name",
-      "CnBio_Constit_Code" => "category", 
-      "CnBio_Inactive" => "inactive",
-      "CnAdrPrf_Addrline1" => "address_line_1",
-      "CnAdrPrf_Addrline2" => "address_line_2",
-      "CnAdrPrf_Addrline3" => "address_line_3",
-      "CnAdrPrf_Addrline4" => "address_line_4",
-      "CnAdrPrf_Addrline5" => "address_line_5",
-      "CnAdrPrf_City" => "city",
-      "CnAdrPrf_ContryLongDscription" => "country",
-      "CnAdrPrf_OrgName" => "CnAdrPrf_OrgName",
-      "CnAdrPrf_Position" => "CnAdrPrf_Position",
-      "CnAdrPrf_State" => "state",
-      "CnAdrPrf_ZIP" => "zip",
-      "CnAdrPrf_Import_ID" => "address_import_id",
-      "CnAdrPrfPh_1_01_Phone_number" => "email_1",
-      "CnAdrPrfPh_1_01_Import_ID" => "email_1_import_id",
-      "CnAdrPrfPh_2_01_Phone_number" => "email_2",
-      "CnAdrPrfPh_2_01_Import_ID" => "email_2_import_id",
-      "CnAdrPrfPh_3_01_Phone_number" => "helpline",
-      "CnAdrPrfPh_3_01_Import_ID" => "helpline_import_id",
-      "CnAdrPrfPh_4_01_Phone_number" => "phone_1",
-      "CnAdrPrfPh_4_01_Import_ID" => "phone_1_import_id",
-      "CnAdrPrfPh_5_01_Phone_number" => "phone_2",
-      "CnAdrPrfPh_5_01_Import_ID" => "phone_2_import_id",
-      "CnAdrPrfPh_6_01_Phone_number" => "website",
-      "CnAdrPrfPh_6_01_Import_ID" => "website_import_id",
-      "CnAdrPrfPh_7_01_Phone_number" => "phone_3",
-      "CnAdrPrfPh_7_01_Import_ID" => "phone_3_import_id",
-      "CnAttrCat_1_01_Description" => "separate_exemption",
-      "CnAttrCat_1_01_Import_ID" => "separate_exemption_import_id",
-      "CnAttrCat_2_01_Description" => "ein",
-      "CnAttrCat_2_01_Import_ID" => "ein_import_id"}
+  RAISERS_EDGE_FIELD_MAP = {"CnBio_ID" => "database_identifier",
+    "CnBio_Import_ID" => "CnBio_Import_ID",
+    "CnBio_Org_Name" => "name",
+    "CnBio_Constit_Code" => "category", 
+    "CnBio_Inactive" => "inactive",
+    "CnAdrPrf_Addrline1" => "address_line_1",
+    "CnAdrPrf_Addrline2" => "address_line_2",
+    "CnAdrPrf_Addrline3" => "address_line_3",
+    "CnAdrPrf_Addrline4" => "address_line_4",
+    "CnAdrPrf_Addrline5" => "address_line_5",
+    "CnAdrPrf_City" => "city",
+    "CnAdrPrf_ContryLongDscription" => "country",
+    "CnAdrPrf_OrgName" => "CnAdrPrf_OrgName",
+    "CnAdrPrf_Position" => "CnAdrPrf_Position",
+    "CnAdrPrf_State" => "state",
+    "CnAdrPrf_ZIP" => "zip",
+    "CnAdrPrf_Import_ID" => "address_import_id",
+    "CnAdrPrfPh_1_01_Phone_number" => "email_1",
+    "CnAdrPrfPh_1_01_Import_ID" => "email_1_import_id",
+    "CnAdrPrfPh_2_01_Phone_number" => "email_2",
+    "CnAdrPrfPh_2_01_Import_ID" => "email_2_import_id",
+    "CnAdrPrfPh_3_01_Phone_number" => "helpline",
+    "CnAdrPrfPh_3_01_Import_ID" => "helpline_import_id",
+    "CnAdrPrfPh_4_01_Phone_number" => "phone_1",
+    "CnAdrPrfPh_4_01_Import_ID" => "phone_1_import_id",
+    "CnAdrPrfPh_5_01_Phone_number" => "phone_2",
+    "CnAdrPrfPh_5_01_Import_ID" => "phone_2_import_id",
+    "CnAdrPrfPh_6_01_Phone_number" => "website",
+    "CnAdrPrfPh_6_01_Import_ID" => "website_import_id",
+    "CnAdrPrfPh_7_01_Phone_number" => "phone_3",
+    "CnAdrPrfPh_7_01_Import_ID" => "phone_3_import_id",
+    "CnAttrCat_1_01_Description" => "separate_exemption",
+    "CnAttrCat_1_01_Import_ID" => "separate_exemption_import_id",
+    "CnAttrCat_2_01_Description" => "ein",
+    "CnAttrCat_2_01_Import_ID" => "ein_import_id"}
 
   def geocode?
-    (!(street.blank? || city.blank? || state.blank?) && (latitude.blank? || longitude.blank?)) #|| address_changed?
+    (!city.blank? && !state.blank?) && (latitude.blank? || longitude.blank?) #|| address_changed?
   end
 
   def address
   #describe how to retrieve the address from your model, if you use directly a db column, you can dry your code, see wiki
-    "#{self.street}, #{self.city}, #{self.state} United States" 
+    address = [self.street, (self.city + "," unless self.city.blank?), self.state, self.zip].reject{|h| h.blank?}.join(" ")
+    "#{address} United States"
   end
 
   def self.import(file)
@@ -124,8 +123,10 @@ class Chapter < ActiveRecord::Base
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
       logger.info("row: " + row.to_hash.slice(*accessible_attributes).map{|k,v| "#{k}=#{v}" }.join(','))
-      
-      row["address"] = row.reject { |k,v| !k.match("^address") || v.blank? || v == "" }.map {|k,v| v }.join("\n")
+      logger.info ("header " + header.to_s)
+
+      row["street"] = row.select { |k,v| /^address(_line_\d)*$/.match(k) && !v.blank? && v != "" }.map{|k,v| v}.join("\n")
+      #= row.reject { |k,v| !k.match("^address") && !k.match("id$") || v.blank? || v == "" }.map {|k,v| v }.join("\n")
       row["database_identifier"] ||= row["chapter_legacy_identifier"]
       row["chapter_legacy_identifier"] ||= row["database_identifier"]
       
