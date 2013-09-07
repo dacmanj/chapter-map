@@ -1,0 +1,38 @@
+<%= simple_form_for(@leader) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :contituent_id %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :chapter_code %>
+    <%= f.association :chapters, disabled: true %>
+    <%= f.input :position_1 %>
+    <%= f.input :position_2 %>
+    <%= f.input :position_3 %>
+    <%= f.input :position_4 %>
+    <%= f.input :position_5 %>
+    <%= f.input :spouse_first_name %>
+    <%= f.input :spouse_last_name %>
+    <%= f.input :spouse_position_1 %>
+    <%= f.input :spouse_position_2 %>
+    <%= f.input :spouse_position_3 %>
+    <%= f.input :spouse_position_4 %>
+    <%= f.input :spouse_position_5 %>
+    <%= f.input :address %>
+    <%= f.input :address_2 %>
+    <%= f.input :city %>
+    <%= f.input :state %>
+    <%= f.input :zip %>
+    <%= f.input :phone %>
+    <%= f.input :email %>
+    <%= f.input :address_import_id %>
+    <%= f.input :phone_import_id %>
+    <%= f.input :email_import_id %>
+    <%= f.input :suppress_from_directory %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
