@@ -45,9 +45,14 @@
 
 class Chapter < ActiveRecord::Base
   has_and_belongs_to_many :users
+<<<<<<< HEAD
   has_many :attachments
   has_many :chapter_leaders
   has_many :leaders, through: :chapter_leaders
+=======
+  has_many :assets
+  has_many :chapter_leaders
+>>>>>>> starting out
   has_attached_file :bylaws
 
 
