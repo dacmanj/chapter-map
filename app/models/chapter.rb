@@ -37,6 +37,7 @@
 class Chapter < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_many :assets
+  has_many :chapter_leaders
   has_attached_file :bylaws
 
 
