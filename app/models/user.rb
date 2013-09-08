@@ -53,6 +53,15 @@ class User < OmniAuth::Identity::Models::ActiveRecord
     end
   end
 
+  def chapters
+    if self.admin
+      Chapter.all
+    else
+      super
+    end
+
+  end
+
   def self.find_by_email(email)
     unless email.blank?
       email.downcase! 
