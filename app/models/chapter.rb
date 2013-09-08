@@ -38,6 +38,7 @@ class Chapter < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_many :assets
   has_many :chapter_leaders
+  has_many :leaders, through: :chapter_leaders
   has_attached_file :bylaws
 
 
@@ -105,6 +106,10 @@ class Chapter < ActiveRecord::Base
   def self.search(name)
     name = name.downcase
     Chapter.find(:all, :conditions => ["lower(name) LIKE ?","%#{name}%"])
+  end
+
+  def self.find_by_cid(name)
+    Chapter.find_by_chapter_legacy_identifier name
   end
 
   def self.find_by_email(email)

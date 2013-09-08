@@ -2,18 +2,18 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :chapter_id %>
-    <%= f.input :leader_id %>
-    <%= f.input :position_1 %>
-    <%= f.input :position_2 %>
-    <%= f.input :position_3 %>
-    <%= f.input :position_4 %>
-    <%= f.input :position_5 %>
-    <%= f.input :spouse_position_1 %>
-    <%= f.input :spouse_position_2 %>
-    <%= f.input :spouse_position_3 %>
-    <%= f.input :spouse_position_4 %>
-    <%= f.input :spouse_position_5 %>
+    <%= f.association :chapter, prompt: "Select a chapter..." %>
+    <%= f.association :leader %>
+    <%= f.input :position_1, collection: ChapterLeader.positions %>
+    <%= f.input :position_2, collection: ChapterLeader.positions %>
+    <%= f.input :position_3, collection: ChapterLeader.positions %>
+    <%= f.input :position_4, collection: ChapterLeader.positions %>
+    <%= f.input :position_5, collection: ChapterLeader.positions %>
+    <%= f.input :spouse_position_1, collection: ChapterLeader.positions %>
+    <%= f.input :spouse_position_2, collection: ChapterLeader.positions %>
+    <%= f.input :spouse_position_3, collection: ChapterLeader.positions %>
+    <%= f.input :spouse_position_4, collection: ChapterLeader.positions %>
+    <%= f.input :spouse_position_5, collection: ChapterLeader.positions %>
   </div>
 
   <div class="form-actions">
