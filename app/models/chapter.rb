@@ -52,7 +52,11 @@ class Chapter < ActiveRecord::Base
 =======
   has_many :assets
   has_many :chapter_leaders
+<<<<<<< HEAD
 >>>>>>> starting out
+=======
+  has_many :leaders, through: :chapter_leaders
+>>>>>>> leader role object
   has_attached_file :bylaws
 
 
