@@ -29,11 +29,11 @@ class User < OmniAuth::Identity::Models::ActiveRecord
     end
   end
 
-  def assets
-    if !self.admin
-      return self.chapters.collect(&:assets).flatten
+  def attachments
+    if self.admin
+      return Attachment.all
     else
-      return Asset.all
+      return self.chapters.collect(&:attachments).flatten
     end
   end
 

@@ -39,7 +39,7 @@
     }
   }
 
-  config.assets.prefix = "/dev-assets"
+  config.assets.prefix = "/assets"
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -63,7 +63,7 @@
   #config.assets.logger = nil
 
   config.logger = Logger.new(STDOUT)
-  config.serve_static_assets = false
+  config.serve_static_assets = true
 
 
 end

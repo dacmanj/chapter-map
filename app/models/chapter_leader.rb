@@ -25,6 +25,6 @@ class ChapterLeader < ActiveRecord::Base
   belongs_to :leader
 
   def self.positions
-  	["Board Member","President","Vice President","Treasurer","Secretary","Executive Director","Co-President","Communications Coordinator","Diversity Coordinator","Advocacy Coordinator","Fundraising Coordinator","Membership Coordinator","Safe Schools Coordinator","Speakers Bureau Coordinator","State Coordinator","Transgender Coordinator","Programs Coordinator","Web Manager"]
+  	["","Board Member","President","Vice President","Treasurer","Secretary","Executive Director","Co-President","Communications Coordinator","Diversity Coordinator","Advocacy Coordinator","Fundraising Coordinator","Membership Coordinator","Safe Schools Coordinator","Speakers Bureau Coordinator","State Coordinator","Transgender Coordinator","Programs Coordinator","Web Manager"]
   end
 end

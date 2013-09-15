@@ -7,7 +7,7 @@ ChapterMap::Application.routes.draw do
 
   resources :sessions
   resources :chapters
-  resources :assets
+  resources :attachments
 
   resources :chapters do
     collection do post :import end

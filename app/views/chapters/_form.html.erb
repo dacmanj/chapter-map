@@ -33,22 +33,22 @@
 
       <div class="well form-horizontal">
         <h2>Chapter File Storage</h2>
-        <%= link_to "Manage My Chapter Files", assets_path %>
+        <%= link_to "Manage My Chapter Files", file_path %>
 
-          <%= f.fields_for :assets do |asset_form| %>
+          <%= f.fields_for :file do |attachment_form| %>
             <div class="well">
-              <% if asset_form.object.attachment_file_name.nil? %>
+              <% if attachment_form.object.attachment_file_name.nil? %>
 
-                <%= asset_form.input :tag, collection: Asset.tags, prompt: "Select type of file" %>
-                <%= asset_form.input :attachment %>
+                <%= attachment_form.input :tag, collection: Asset.tags, prompt: "Select type of file" %>
+                <%= attachment_form.input :attachment %>
               <% else %>
-                <%= "<a href='#{asset_form.object.attachment}'>#{asset_form.object.tag}: #{asset_form.object.attachment_file_name}</a>".html_safe %>
+                <%= "<a href='#{attachment_form.object.attachment}'>#{attachment_form.object.tag}: #{attachment_form.object.attachment_file_name}</a>".html_safe %>
               <% end %>
-              <%= asset_form.link_to_remove "<i class='icon-trash icon-white'></i>Remove File".html_safe, class: "btn btn-danger" %>
+              <%= attachment_form.link_to_remove "<i class='icon-trash icon-white'></i>Remove File".html_safe, class: "btn btn-danger" %>
 
             </div>
           <% end %>
-          <p><%= f.link_to_add "Add File", :assets, class: "btn btn-primary" %></p>
+          <p><%= f.link_to_add "Add File", :file, class: "btn btn-primary" %></p>
       </div>
     </div>
 
