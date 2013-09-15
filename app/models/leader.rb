@@ -26,10 +26,11 @@
 #
 
 class Leader < ActiveRecord::Base
-  attr_accessible :address, :address_2, :address_import_id, :chapter_code, :city, :contituent_id, :email, :email_import_id, :first_name, :last_name, :phone, :phone_import_id, :position_1, :position_2, :position_3, :position_4, :position_5, :spouse_first_name, :spouse_last_name, :spouse_position_1, :spouse_position_2, :spouse_position_3, :spouse_position_4, :spouse_position_5, :state, :zip, :suppress_from_directory
+  attr_accessible :address, :address_2, :address_import_id, :chapter_code, :city, :contituent_id, :email, :email_import_id, :first_name, :last_name, :phone, :phone_import_id, :spouse_first_name, :spouse_last_name, :state, :zip, :suppress_from_directory, :chapter_leaders_attributes
   has_many :chapter_leaders
   has_many :chapters, through: :chapter_leaders
   has_many :users, through: :chapters
+  accepts_nested_attributes_for :chapter_leaders, :allow_destroy => true
 
   def link_to_chapter
   	unless chapter_code.empty?

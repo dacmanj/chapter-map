@@ -1,0 +1,21 @@
+<%= simple_nested_form_for(@attachment) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.label :id %><%= @attachment.id %>
+	<%= f.label :created_at %><%= @attachment.created_at %>
+	<%= f.label :attachment_file_name %>
+	<%= f.association :chapter, prompt: "Select a chapter..." %>
+	<%= f.input :tag, collection: Asset.tags, prompt: "Select a tag..." %>
+	<%= f.label :attachment_file_name %><%= @attachment.attachment_file_name %>
+	<%= f.label :attachment_content_type %><%= @attachment.attachment_content_type %>
+	<%= f.label :attachment_file_size %><%= @attachment.attachment_file_size %>
+	<%= f.label :attachment_updated_at %><%= @attachment.attachment_updated_at %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+    <%= link_to content_tag(:i, "", class: "icon-trash icon-white") + ' Delete', @attachment, method: :delete, :class => "btn btn-danger" unless !admin_user? %>
+
+  </div>
+<% end %>

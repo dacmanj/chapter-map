@@ -36,19 +36,19 @@
 
 class Chapter < ActiveRecord::Base
   has_and_belongs_to_many :users
-  has_many :assets
+  has_many :attachments
   has_many :chapter_leaders
   has_many :leaders, through: :chapter_leaders
   has_attached_file :bylaws
 
 
-  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :chapter_legacy_identifier, :database_identifier, :asset_ids, :bylaws, :assets_attributes
+  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :chapter_legacy_identifier, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes
   acts_as_gmappable :lat => 'latitude', :lng => 'longitude', :process_geocoding => :geocode?,
                   :address => "address", :normalized_address => "gmaps_address",
                   :msg => "Sorry, not even Google could figure out where that is",
                   :validate => false
 
-  accepts_nested_attributes_for :assets, :allow_destroy => true
+  accepts_nested_attributes_for :attachments, :allow_destroy => true
 
   scope :active, where("inactive = ? OR inactive is ?",false,nil)
 

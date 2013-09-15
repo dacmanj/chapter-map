@@ -63,7 +63,7 @@
   #config.assets.logger = nil
 
   config.logger = Logger.new(STDOUT)
-  config.serve_static_assets = false
+  config.serve_static_assets = true
 
 
 end
