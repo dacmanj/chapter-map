@@ -3,7 +3,7 @@
 
   <div class="form-inputs">
     <%= f.association :chapter, prompt: "Select a chapter..." %>
-    <%= f.association :leader %>
+    <%= f.association :leader, collection: current_user. %>
     <%= f.input :position_1, collection: ChapterLeader.positions %>
     <%= f.input :position_2, collection: ChapterLeader.positions %>
     <%= f.input :position_3, collection: ChapterLeader.positions %>
