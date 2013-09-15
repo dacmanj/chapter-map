@@ -1,7 +1,8 @@
     <%= f.fields_for :chapter_leaders do |cl| %>
       <div class="well">
-        <%= cl.input :chapter_id, collection: current_user.chapters %>
+        <%= cl.select :chapter_id, grouped_options_for_select(chapters_by_state_for_select, @leader.chapter_id) %>
         <p>Positions</p>
+
         <%= cl.select :position_1, ChapterLeader.positions %>
         <%= cl.select :position_2, ChapterLeader.positions %>
         <%= cl.select :position_3, ChapterLeader.positions %>

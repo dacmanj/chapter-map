@@ -6,15 +6,7 @@ class ChaptersController < ApplicationController
   # GET /chapters
   # GET /chapters.json
   def index
-    if admin_user?
-      if params[:search].blank?
-        @chapters = Chapter.all
-      else
-        @chapters = Chapter.search(params[:search])
-      end
-    else
-      @chapters = current_user.chapters
-    end
+    @chapters = current_user.chapters
 
     respond_to do |format|
       format.html # index.html.erb

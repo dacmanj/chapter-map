@@ -2,7 +2,7 @@ class LeadersController < ApplicationController
   # GET /leaders
   # GET /leaders.json
   def index
-    @leaders = Leader.all
+    @leaders = current_user.leaders
 
     respond_to do |format|
       format.html # index.html.erb

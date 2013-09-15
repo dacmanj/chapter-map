@@ -43,7 +43,14 @@ class User < OmniAuth::Identity::Models::ActiveRecord
     else
       super
     end
+  end
 
+  def leaders
+    if self.admin
+      Leader.all
+    else
+      return self.chapters.collect(&:leaders).flatten
+    end
   end
 
   def self.find_by_email(email)
