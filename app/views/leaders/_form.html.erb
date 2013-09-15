@@ -7,8 +7,6 @@
     <%= f.input :last_name %>
     <%= f.input :chapter_code unless !current_user.admin  %>
     <%= select :leader, :chapter_ids, grouped_options_for_select(chapters_by_state_for_select, @leader.chapter_ids), {}, :multiple => true, :disabled => true %>
-
-
     <%= render "chapter_leaders", :f => f %>
     <%= f.input :spouse_first_name %>
     <%= f.input :spouse_last_name %>
