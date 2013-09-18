@@ -2,35 +2,34 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-$("#geocode").change -> 
-  if $("#geocode").prop("checked")
-    $("#chapter_latitude").val("").attr("readonly","true")
-    $("#chapter_longitude").val("").attr("readonly","true")
-  else
-    $("#chapter_latitude").removeAttr("readonly")
-    $("#chapter_longitude").removeAttr("readonly")
-
-$("body.home #state").change(submitChapterSearch)
-$("body.home #distance").change(submitChapterSearch)
-$("a.btn.reset-search").click(clearSearch)
+$ ->
+  $("#geocode").change -> 
+    if $("#geocode").prop("checked")
+      $("#chapter_latitude").val("").attr("readonly","true")
+      $("#chapter_longitude").val("").attr("readonly","true")
+    else
+      $("#chapter_latitude").removeAttr("readonly")
+      $("#chapter_longitude").removeAttr("readonly")
 
 
-clearSearch = (e) ->
-  form = $(this).closest("form")[0]
-  console.log form
-  form.reset()
-  $("select",form).val("")
-  form.submit()
-  false
+  clearChapterSearch = ->
+    $("input#zip,select",".chapter-search").val("").closest("form").submit()
 
-submitChapterSearch = () ->
-  (($("#state option:selected").val() != "") || ($("#zip").val() != "")) && $("form.chapter-search").submit();
+  clearSearch = (e) ->
+    window.location.href = window.location.href
+    false
 
-#$("body.chapters.edit form").submit => submitAjax
+  submitChapterSearch = () ->
+    (($("#state option:selected").val() != "") || ($("#zip").val() != "")) && $("form.chapter-search").submit();
 
-submitAjax = (e) -> 
-  valuesToSubmit = $(this).serialize
-  $.ajax { url: $(this).attr('action'), data: valuesToSubmit, dataType: "JSON", type: 'POST' }
-  false
+  #$("body.chapters.edit form").submit => submitAjax
+
+  submitAjax = (e) -> 
+    valuesToSubmit = $(this).serialize
+    $.ajax { url: $(this).attr('action'), data: valuesToSubmit, dataType: "JSON", type: 'POST' }
+    false
 
 
+  $("body.home #state").change submitChapterSearch
+  $("body.home #distance").change submitChapterSearch
+  $(".chapter-search button.reset-search").click clearSearch

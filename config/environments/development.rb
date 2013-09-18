@@ -39,7 +39,7 @@
     }
   }
 
-  config.assets.prefix = "/dev-assets"
+  config.assets.prefix = "/assets"
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -55,7 +55,7 @@
   config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Do not compress assets
-  config.assets.compress = true
+  config.assets.compress = false
 
   # Expands the lines which load the assets
   config.assets.debug = true
