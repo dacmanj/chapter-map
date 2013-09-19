@@ -31,7 +31,16 @@
 #  bylaws_file_name          :string(255)
 #  bylaws_content_type       :string(255)
 #  bylaws_file_size          :integer
-#  bylaws_updated_at         :datetime
+#  bylaws_updated_at         :timestamp
+#  email_1_import_id         :string(255)
+#  email_2_import_id         :string(255)
+#  email_3_import_id         :string(255)
+#  helpline_import_id        :string(255)
+#  phone_1_import_id         :string(255)
+#  phone_2_import_id         :string(255)
+#  address_import_id         :string(255)
+#  independent_import_id     :string(255)
+#  ein_import_id             :string(255)
 #
 
 require 'spec_helper'

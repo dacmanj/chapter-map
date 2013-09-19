@@ -73,8 +73,9 @@ class ChaptersController < ApplicationController
   end
 
   def import
-    Chapter.import(params[:file]) 
-    redirect_to root_url, notice: "Chapters imported."
+    errors = Chapter.import(params[:file]) 
+    message =  (errors.length > 0) ? errors.join(", ") : "Chapters imported."
+    redirect_to chapters_path, notice: message
   end
 
   # PUT /chapters/1

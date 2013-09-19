@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130803180050) do
+ActiveRecord::Schema.define(:version => 20130919161852) do
 
   create_table "assets", :force => true do |t|
     t.datetime "created_at",              :null => false
@@ -62,6 +62,15 @@ ActiveRecord::Schema.define(:version => 20130803180050) do
     t.string   "bylaws_content_type"
     t.integer  "bylaws_file_size"
     t.datetime "bylaws_updated_at"
+    t.string   "email_1_import_id"
+    t.string   "email_2_import_id"
+    t.string   "email_3_import_id"
+    t.string   "helpline_import_id"
+    t.string   "phone_1_import_id"
+    t.string   "phone_2_import_id"
+    t.string   "address_import_id"
+    t.string   "independent_import_id"
+    t.string   "ein_import_id"
   end
 
   create_table "chapters_users", :force => true do |t|
