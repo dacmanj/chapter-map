@@ -12,7 +12,8 @@
 # It's strongly recommended to check this file into your version control system.
 
 ActiveRecord::Schema.define(:version => 20130919161852) do
-  create_table "attachments", :force => true do |t|
+
+  create_table "Attachments", :force => true do |t|
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
     t.string   "attachment_file_name"
@@ -24,11 +25,11 @@ ActiveRecord::Schema.define(:version => 20130919161852) do
   end
 
   create_table "authentications", :force => true do |t|
-    t.integer   "user_id"
-    t.string    "provider"
-    t.string    "uid"
-    t.timestamp "created_at", :null => false
-    t.timestamp "updated_at", :null => false
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "chapter_leaders", :force => true do |t|
@@ -49,7 +50,6 @@ ActiveRecord::Schema.define(:version => 20130919161852) do
   end
 
   create_table "chapters", :force => true do |t|
-<<<<<<< HEAD
     t.string   "name"
     t.string   "website"
     t.string   "street"
@@ -119,13 +119,13 @@ ActiveRecord::Schema.define(:version => 20130919161852) do
   end
 
   create_table "users", :force => true do |t|
-    t.string    "name"
-    t.string    "email"
-    t.timestamp "created_at",      :null => false
-    t.timestamp "updated_at",      :null => false
-    t.boolean   "admin"
-    t.string    "password_digest"
-    t.string    "activation_code"
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.boolean  "admin"
+    t.string   "password_digest"
+    t.string   "activation_code"
   end
 
 end
