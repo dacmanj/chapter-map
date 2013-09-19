@@ -1,0 +1,22 @@
+<%= simple_form_for(@chapter_leader) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :chapter, prompt: "Select a chapter..." %>
+    <%= f.association :leader, collection: current_user. %>
+    <%= f.input :position_1, collection: ChapterLeader.positions %>
+    <%= f.input :position_2, collection: ChapterLeader.positions %>
+    <%= f.input :position_3, collection: ChapterLeader.positions %>
+    <%= f.input :position_4, collection: ChapterLeader.positions %>
+    <%= f.input :position_5, collection: ChapterLeader.positions %>
+    <%= f.input :spouse_position_1, collection: ChapterLeader.positions %>
+    <%= f.input :spouse_position_2, collection: ChapterLeader.positions %>
+    <%= f.input :spouse_position_3, collection: ChapterLeader.positions %>
+    <%= f.input :spouse_position_4, collection: ChapterLeader.positions %>
+    <%= f.input :spouse_position_5, collection: ChapterLeader.positions %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

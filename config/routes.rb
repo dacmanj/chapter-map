@@ -1,7 +1,13 @@
 ChapterMap::Application.routes.draw do
+  resources :chapter_leaders
+
+
+  resources :leaders
+
+
   resources :sessions
   resources :chapters
-  resources :assets
+  resources :attachments
 
   resources :chapters do
     collection do post :import end
@@ -9,6 +15,10 @@ ChapterMap::Application.routes.draw do
 
   resources :chapters do
     collection do post :delete_multiple end
+  end
+
+  resources :leaders do
+    collection do post :import end
   end
 
   resources :users do
@@ -22,6 +32,7 @@ ChapterMap::Application.routes.draw do
   match 'embed' => 'home#embed'
   match 'pflag' => 'home#pflag'
   match 'import' => 'chapters#import'
+  match 'leaders/import' => 'leaders#import'
 
   match "/activate" => "users#confirm"
 

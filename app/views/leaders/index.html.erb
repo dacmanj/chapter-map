@@ -1,0 +1,43 @@
+<h1>Listing leaders</h1>
+
+<table class="table table-striped">
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Spouse first name</th>
+    <th>Spouse last name</th>
+    <th>Address</th>
+    <th>Address 2</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zip</th>
+    <th>Phone</th>
+    <th>Email</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @leaders.each do |leader| %>
+  <tr>
+    <td><%= leader.first_name %></td>
+    <td><%= leader.last_name %></td>
+    <td><%= leader.spouse_first_name %></td>
+    <td><%= leader.spouse_last_name %></td>
+    <td><%= leader.address %></td>
+    <td><%= leader.address_2 %></td>
+    <td><%= leader.city %></td>
+    <td><%= leader.state %></td>
+    <td><%= leader.zip %></td>
+    <td><%= leader.phone %></td>
+    <td><%= leader.email %></td>
+    <td><%= link_to 'Show', leader %></td>
+    <td><%= link_to 'Edit', edit_leader_path(leader) %></td>
+    <td><%= link_to 'Destroy', leader, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Leader', new_leader_path %>
