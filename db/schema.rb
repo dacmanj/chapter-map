@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130915192054) do
+ActiveRecord::Schema.define(:version => 20130919161852) do
 
   create_table "Attachments", :force => true do |t|
     t.datetime "created_at",              :null => false
@@ -25,28 +25,11 @@ ActiveRecord::Schema.define(:version => 20130915192054) do
   end
 
   create_table "authentications", :force => true do |t|
-    t.integer   "user_id"
-    t.string    "provider"
-    t.string    "uid"
-    t.timestamp "created_at", :null => false
-    t.timestamp "updated_at", :null => false
-  end
-
-  create_table "chapter_leaders", :force => true do |t|
-    t.integer  "chapter_id"
-    t.integer  "leader_id"
-    t.string   "position_1"
-    t.string   "position_2"
-    t.string   "position_3"
-    t.string   "position_4"
-    t.string   "position_5"
-    t.string   "spouse_position_1"
-    t.string   "spouse_position_2"
-    t.string   "spouse_position_3"
-    t.string   "spouse_position_4"
-    t.string   "spouse_position_5"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "chapter_leaders", :force => true do |t|
@@ -138,23 +121,11 @@ ActiveRecord::Schema.define(:version => 20130915192054) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.string   "address_import_id"
-    t.string   "phone_import_id"
-    t.string   "email_import_id"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
-    t.boolean  "suppress_from_directory"
-    t.integer  "chapter_id"
-  end
-
-  create_table "users", :force => true do |t|
-    t.string    "name"
-    t.string    "email"
-    t.timestamp "created_at",      :null => false
-    t.timestamp "updated_at",      :null => false
-    t.boolean   "admin"
-    t.string    "password_digest"
-    t.string    "activation_code"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.boolean  "admin"
+    t.string   "password_digest"
+    t.string   "activation_code"
   end
 
 end

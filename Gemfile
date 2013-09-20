@@ -4,7 +4,6 @@ gem 'rails', '3.2.13'
 gem 'paperclip'
 gem 'aws-sdk'
 
-gem 'sqlite3', :group => :development
 gem 'pg', :group => :production
 
 group :assets do
@@ -16,6 +15,7 @@ end
 
 group :development do
   gem 'webrick', '~> 1.3.1'
+  gem 'pg'
   gem "better_errors", ">= 0.7.2"
   gem "quiet_assets", ">= 1.0.2"
   gem "annotate"
