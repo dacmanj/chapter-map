@@ -1,9 +1,9 @@
 class RenameAssetsTableToAttachmentsTable < ActiveRecord::Migration
   def up
-    rename_table :Assets, :Attachments
+    rename_table :assets, :attachments
   end
 
   def down
-    rename_table :Attachments, :Assets
+    rename_table :attachments, :assets
   end
 end
