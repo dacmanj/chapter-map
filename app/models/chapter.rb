@@ -58,7 +58,7 @@ class Chapter < ActiveRecord::Base
   scope :active, where("inactive = ? OR inactive is ?",false,nil)
 
   before_validation do
-    self.ein = "%09d" % ein.gsub(/[^0-9]/, "") if attribute_present?("ein")
+    self.ein = "%09d" % ein.gsub(/[^0-9]/, "").to_i if attribute_present?("ein")
   end
 
   validates_length_of :ein, :minimum => 9, :maximum => 9, :unless => Proc.new {|c| c.ein.blank? }
