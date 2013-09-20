@@ -131,6 +131,7 @@ class Chapter < ActiveRecord::Base
       chapter = find_by_database_identifier(row["database_identifier"]) || find_by_ein(row["ein"]) || find_by_id(row["id"]) || new
       chapter.attributes = row.to_hash.slice(*accessible_attributes)
       chapter.save!
+      sleep 0.1
     end
        errors
   end
