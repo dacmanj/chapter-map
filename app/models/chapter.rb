@@ -50,7 +50,7 @@ class Chapter < ActiveRecord::Base
   has_many :leaders, through: :chapter_leaders
 
   attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :chapter_legacy_identifier, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes, :email_1_import_id, :email_2_import_id, :email_3_import_id, :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, :independent_import_id, :ein_import_id
-  acts_as_gmappable :lat => 'latitude', :lng => 'longitude',:validation => false, :process_geocoding => :geocode?, :check_process => true, :checker => "gmaps",
+  acts_as_gmappable :lat => 'latitude', :lng => 'longitude',:validation => false, :process_geocoding => true, :checker => "gmaps", :check_process => true, 
                   :address => "address", :normalized_address => "gmaps_address"
 
   accepts_nested_attributes_for :attachments, :allow_destroy => true
@@ -103,10 +103,6 @@ class Chapter < ActiveRecord::Base
     "CnAttrCat_2_01_Description" => "ein",
     "CnAttrCat_2_01_Import_ID" => "ein_import_id"}
 
-  def geocode?
-    (!city.blank? && !state.blank?) && (latitude.blank? || longitude.blank?) #|| address_changed?
-  end
-
   def address
   #describe how to retrieve the address from your model, if you use directly a db column, you can dry your code, see wiki
     address = [self.street, (self.city + "," unless self.city.blank?), self.state, self.zip].reject{|h| h.blank?}.join(" ")
@@ -123,11 +119,16 @@ class Chapter < ActiveRecord::Base
       logger.info("row: " + row.to_hash.slice(*accessible_attributes).map{|k,v| "#{k}=#{v}" }.join(','))
       logger.info ("header " + header.to_s)
 
-      row["street"] = row.select { |k,v| /^address(_line_\d)*$/.match(k) && !v.blank? && v != "" }.map{|k,v| v}.join("\n")
+      address_lines = row.select { |k,v| /^address(_line_\d)*$/.match(k) && !v.blank? && v != "" }.map{|k,v| v}.join("\n")
+      row["street"] ||= address_lines unless address_lines.blank?
       #= row.reject { |k,v| !k.match("^address") && !k.match("id$") || v.blank? || v == "" }.map {|k,v| v }.join("\n")
-      row["database_identifier"] ||= row["chapter_legacy_identifier"]
-      row["chapter_legacy_identifier"] ||= row["database_identifier"]
+
+      row["database_identifier"] ||= row["chapter_legacy_identifier"] unless row["chapter_legacy_identifier"].blank?
+      row["chapter_legacy_identifier"] ||= row["database_identifier"] unless row["database_identifier"].blank?
       
+      if (!row["latitude"].blank? && !row["longitude"].blank?) 
+        row["gmaps"] = true
+      end
       chapter = find_by_database_identifier(row["database_identifier"]) || find_by_ein(row["ein"]) || find_by_id(row["id"]) || new
       chapter.attributes = row.to_hash.slice(*accessible_attributes)
       chapter.save!
