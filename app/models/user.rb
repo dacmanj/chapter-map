@@ -45,6 +45,10 @@ class User < OmniAuth::Identity::Models::ActiveRecord
     end
   end
 
+  def search(params)
+    self.chapters.select{|h| h.name.match(params)}
+  end
+
   def leaders
     if self.admin?
       Leader.all
