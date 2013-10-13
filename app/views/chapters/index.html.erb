@@ -40,7 +40,7 @@
       <td><%= chapter.zip %></td>
       <td><%= chapter.email_1 %></td>
       <td><%= format_EIN(chapter.ein) %></td>
-      <td><%= link_to content_tag(:i, "", class: "icon-trash icon-red") + "", chapter, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger remove_fields" unless !admin_user? %> </td>
+      <td><%= link_to content_tag(:i, "", class: "icon-trash icon-white") + "", chapter, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger remove_fields" unless !admin_user? %> </td>
     </tr>
   <% end %>
 </table>
