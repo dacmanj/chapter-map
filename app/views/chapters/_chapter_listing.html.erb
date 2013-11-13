@@ -4,7 +4,7 @@
 			<%if chapter.website.blank? %>
 				<%=chapter.name%>
 			<% else %>
-				<%= link_to chapter.name, chapter.website %>
+				<%= link_to chapter.name, chapter.website_url %>
 			<% end %>
 		</strong>
 	</div>

@@ -110,6 +110,14 @@ class Chapter < ActiveRecord::Base
     "#{address} United States"
   end
 
+  def website_url
+    url = self.website
+    unless url.blank? || url[/\Ahttp:\/\//] || url[/\Ahttps:\/\//]
+      url = "http://#{url}"
+    end
+    url
+  end
+
   def self.import(file)
     errors = Array.new
     spreadsheet = open_spreadsheet(file)

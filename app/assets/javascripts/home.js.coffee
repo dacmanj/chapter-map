@@ -4,7 +4,7 @@
 $ ->
   if markers_json?
     handler = Gmaps.build('Google')
-    handler.buildMap { provider: {}, internal: {id: 'map'}}, -> 
+    handler.buildMap { provider: {auto_adjust: "true", auto_zoom: "true"}, internal: {id: 'map'}}, -> 
       markers = handler.addMarkers markers_json
       handler.bounds.extendWith markers
-      handler.adjustMapToBounds
+      handler.fitMapToBounds()
