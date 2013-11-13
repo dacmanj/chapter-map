@@ -13,6 +13,8 @@ class HomeController < ApplicationController
     @hash = Gmaps4rails.build_markers(@chapters) do |chapter, marker|
       marker.lat chapter.latitude
       marker.lng chapter.longitude
+      marker.title   "#{chapter.name}"
+      marker.infowindow render_to_string(:partial => "/chapters/infowindow", :locals => { :chapter => chapter})
     end
 #     @json = @chapters.to_gmaps4rails do |chapter, marker|
 #        marker.infowindow render_to_string(:partial => "/chapters/infowindow", :locals => { :chapter => chapter})

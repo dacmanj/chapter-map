@@ -15,22 +15,17 @@
    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Chapter Map</a>
+          <%= link_to "Chapter Map", root_path, :class => 'navbar-brand' %>
         </div>
         <div class="navbar-collapse collapse">
           <%= render 'layouts/navigation' %>
         </div><!--/.nav-collapse -->
       </div>
     </div>
-    <div class="container theme-showcase">
+    <div class="container">
       <div class="row">
         <%= render 'layouts/messages' %>
       </div>
-
-      <div class="jumbotron">
-        <h1>Hello, world!</h1>
-      </div>
-
       <div class="row">
           <%= yield %>
       </div>

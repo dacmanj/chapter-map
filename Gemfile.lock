@@ -82,7 +82,7 @@ GEM
       bundler (~> 1.0)
       rails (>= 3, < 5)
     geocoder (1.1.8)
-    gmaps4rails (2.0.4)
+    gmaps4rails (2.0.5)
     hashie (2.0.5)
     hike (1.2.3)
     httpauth (0.2.0)
@@ -97,7 +97,7 @@ GEM
     json (1.8.1)
     jwt (0.1.8)
       multi_json (>= 1.5)
-    launchy (2.3.0)
+    launchy (2.4.0)
       addressable (~> 2.3)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -230,7 +230,7 @@ DEPENDENCIES
   factory_girl_rails (>= 4.2.0)
   figaro (>= 0.6.3)
   geocoder
-  gmaps4rails (~> 2.0.0.pre)
+  gmaps4rails (~> 2.0.5)
   i18n
   jquery-fileupload-rails
   jquery-rails
