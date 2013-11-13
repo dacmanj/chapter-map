@@ -2,7 +2,7 @@
 #
 # Table name: chapters
 #
-#  id                        :integer          primary key
+#  id                        :integer          not null, primary key
 #  name                      :string(255)
 #  website                   :string(255)
 #  street                    :string(255)
@@ -18,8 +18,8 @@
 #  latitude                  :float
 #  longitude                 :float
 #  ein                       :string(255)
-#  created_at                :timestamp        not null
-#  updated_at                :timestamp        not null
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
 #  gmaps                     :boolean
 #  gmaps_address             :string(255)
 #  radius                    :integer
@@ -31,7 +31,7 @@
 #  bylaws_file_name          :string(255)
 #  bylaws_content_type       :string(255)
 #  bylaws_file_size          :integer
-#  bylaws_updated_at         :timestamp
+#  bylaws_updated_at         :datetime
 #  email_1_import_id         :string(255)
 #  email_2_import_id         :string(255)
 #  email_3_import_id         :string(255)

@@ -12,7 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-fileupload
 //= require bootstrap
+//= require jquery-fileupload
 //= require jquery_nested_form
+//= require gmaps/google
+//= require underscore
 //= require_tree .

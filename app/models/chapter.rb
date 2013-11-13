@@ -2,7 +2,7 @@
 #
 # Table name: chapters
 #
-#  id                        :integer          primary key
+#  id                        :integer          not null, primary key
 #  name                      :string(255)
 #  website                   :string(255)
 #  street                    :string(255)
@@ -18,8 +18,8 @@
 #  latitude                  :float
 #  longitude                 :float
 #  ein                       :string(255)
-#  created_at                :timestamp        not null
-#  updated_at                :timestamp        not null
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
 #  gmaps                     :boolean
 #  gmaps_address             :string(255)
 #  radius                    :integer
@@ -31,7 +31,7 @@
 #  bylaws_file_name          :string(255)
 #  bylaws_content_type       :string(255)
 #  bylaws_file_size          :integer
-#  bylaws_updated_at         :timestamp
+#  bylaws_updated_at         :datetime
 #  email_1_import_id         :string(255)
 #  email_2_import_id         :string(255)
 #  email_3_import_id         :string(255)
@@ -51,8 +51,8 @@ class Chapter < ActiveRecord::Base
   has_paper_trail
 
   attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :chapter_legacy_identifier, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes, :email_1_import_id, :email_2_import_id, :email_3_import_id, :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, :independent_import_id, :ein_import_id
-  acts_as_gmappable :lat => 'latitude', :lng => 'longitude',:validation => false, :process_geocoding => true, :checker => "gmaps", :check_process => true, 
-                  :address => "address", :normalized_address => "gmaps_address"
+ # acts_as_gmappable :lat => 'latitude', :lng => 'longitude', :validation => false, :process_geocoding => true, :checker => "gmaps", :check_process => true, 
+ #                 :address => "address", :normalized_address => "gmaps_address"
 
   accepts_nested_attributes_for :attachments, :allow_destroy => true
 
