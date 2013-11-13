@@ -9,6 +9,7 @@ gem 'pg', :group => :production
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
+  gem 'sass-rails',   '~> 3.2.3'
 end
 
 
@@ -36,7 +37,6 @@ gem "roo"
 gem "jquery-rails"
 gem "rspec-rails", ">= 2.12.2", :group => [:development, :test]
 gem "factory_girl_rails", ">= 4.2.0", :group => [:development, :test]
-gem 'sass-rails',   '~> 3.2.3'
 gem "bootstrap-sass", ">= 2.3.0.0"
 gem 'underscore-rails'
 gem "omniauth", ">= 1.1.3"
