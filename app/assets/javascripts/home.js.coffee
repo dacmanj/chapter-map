@@ -12,3 +12,8 @@ $ ->
       handler.getMap().setZoom 8 unless (zoom < 8)
 
 
+$ ->
+  $("div.rainbowNavigationTop").click ->
+	  window.location.href = $("a",$(this)).attr("href")
+  $("div.rainbowNavigationTop").width($("td.rainbowNavigationTop").siblings().width()/4-12)
+
