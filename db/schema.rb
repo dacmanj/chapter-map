@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131023023528) do
+ActiveRecord::Schema.define(:version => 20131115192614) do
 
   create_table "Attachments", :force => true do |t|
     t.datetime "created_at",              :null => false
@@ -54,6 +54,14 @@ ActiveRecord::Schema.define(:version => 20131023023528) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "ballots", :force => true do |t|
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "voter_id"
+    t.integer  "election_id"
+    t.string   "email"
+  end
+
   create_table "chapter_leaders", :force => true do |t|
     t.integer  "chapter_id"
     t.integer  "leader_id"
@@ -87,8 +95,8 @@ ActiveRecord::Schema.define(:version => 20131023023528) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "ein"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
     t.boolean  "gmaps"
     t.string   "gmaps_address"
     t.integer  "radius"
@@ -96,11 +104,6 @@ ActiveRecord::Schema.define(:version => 20131023023528) do
     t.boolean  "separate_exemption"
     t.boolean  "inactive"
     t.string   "database_identifier"
-    t.string   "chapter_legacy_identifier"
-    t.string   "bylaws_file_name"
-    t.string   "bylaws_content_type"
-    t.integer  "bylaws_file_size"
-    t.datetime "bylaws_updated_at"
     t.string   "email_1_import_id"
     t.string   "email_2_import_id"
     t.string   "email_3_import_id"
@@ -115,6 +118,24 @@ ActiveRecord::Schema.define(:version => 20131023023528) do
   create_table "chapters_users", :force => true do |t|
     t.integer "chapter_id"
     t.integer "user_id"
+  end
+
+  create_table "elections", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.boolean  "active"
+    t.date     "fiscal_year"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "items", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "filter_criteria"
+    t.integer  "election_id"
   end
 
   create_table "leaders", :force => true do |t|
@@ -160,5 +181,22 @@ ActiveRecord::Schema.define(:version => 20131023023528) do
   end
 
   add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
+
+  create_table "voters", :force => true do |t|
+    t.string   "member_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.boolean  "unverified"
+  end
+
+  create_table "votes", :force => true do |t|
+    t.boolean  "position"
+    t.integer  "voter_id"
+    t.integer  "ballot_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "item_id"
+    t.integer  "election_id"
+  end
 
 end
