@@ -13,28 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20131115192614) do
 
-  create_table "Attachments", :force => true do |t|
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
-    t.string   "attachment_file_name"
-    t.string   "attachment_content_type"
-    t.integer  "attachment_file_size"
-    t.datetime "attachment_updated_at"
-    t.integer  "chapter_id"
-    t.string   "tag"
-  end
-
-  create_table "assets", :force => true do |t|
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
-    t.string   "attachment_file_name"
-    t.string   "attachment_content_type"
-    t.integer  "attachment_file_size"
-    t.datetime "attachment_updated_at"
-    t.integer  "chapter_id"
-    t.string   "tag"
-  end
-
   create_table "attachments", :force => true do |t|
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
@@ -52,14 +30,6 @@ ActiveRecord::Schema.define(:version => 20131115192614) do
     t.string   "uid"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "ballots", :force => true do |t|
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.integer  "voter_id"
-    t.integer  "election_id"
-    t.string   "email"
   end
 
   create_table "chapter_leaders", :force => true do |t|
@@ -120,24 +90,6 @@ ActiveRecord::Schema.define(:version => 20131115192614) do
     t.integer "user_id"
   end
 
-  create_table "elections", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.boolean  "active"
-    t.date     "fiscal_year"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  create_table "items", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-    t.string   "filter_criteria"
-    t.integer  "election_id"
-  end
-
   create_table "leaders", :force => true do |t|
     t.string   "contituent_id"
     t.string   "first_name"
@@ -181,22 +133,5 @@ ActiveRecord::Schema.define(:version => 20131115192614) do
   end
 
   add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
-
-  create_table "voters", :force => true do |t|
-    t.string   "member_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.boolean  "unverified"
-  end
-
-  create_table "votes", :force => true do |t|
-    t.boolean  "position"
-    t.integer  "voter_id"
-    t.integer  "ballot_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.integer  "item_id"
-    t.integer  "election_id"
-  end
 
 end

@@ -25,6 +25,7 @@ group :test do
   gem "capybara", ">= 2.0.3"
   gem "database_cleaner", ">= 1.0.0.RC1"
   gem "email_spec", ">= 1.4.0"
+  gem "sqlite3"
 end
 
 gem 'paper_trail', '>= 3.0.0.beta1'
