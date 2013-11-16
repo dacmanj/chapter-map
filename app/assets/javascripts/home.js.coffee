@@ -51,7 +51,8 @@ $ ->
 
   clearChapterSearch = ->
     $("input#zip,select",".chapter-search").val("").closest("form")
-    chapterSearch
+    chapterSearch()
+    $("#chapter-listings").html("")
 
   clearSearch = (e) ->
     clearChapterSearch()
