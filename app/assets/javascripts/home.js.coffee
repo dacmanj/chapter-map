@@ -54,9 +54,13 @@ $ ->
     chapterSearch
 
   clearSearch = (e) ->
-    clearChapterSearch
+    clearChapterSearch()
     e.preventDefault()
     false
+
+  showAllChapters = ->
+    clearChapterSearch()
+    $("body.home form.chapter-search").submit()
 
   submitChapterSearch = (event) ->
     chapterSearch()
@@ -69,4 +73,5 @@ $ ->
   $("body.home #zip").change zipChange
   $("body.home #distance").change submitChapterSearch
   $("body.home form.chapter-search").submit submitChapterSearch
+  $("body.home #show-all-button").click showAllChapters
   $("form.chapter-search button.reset-search").click clearSearch
