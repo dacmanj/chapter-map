@@ -69,7 +69,7 @@ $ ->
     event.preventDefault()
     false
 
-  buildMap markers_json
+  buildMap markers_json if markers_json?
   $("body.home #state").change stateSelectChange
   $("body.home #zip").change zipChange
   $("body.home #distance").change submitChapterSearch
