@@ -31,6 +31,7 @@ ChapterMap::Application.routes.draw do
   end
   match 'embed' => 'home#embed'
   match 'pflag' => 'home#pflag'
+  match 'show_chapters' => 'home#show_chapters'
   match 'import' => 'chapters#import'
   match 'leaders/import' => 'leaders#import'
 

@@ -13,7 +13,7 @@
 	<%= render :partial => 'chapters/map_intro' %>
 </div>
 <div class="well chapter-search">
-
+<h2>Find a Chapter</h2>
 	<%= form_tag "", :class => "form-vertical chapter-search" do %>
 		<div class="control-group">
 
@@ -24,36 +24,10 @@
 		<div class="control-group">
 			<%=submit_tag "Search", :class => "btn btn-danger"%>
 	      	<%= button_tag "Clear Search", :type => "reset", :class => "reset-search btn btn-danger" %>
+<!--
+	      	<%= button_tag "Show All", :class => "reset-search btn btn-danger", :id => "show-all-button"%>
+-->
       	</div>
 	<% end %>
 </div>
-<h1>
-	PFLAG Chapters <%= unless params[:state].blank? 
-						state_name = us_states_long.find { |item| item[1] == params[:state] }[0]
-						 "in #{state_name}"  
-						 end %>
-</h1>
-
-<% if @chapters_by_state.nil? %>
-	<% @chapters.each do |chapter| %>
-		<%= render :partial => 'chapters/chapter_listing', :locals => {:chapter => chapter } %>
-	<% end %>
-<% else %>
-	<% @chapters_by_state.each do | state, chapters | %>
-		<h3>
-			<%= unless state.blank? 
-					state_name = us_states_long.find { |item| item[1] == state }
-				if state_name.blank?
-					state_name = state
-				else
-					state_name = state_name[0]
-				end
-				"#{state_name}"  
-			end %>
-			<hr>
-		</h3>
-		<% chapters.each do |chapter| %>
-			<%= render :partial => 'chapters/chapter_listing', :locals => {:chapter => chapter } %>
-		<% end %>
-	<% end %>
-<% end %>
+<div id="chapter-listings"></div>
