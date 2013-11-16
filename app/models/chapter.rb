@@ -155,9 +155,8 @@ class Chapter < ActiveRecord::Base
     end
   end
 
-  def self.search(name)
-    name = name.downcase
-    Chapter.find(:all, :conditions => ["lower(name) LIKE ?","%#{name}%"])
+  def self.search(search)
+    Chapter.select{|h| h.name.downcase.include? search}
   end
 
   def self.find_by_did(name)

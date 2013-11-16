@@ -45,8 +45,8 @@ class User < OmniAuth::Identity::Models::ActiveRecord
     end
   end
 
-  def search(params)
-    self.chapters.select{|h| h.name.match(params)}
+  def search(s)
+    self.chapters.select{|h| h.name.downcase.include? s}
   end
 
   def leaders
