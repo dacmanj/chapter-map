@@ -132,8 +132,9 @@ class Chapter < ActiveRecord::Base
                 new
       
       chapter.attributes = row.to_hash.slice(*accessible_attributes)
+      chapter.geocode
       chapter.save!
-      sleep 0.5
+      sleep 0.1
     end
        errors
   end
