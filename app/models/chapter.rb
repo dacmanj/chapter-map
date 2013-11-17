@@ -52,6 +52,9 @@ class Chapter < ActiveRecord::Base
   accepts_nested_attributes_for :attachments, :allow_destroy => true
 
   scope :active, where("inactive = ? OR inactive is ?",false,nil)
+  scope :representatives, where("category = ?","Representative")
+  scope :chapters_only, where("category = ?","Chapter")
+
 
   before_validation do
     self.ein = "%09d" % ein.gsub(/[^0-9]/, "").to_i if attribute_present?("ein")
@@ -61,7 +64,7 @@ class Chapter < ActiveRecord::Base
   validates :name, presence: true
   validates :ein, numericality: true, :unless => Proc.new { |c| c.ein.blank? }
 
-  geocoded_by :address
+  geocoded_by :geo_address
 
   RAISERS_EDGE_FIELD_MAP = {"CnBio_ID" => "database_identifier",
     "CnBio_Import_ID" => "CnBio_Import_ID",
@@ -105,6 +108,33 @@ class Chapter < ActiveRecord::Base
     "#{address} United States"
   end
 
+  def city_state_zip
+    [(self.city + "," unless self.city.blank?), self.state, self.zip].reject{|h| h.blank?}.join(" ")
+  end
+
+  def vague_address
+    address = [(self.city + "," unless self.city.blank?), self.state, self.zip].reject{|h| h.blank?}.join(" ")
+  end
+
+  def representative?
+    self.category == "Representative"
+  end
+
+  def chapter?
+    self.category == "Chapter"
+  end
+
+
+  def geo_address
+    geocode_address = ""
+    if (self.category == "Representative")
+      geocode_address = self.vague_address
+    else
+      geocode_address = self.address
+    end
+    geocode_address
+  end
+
   def website_url
     url = self.website
     unless url.blank? || url[/\Ahttp:\/\//] || url[/\Ahttps:\/\//]
@@ -134,7 +164,7 @@ class Chapter < ActiveRecord::Base
       chapter.attributes = row.to_hash.slice(*accessible_attributes)
       chapter.geocode
       chapter.save!
-      sleep 0.1
+      sleep 0.05
     end
        errors
   end

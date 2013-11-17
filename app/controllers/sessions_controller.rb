@@ -23,20 +23,20 @@ class SessionsController < ApplicationController
             # account. But we found the authentication and the user associated with it 
             # is the current user. So the authentication is already associated with 
             # this user. So let's display an error message.
-            redirect_to root_path, :notice => "You have already linked this account"
+            redirect_to new_session_path, :notice => "You have already linked this account"
           else
             # The authentication is not associated with the current_user so lets 
             # associate the authentication
             @authentication.user = current_user
             @authentication.save
-            redirect_to root_path, :notice => "Account successfully authenticated"
+            redirect_to return_point, :notice => "Signed in as #{current_user.email}!"
           end
         else # no user is signed_in
           if @authentication.user.present?
             # The authentication we found had a user associated with it so let's 
             # just log them in here
             self.current_user = @authentication.user
-            redirect_to root_path, :notice => "Signed in as #{current_user.email}!"
+            redirect_to return_point, :notice => "Signed in as #{current_user.email}!"
           else
             # The authentication has no user assigned and there is no user signed in
             # Our decision here is to create a new account for the user
@@ -63,7 +63,7 @@ class SessionsController < ApplicationController
               reset_session
             else
               self.current_user = u
-              redirect_to root_path, :notice => "Signed in as #{u.email}!"
+              redirect_to return_point, :notice => "Signed in as #{u.email}!"
             end
           end
         end

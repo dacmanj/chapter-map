@@ -11,7 +11,7 @@
 	<% unless chapter.category.blank? %>
 	<div><%=chapter.category%></div>
  	<%end%>
-	<% unless chapter.street.blank? %>
+	<% unless (chapter.street.blank? || chapter.representative?) %>
 		<div style="white-space: pre-wrap;"><%= chapter.street %></div>
 	<% end %>
 	<div><%= "#{chapter.city}, " unless chapter.city.blank? %><%= "#{chapter.state} #{chapter.zip}" %></div>

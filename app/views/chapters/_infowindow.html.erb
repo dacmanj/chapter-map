@@ -1,8 +1,18 @@
 <% self.formats = [:json, :html] %>
 <a href="<%=chapter.website_url%>"><b><%= chapter.name %></b></a>
+<% unless (chapter.category.blank?) %>
+<div><%= chapter.category %></div>
+<% end %>
+<% unless (chapter.street.blank? || chapter.representative?) %>
 <div><%= "#{chapter.street}" %></div>
-<div><%= "#{chapter.city}, #{chapter.state} #{chapter.zip}" %></div>
-<div><%= chapter.phone_1%></div>
+<% end %>
+<div><%= chapter.city_state_zip %></div>
+<% unless chapter.phone_1.blank? %>
+<div><%= chapter.phone_1 %></div>
+<% end %>
+<% unless chapter.email_1.blank? %>
+<div><a href="mailto:<%= chapter.email_1 %>"><%= chapter.email_1 %></a></div>
+<% end %>
 <% unless not admin_user? %>
 	<div><%= link_to 'Edit', edit_chapter_path(chapter.id) %></div>
 <% end%>
