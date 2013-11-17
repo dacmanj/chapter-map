@@ -37,7 +37,7 @@ ChapterMap::Application.routes.draw do
 
   match "/activate" => "users#confirm"
 
-  root :to => "home#index"
+  root :to => "home#pflag"
   resources :users
   match '/auth/:provider/callback' => 'sessions#create'
   match '/signin' => 'sessions#new', :as => :signin

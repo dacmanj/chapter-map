@@ -2,7 +2,6 @@ class HomeController < ApplicationController
   def index
     if !params[:state].blank?
       @chapters = Chapter.where(:state => params[:state]).order("name ASC")
-
     elsif !params[:zip].blank?
       distance = params[:distance] unless params[:distance].blank? || params[:distance].to_f == 0 
       @chapters = Chapter.active.near(params[:zip], distance || 50)
@@ -52,14 +51,14 @@ class HomeController < ApplicationController
   def embed
     index #call index
     respond_to do |format|
-      format.html {render 'index', :layout => 'pflag'}
+      format.html { render 'index', :layout => 'pflag' }
       format.json { render json: @hash }
     end   
   end
   def pflag
     index #call index
     respond_to do |format|
-      format.html {render 'index', :layout => 'pflag'}
+      format.html { render 'index', :layout => 'pflag' }
       format.json { render json: @hash }
     end    
   end

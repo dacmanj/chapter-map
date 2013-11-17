@@ -127,12 +127,10 @@ class Chapter < ActiveRecord::Base
       row["street"] ||= address_lines unless address_lines.blank?
       #= row.reject { |k,v| !k.match("^address") && !k.match("id$") || v.blank? || v == "" }.map {|k,v| v }.join("\n")
      
-      if (!row["latitude"].blank? && !row["longitude"].blank?) 
-        row["gmaps"] = true
-      end
       chapter = find_by_database_identifier(row["database_identifier"]) || find_by_ein(row["ein"]) || find_by_id(row["id"]) || new
       chapter.attributes = row.to_hash.slice(*accessible_attributes)
       chapter.save!
+      sleep 0.5
     end
        errors
   end
