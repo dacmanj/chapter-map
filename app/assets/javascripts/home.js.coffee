@@ -12,6 +12,7 @@ Gmaps.store.HandleDragend = (pos) ->
       $("#chapter_longitude").val(responses[0].geometry.location.lng());
     else
       alert 'Cannot determine address at this location.'
+    $("body.chapters.edit").submit()
 
 $ ->
   $("div.rainbowNavigationTop").click ->
@@ -34,7 +35,6 @@ $ ->
         handler.getMap().setZoom 1
         zoom = Math.max(3,Math.min(zoom,8))
         handler.getMap().setZoom zoom
-        console.log markers
         if (draggable_markers)
           for marker in markers
             google.maps.event.addListener marker.serviceObject, 'dragend', ->
