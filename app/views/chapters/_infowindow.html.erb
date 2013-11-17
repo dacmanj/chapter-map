@@ -1,6 +1,10 @@
 <% self.formats = [:json, :html] %>
-<a href="<%=chapter.website_url%>"><b><%= chapter.name %></b></a>
-<% unless (chapter.category.blank?) %>
+<% if !chapter.website_url.blank? %>
+	<div><a href="<%=chapter.website_url%>"><b><%= chapter.name %></b></a></div>
+<% else %>
+	<div style="font-weight: bold;"><%= chapter.name %></div>
+<% end %>
+<% if (chapter.representative?) %>
 <div><%= chapter.category %></div>
 <% end %>
 <% unless (chapter.street.blank? || chapter.representative?) %>
