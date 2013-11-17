@@ -32,7 +32,7 @@ gem 'paper_trail', '>= 3.0.0.beta1'
 gem "i18n"
 gem "jquery-fileupload-rails"
 gem "nested_form"
-gem "gmaps4rails", "~> 2.0.5"
+gem "gmaps4rails", ">= 2.1.0"
 gem "geocoder"
 gem "roo"
 gem "jquery-rails"

@@ -3,6 +3,15 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 Gmaps.store = {}
 Gmaps.store.markers = {}
+Gmaps.store.HandleDragend = (pos) ->
+  geocoder = new google.maps.Geocoder();
+  geocoder.geocode { latLng: pos }, (responses) ->
+    if responses?
+      alert "Updated Display Location to #{responses[0].formatted_address}\n(#{responses[0].geometry.location.lat()},#{responses[0].geometry.location.lng()}"
+      $("#chapter_latitude").val(responses[0].geometry.location.lat());
+      $("#chapter_longitude").val(responses[0].geometry.location.lng());
+    else
+      alert 'Cannot determine address at this location.'
 
 $ ->
   $("div.rainbowNavigationTop").click ->
@@ -10,18 +19,26 @@ $ ->
   $("div.rainbowNavigationTop").width($("td.rainbowNavigationTop").siblings().width()/4-12)
   
 $ ->
+
+
   buildMap = (markers_json) ->
     if markers_json?
+      draggable_markers = ($("body.chapters.edit").length > 0)
       Gmaps.store.handler = Gmaps.build('Google')
       handler = Gmaps.store.handler;
       handler.buildMap { provider: {}, internal: {id: 'map'}}, -> 
-        markers = handler.addMarkers markers_json
+        markers = handler.addMarkers markers_json, {draggable: draggable_markers}
         handler.bounds.extendWith markers
         handler.fitMapToBounds()
         zoom = handler.getMap().getZoom()
         handler.getMap().setZoom 1
         zoom = Math.max(3,Math.min(zoom,8))
         handler.getMap().setZoom zoom
+        console.log markers
+        if (draggable_markers)
+          for marker in markers
+            google.maps.event.addListener marker.serviceObject, 'dragend', ->
+              Gmaps.store.HandleDragend this.getPosition()
       true
 
   chapterSearch = -> 

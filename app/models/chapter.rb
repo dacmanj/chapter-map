@@ -58,6 +58,9 @@ class Chapter < ActiveRecord::Base
 
   before_validation do
     self.ein = "%09d" % ein.gsub(/[^0-9]/, "").to_i if attribute_present?("ein")
+    if self.latitude.blank? or self.longitude.blank?
+      self.geocode
+    end
   end
 
   validates_length_of :ein, :minimum => 9, :maximum => 9, :unless => Proc.new {|c| c.ein.blank? }
