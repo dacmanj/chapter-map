@@ -7,12 +7,12 @@ Gmaps.store.HandleDragend = (pos) ->
   geocoder = new google.maps.Geocoder();
   geocoder.geocode { latLng: pos }, (responses) ->
     if responses?
-      alert "Updated Display Location to #{responses[0].formatted_address}\n(#{responses[0].geometry.location.lat()},#{responses[0].geometry.location.lng()}"
+      #alert "Updated Display Location to #{responses[0].formatted_address}\n(#{responses[0].geometry.location.lat()},#{responses[0].geometry.location.lng()}"
       $("#chapter_latitude").val(responses[0].geometry.location.lat());
       $("#chapter_longitude").val(responses[0].geometry.location.lng());
     else
       alert 'Cannot determine address at this location.'
-    $("body.chapters.edit").submit()
+    $("body.chapters.edit form").submit()
 
 $ ->
   $("div.rainbowNavigationTop").click ->

@@ -22,3 +22,5 @@ $ ->
            </div>") if msg
     #delete the flash message (if it was there before) when an ajax request returns no flash message
     $("#flash-message").replaceWith("<div id='flash-message'></div>") unless msg
+    hideflash = -> $("#flash-message").fadeOut()
+    setTimeout hideflash, 5000
