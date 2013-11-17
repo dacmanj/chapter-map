@@ -50,6 +50,24 @@ class ChaptersController < ApplicationController
   # GET /chapters/1/edit
   def edit
     @chapter = Chapter.find(params[:id])
+    @hash = Gmaps4rails.build_markers(@chapter) do |chapter, marker|
+      marker.lat chapter.latitude
+      marker.lng chapter.longitude
+      marker.title   "#{chapter.name}"
+      marker.infowindow render_to_string(:partial => "/chapters/infowindow",  :formats => [:html], :locals => { :chapter => chapter})
+      case chapter.category
+        when "Representative"
+          marker.picture({
+                    :url => "http://maps.google.com/intl/en_us/mapfiles/ms/micons/purple-dot.png",
+                    :width   => 32,
+                    :height  => 32
+                   });
+        end
+      end
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @chapter }
+    end
   end
 
   # POST /chapters
