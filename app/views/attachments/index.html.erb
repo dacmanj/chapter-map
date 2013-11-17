@@ -1,11 +1,11 @@
 <div class="container">
-  <%= form_for Attachment.new, :html => { :multipart => true, :id => "fileupload", :class => "form-horizontal"  } do |f| %>
-
   <h2>Upload file</h2>
-  <div class="control-group">
+
+  <%= form_for Attachment.new, :html => { :multipart => true, :id => "fileupload", :class => "form-horizontal"  } do |f| %>
+  <div class="form-group">
     <%= f.label :default_chapter_for_uploads %>
-      <div class="control">
-        <select name="attachment[chapter_id]" id="default_chapter">
+      <div>
+        <select name="attachment[chapter_id]" id="default_chapter", :class => "form-control">
           <option value="">Choose a chapter...</option>
           <%= chapters_for_upload_select %>
         </select>
@@ -29,7 +29,7 @@
           <span>Cancel upload</span>
         </button>
         <button type="button" class="btn btn-danger delete">
-          <i class="icon-trash icon-white"></i>
+          <i class="glyphicon glyphicon-trash glyphicon-trash-white"></i>
           <span>Delete</span>
         </button>
         <input type="checkbox" class="toggle">

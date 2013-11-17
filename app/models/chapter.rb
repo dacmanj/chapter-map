@@ -120,14 +120,17 @@ class Chapter < ActiveRecord::Base
     header.map! { |h| RAISERS_EDGE_FIELD_MAP[h] || h.downcase  }
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      logger.info("row: " + row.to_hash.slice(*accessible_attributes).map{|k,v| "#{k}=#{v}" }.join(','))
-      logger.info ("header " + header.to_s)
+#      logger.info("row: " + row.to_hash.slice(*accessible_attributes).map{|k,v| "#{k}=#{v}" }.join(','))
+#      logger.info ("header " + header.to_s)
 
       address_lines = row.select { |k,v| /^address(_line_\d)*$/.match(k) && !v.blank? && v != "" }.map{|k,v| v}.join("\n")
       row["street"] ||= address_lines unless address_lines.blank?
-      #= row.reject { |k,v| !k.match("^address") && !k.match("id$") || v.blank? || v == "" }.map {|k,v| v }.join("\n")
      
-      chapter = find_by_database_identifier(row["database_identifier"]) || find_by_ein(row["ein"]) || find_by_id(row["id"]) || new
+      chapter = find_by_database_identifier(row["database_identifier"]) || 
+                find_by_ein(row["ein"]) unless row["ein"].blank? ||
+                find_by_id(row["id"]) unless row["id"].blank? ||
+                new
+                
       chapter.attributes = row.to_hash.slice(*accessible_attributes)
       chapter.save!
       sleep 0.5

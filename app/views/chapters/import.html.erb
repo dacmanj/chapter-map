@@ -1,7 +1,12 @@
 
 <h2>Import Chapters</h2>
+<div class="input-group">
 
-<%= form_tag import_chapters_path, multipart: true do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag "Import" %>
+<%= form_tag import_chapters_path,  :class => "navbar-form navbar-left", multipart: true do %>
+    <div class="form-group">
+		  <%= file_field_tag :file, :class => "form-control" %>
+	</div>
+
+  <%= submit_tag "Import", :class => "btn btn-default"%>
 <% end %>
+</div>
