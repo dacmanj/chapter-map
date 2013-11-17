@@ -127,10 +127,10 @@ class Chapter < ActiveRecord::Base
       row["street"] ||= address_lines unless address_lines.blank?
      
       chapter = find_by_database_identifier(row["database_identifier"]) || 
-                find_by_ein(row["ein"]) unless row["ein"].blank? ||
-                find_by_id(row["id"]) unless row["id"].blank? ||
+                (find_by_ein(row["ein"]) unless row["ein"].blank?) ||
+                find_by_id(row["id"]) ||
                 new
-                
+      
       chapter.attributes = row.to_hash.slice(*accessible_attributes)
       chapter.save!
       sleep 0.5
