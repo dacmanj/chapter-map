@@ -82,7 +82,7 @@ $ ->
 
   submitChapterSearch = (event) ->
     chapterSearch()
-    $(window).scrollTop($("#map").position().top)
+    $(window).scrollTop($("#chapter-listings").position().top)
     event.preventDefault()
     false
 
