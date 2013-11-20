@@ -4,7 +4,7 @@ class HomeController < ApplicationController
       @chapters = Chapter.where(:state => params[:state]).order("name ASC")
     elsif !params[:zip].blank?
       distance = params[:distance] unless params[:distance].blank? || params[:distance].to_f == 0 
-      @chapters = Chapter.active.near(params[:zip], distance || 50)
+      @chapters = Chapter.active.near(params[:zip], distance || 100)
     else
       @chapters = Chapter.active.order("state ASC, name ASC").all
       @chapters_by_state = @chapters.group_by { |t| t.state }
@@ -34,14 +34,14 @@ class HomeController < ApplicationController
   def show_chapters
     if !params[:state].blank?
       @chapters = Chapter.where(:state => params[:state]).order("name ASC")
-
     elsif !params[:zip].blank?
       distance = params[:distance] unless params[:distance].blank? || params[:distance].to_f == 0 
-      @chapters = Chapter.active.near(params[:zip], distance || 50)
+      @chapters = Chapter.active.near(params[:zip], distance || 100)
     else
       @chapters = Chapter.active.order("state ASC, name ASC").all
       @chapters_by_state = @chapters.group_by { |t| t.state }
     end
+
     respond_to do |format|
       format.html
       format.js

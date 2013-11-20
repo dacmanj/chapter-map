@@ -1,1 +1,19 @@
-$('#chapter-listings').html('<%=j render partial: 'chapters/chapter_listings', locals: { chapters: @chapters } %>')
+
+<% if !@chapters.blank? %>
+	$('#chapter-listings').html('<%=j render partial: 'chapters/chapter_listings', locals: { chapters: @chapters } %>')
+	$("#chapter-listing-error").remove();
+<% else %>
+	
+	<% distance = params[:distance] %>
+	<% distance = 100 if distance.blank? %>
+
+	$('#main-content-yield').prepend("<div id='chapter-listing-error' class='alert alert-danger'>No Chapters Found within <%="#{distance} miles of #{params[:zip]}" %></div>");
+	$('#chapter-listings').html("");
+	$("window").scrollTop($("#chapter-listings").position().top);
+	function hideflash() { 
+		$("#chapter-listing-error").fadeOut();
+		$("window").scrollTop($("#zip").position().top);
+		$("#zip").focus();
+	}
+    setTimeout(hideflash, 5000);
+<% end %>

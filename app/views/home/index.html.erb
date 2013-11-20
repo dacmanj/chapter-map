@@ -14,13 +14,26 @@
 </div>
 <div class="well chapter-search">
 <h2>Find a Chapter</h2>
-	<%= form_tag "", :class => "form-vertical chapter-search" do %>
-		<div class="control-group">
+	<%= form_tag "", :class => "form-horizontal chapter-search", :role => "form" do %>
+<!--
+		<div class="form-group">
+		    <label for="state" class="col-sm-2 control-label">Select a State</label>
+			<div class="col-sm-2">
+				<%= select_tag :state, options_for_select(us_states_long, :selected => params[:state]), :prompt => "Choose a state...", :class => "select form-control" %>
+				</div>
+		</div>
+-->
+		<div class="form-group">
+		    <label for="state" class="col-sm-4 control-label">Address or State/Zip Code</label>
+			<div class="col-sm-4">
+				<%=text_field_tag :zip, params[:zip] || "", :placeholder => 'Enter Address/State/Zip Code', :class => "form-control" %>
 
-		<%= select_tag :state, options_for_select(us_states_long, :selected => params[:state]), :prompt => "Choose a state..." %> <br>or<br> 
-		<%=text_field_tag :zip, params[:zip] || "", :placeholder => 'Enter Address/State/Zip Code' %> and
-		<%=select_tag :distance, options_for_select((1..20).map {|x| [x*10,x*10]}, params[:distance]), :prompt => "Search distance in miles" %>
-		</div><br>
+			</div>
+			<div class="col-sm-2">
+				<%=select_tag :distance, options_for_select((1..20).map {|x| [x*10,x*10]}, params[:distance]), :prompt => "Search distance in miles", :class => "select form-control" %>
+			</div>
+		</div>
+		<br>
 		<div class="control-group">
 			<%=submit_tag "Search", :class => "btn btn-danger"%>
 	      	<%= button_tag "Clear Search", :type => "reset", :class => "reset-search btn btn-danger" %>
@@ -28,4 +41,19 @@
       	</div>
 	<% end %>
 </div>
+<div class="well chapter-directory">
+	<h2>List Chapters by State</h2>
+
+	<%= form_tag "", :class => "form-horizontal chapter-search", :role => "form" do %>
+		<div class="form-group">
+		    <label for="state" class="col-sm-2 control-label">Select a State</label>
+			<div class="col-sm-2">
+				<%= select_tag :state, options_for_select(us_states_long, :selected => params[:state]), :prompt => "Choose a state...", :class => "select form-control" %>
+				</div>
+		</div>
+		<%=submit_tag "Search", :class => "btn btn-danger"%>
+	<% end %>
+</div>
+
+
 <div id="chapter-listings"></div>

@@ -54,7 +54,7 @@ class Chapter < ActiveRecord::Base
   scope :active, where("inactive = ? OR inactive is ?",false,nil)
   scope :representatives, where("category = ?","Representative")
   scope :chapters_only, where("category = ?","Chapter")
-
+  scope :ungeo, where("latitude = ? or longitude is ?", nil, nil)
 
   before_validation do
     self.ein = "%09d" % ein.gsub(/[^0-9]/, "").to_i if attribute_present?("ein")

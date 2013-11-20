@@ -45,8 +45,8 @@ $ ->
     form = $("body.home form.chapter-search")
     searchParams = form.serialize()
     $.ajax({ url: "/pflag.json", data: searchParams }).done (data) ->
-      Gmaps.store.markers = data
-      buildMap data
+      Gmaps.store.markers = data if data[0]?
+      buildMap data if data[0]?
     $.ajax {url: "/show_chapters.js", data: searchParams }, (data) ->
       $("#chapter-listings").html data
 
