@@ -7,7 +7,7 @@ class ChaptersController < ApplicationController
   # GET /chapters.json
   def index
     if params[:search].blank? && params[:inactive].blank?
-      @chapters = current_user.chapters
+      @chapters = current_user.chapters.select{|h| !h.inactive? }
     else
       @chapters = current_user.search(params[:search], params[:inactive])
     end
