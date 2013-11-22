@@ -45,8 +45,15 @@ class User < OmniAuth::Identity::Models::ActiveRecord
     end
   end
 
-  def search(s)
-    self.chapters.select{|h| h.name.downcase.include? s}
+  def search(s,i)
+    c = self.chapters
+    s = s.downcase
+    i = (i == "yes")
+
+    c = c.select{ |h| h.inactive? == i }
+    c = c.select{|h| h.name.downcase.include? s} unless s.blank?
+
+    c
   end
 
   def leaders

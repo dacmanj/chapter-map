@@ -6,10 +6,10 @@ class ChaptersController < ApplicationController
   # GET /chapters
   # GET /chapters.json
   def index
-    if params[:search].blank?
+    if params[:search].blank? && params[:inactive].blank?
       @chapters = current_user.chapters
     else
-      @chapters = current_user.search(params[:search])
+      @chapters = current_user.search(params[:search], params[:inactive])
     end
 
     respond_to do |format|
@@ -40,6 +40,24 @@ class ChaptersController < ApplicationController
   # GET /chapters/new.json
   def new
     @chapter = Chapter.new
+    @chapter.latitude = "38.9036656"
+    @chapter.longitude = "-77.0429285"
+    @chapter.name = "PFLAG "
+    @chapter.id = -1
+    @hash = Gmaps4rails.build_markers(@chapter) do |chapter, marker|
+      marker.lat chapter.latitude
+      marker.lng chapter.longitude
+      marker.title   "#{chapter.name}"
+      marker.infowindow render_to_string(:partial => "/chapters/infowindow",  :formats => [:html], :locals => { :chapter => chapter})
+      case chapter.category
+        when "Representative"
+          marker.picture({
+                    :url => "http://maps.google.com/intl/en_us/mapfiles/ms/micons/purple-dot.png",
+                    :width   => 32,
+                    :height  => 32
+                   });
+        end
+      end
 
     respond_to do |format|
       format.html # new.html.erb
