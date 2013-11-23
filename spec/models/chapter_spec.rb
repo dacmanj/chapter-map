@@ -36,6 +36,8 @@
 #  address_import_id     :string(255)
 #  independent_import_id :string(255)
 #  ein_import_id         :string(255)
+#  revoked               :boolean
+#  revocation_date       :date
 #
 
 require 'spec_helper'

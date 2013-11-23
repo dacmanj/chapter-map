@@ -25,6 +25,10 @@ a.btn {
 	color: white;
 }
 
+a.btn.btn-default {
+	color: #428bca;
+}
+
 @media print 
 {
     div.chapter-search

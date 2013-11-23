@@ -28,6 +28,7 @@ group :test do
   gem "sqlite3"
 end
 
+gem 'nokogiri'
 gem 'paper_trail', '>= 3.0.0.beta1'
 gem "i18n"
 gem "jquery-fileupload-rails"

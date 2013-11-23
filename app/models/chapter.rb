@@ -36,7 +36,50 @@
 #  address_import_id     :string(255)
 #  independent_import_id :string(255)
 #  ein_import_id         :string(255)
+#  revoked               :boolean
+#  revocation_date       :date
 #
+
+# == Schema Information
+#
+# Table name: chapters
+#
+#  id                    :integer          not null, primary key
+#  name                  :string(255)
+#  website               :string(255)
+#  street                :string(255)
+#  city                  :string(255)
+#  state                 :string(255)
+#  zip                   :string(255)
+#  email_1               :string(255)
+#  email_2               :string(255)
+#  email_3               :string(255)
+#  helpline              :string(255)
+#  phone_1               :string(255)
+#  phone_2               :string(255)
+#  latitude              :float
+#  longitude             :float
+#  ein                   :string(255)
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  gmaps                 :boolean
+#  gmaps_address         :string(255)
+#  radius                :integer
+#  category              :string(255)
+#  separate_exemption    :boolean
+#  inactive              :boolean
+#  database_identifier   :string(255)
+#  email_1_import_id     :string(255)
+#  email_2_import_id     :string(255)
+#  email_3_import_id     :string(255)
+#  helpline_import_id    :string(255)
+#  phone_1_import_id     :string(255)
+#  phone_2_import_id     :string(255)
+#  address_import_id     :string(255)
+#  independent_import_id :string(255)
+#  ein_import_id         :string(255)
+#
+require 'open-uri'
 
 class Chapter < ActiveRecord::Base
   has_and_belongs_to_many :users
@@ -203,6 +246,20 @@ class Chapter < ActiveRecord::Base
     Chapter.find(:all, :conditions => ["lower(email_1) = ? OR lower(email_2) = ? OR lower(email_3) = ?", email,email,email]) 
   end
 
+  def update_revocation_status
+    unless self.revoked? || self.ein.blank?
+      ein = self.ein
+      url = "http://apps.irs.gov/app/eos/revokeSearch.do?ein1=#{ein}&names=&city=&state=All...&zipCode=&country=US&exemptTypeCode=al&postDateFrom=&postDateTo=&dispatchMethod=searchRevocation&submitName=Search"
+      html = Nokogiri::HTML(open(url).read)
+      self.revoked = !html.css("div.content").children[6].text.include?("There were no organizations found matching the search values you entered")
+      self.revocation_date = Date.parse(html.css('tr')[3].children[14].text) if (self.revoked)
+      self.save!
+    end
+  end
+
+  def self.update_all_revocation_status
+    Chapter.all.each{|h| h.update_revocation_status}
+  end
 
 
 end

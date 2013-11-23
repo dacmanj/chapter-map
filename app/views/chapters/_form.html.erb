@@ -38,6 +38,8 @@
     <% if current_user.admin? %>
     <div class="well">
       <h2>Admin Fields</h2>
+      <%= f.input :revoked %>
+      <%= f.input :revocation_date, :include_blank => true %>
       <%= f.input :database_identifier %>
       <%= f.input :email_1_import_id %>
       <%= f.input :email_2_import_id %>

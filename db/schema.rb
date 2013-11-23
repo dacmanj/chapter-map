@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131118143154) do
+ActiveRecord::Schema.define(:version => 20131122233903) do
 
   create_table "Attachments", :force => true do |t|
     t.datetime "created_at",              :null => false
@@ -105,6 +105,8 @@ ActiveRecord::Schema.define(:version => 20131118143154) do
     t.string   "address_import_id"
     t.string   "independent_import_id"
     t.string   "ein_import_id"
+    t.boolean  "revoked"
+    t.date     "revocation_date"
   end
 
   create_table "chapters_users", :force => true do |t|
