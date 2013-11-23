@@ -24,12 +24,8 @@
       <th></th>
     <% end %>
     <th>Name</th>
-    <th>Category</th>
     <th>Website</th>
-    <th>Street</th>
-    <th>City</th>
-    <th>State</th>
-    <th>Zip</th>
+    <th>Address</th>
     <th>Email 1</th>
     <% if admin_user? %>
     <th>Ein</th>
@@ -45,12 +41,8 @@
         <td><%= check_box_tag "chapter_ids[]", chapter.id %></td>    
       <%end %>
       <td><%= link_to chapter.name, edit_chapter_path(chapter) %></td>
-      <td><%= chapter.category %></td>
-      <td><%= link_to 'Link', chapter.website %></td>
-      <td><%= chapter.street %></td>
-      <td><%= chapter.city %></td>
-      <td><%= chapter.state %></td>
-      <td><%= chapter.zip %></td>
+      <td><%= link_to content_tag(:i, '', :class => "glyphicon glyphicon-link"), chapter.website_url, :class => "btn btn-default" unless chapter.website_url.blank? %></td>
+      <td><%= simple_format([chapter.street,chapter.city_state_zip].join("\n")) %></td>
       <td><%= chapter.email_1 %></td>
       <% if admin_user? %>
       <td><%= format_EIN(chapter.ein) %></td>     

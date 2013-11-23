@@ -189,6 +189,10 @@ class Chapter < ActiveRecord::Base
     url
   end
 
+  def city_state_zip
+  [(self.city + "," unless self.city.blank?),self.state,self.zip].join(" ");
+  end
+
   def self.import(file)
     errors = Array.new
     spreadsheet = open_spreadsheet(file)
