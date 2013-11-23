@@ -250,6 +250,11 @@ class Chapter < ActiveRecord::Base
     Chapter.find(:all, :conditions => ["lower(email_1) = ? OR lower(email_2) = ? OR lower(email_3) = ?", email,email,email]) 
   end
 
+  def revocation_url
+    ein = self.ein
+    url = "http://apps.irs.gov/app/eos/revokeSearch.do?ein1=#{ein}&names=&city=&state=All...&zipCode=&country=US&exemptTypeCode=al&postDateFrom=&postDateTo=&dispatchMethod=searchRevocation&submitName=Search"
+  end
+  
   def update_revocation_status
     unless self.revoked? || self.ein.blank?
       ein = self.ein

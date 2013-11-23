@@ -30,7 +30,7 @@
     <% if admin_user? %>
     <th>Ein</th>
     <th>Revoked?</th>
-    <th>In-active?</th>
+    <th>Inactive?</th>
     <% end %>
     <th></th>
   </tr>
@@ -46,8 +46,8 @@
       <td><%= chapter.email_1 %></td>
       <% if admin_user? %>
       <td><%= format_EIN(chapter.ein) %></td>     
-      <td><%= chapter.revoked? %></td>
-      <td><%= chapter.inactive? %></td>
+      <td><%= link_to content_tag(:i, '', :class => "glyphicon glyphicon-ban-circle"), chapter.revocation_url, :class => "btn btn-default", :target => "_BLANK" if chapter.revoked? %></td>
+      <td><%= content_tag :div, content_tag(:i, '', :class => "glyphicon glyphicon-ban-circle"), :class => "btn" if chapter.inactive? %></td>
       <%end%>
       <td><%= link_to content_tag(:i, "", class: "glyphicon glyphicon-trash glyphicon-trash-white") + "", chapter, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger remove_fields" unless !admin_user? %> </td>
     </tr>
