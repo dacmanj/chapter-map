@@ -14,7 +14,7 @@ $ ->
   $("body.chapters.edit form").submit submitAjax
 
 submitAjax = (e) -> 
-  valuesToSubmit = $(this).serialize
+  valuesToSubmit = $(this).serialize()
   $.ajax { url: $(this).attr('action'), data: valuesToSubmit, dataType: "JSON", type: 'PUT' }
   e.preventDefault()
   $(window).scrollTop(0)

@@ -88,7 +88,7 @@ class Chapter < ActiveRecord::Base
   has_many :leaders, through: :chapter_leaders
   has_paper_trail
 
-  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes, :email_1_import_id, :email_2_import_id, :email_3_import_id, :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, :independent_import_id, :ein_import_id
+  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes, :email_1_import_id, :email_2_import_id, :email_3_import_id, :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, :independent_import_id, :ein_import_id, :revoked, :revocation_date
  # acts_as_gmappable :lat => 'latitude', :lng => 'longitude', :validation => false, :process_geocoding => true, :checker => "gmaps", :check_process => true, 
  #                 :address => "address", :normalized_address => "gmaps_address"
 
