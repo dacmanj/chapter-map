@@ -33,7 +33,7 @@ class HomeController < ApplicationController
 
   def show_chapters
     if !params[:state].blank?
-      @chapters = Chapter.where(:state => params[:state]).order("name ASC")
+      @chapters = Chapter.active.where(:state => params[:state]).order("name ASC")
     elsif !params[:zip].blank?
       distance = params[:distance] unless params[:distance].blank? || params[:distance].to_f == 0 
       @chapters = Chapter.active.near(params[:zip], distance || 100)
