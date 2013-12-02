@@ -8,7 +8,7 @@
 			<% end %>
 		</strong>
 	</div>
-	<% unless chapter.category.blank? %>
+	<% unless chapter.category.blank? || true %>
 	<div><%=chapter.category%></div>
  	<%end%>
 	<% unless (chapter.street.blank? || chapter.representative?) %>

@@ -9,9 +9,14 @@ body {
 
 a:visited, a:hover {
 	text-decoration: underline;
-	color: black;
+	color: #62006e;
 	background-color: transparent;
 }
+
+a {
+	color: #62006e;
+}
+
 
 a:visited.btn-primary {
 	color: white;
