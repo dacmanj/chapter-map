@@ -104,6 +104,9 @@ class User < OmniAuth::Identity::Models::ActiveRecord
     admin = domain.casecmp("pflag.org") != 0 ? false : true
     password = auth["password"]
 
+    if !admin
+      raise UserDomainError, "Sorry! This site is not quite ready for you yet!"
+    end
 
     if Chapter.find_by_email(email).blank? && !admin
       raise UserDomainError, "#{email} is not found."
