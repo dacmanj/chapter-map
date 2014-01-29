@@ -17,6 +17,7 @@ group :development do
   gem 'webrick', '~> 1.3.1'
   gem 'pg'
   gem "better_errors", ">= 0.7.2"
+  gem "binding_of_caller"
   gem "quiet_assets", ">= 1.0.2"
   gem "annotate"
 end
@@ -48,4 +49,3 @@ gem "omniauth-identity"
 gem "bcrypt-ruby",'~> 3.0.0'
 gem "simple_form", ">= 2.1.0"
 gem "figaro", ">= 0.6.3"
-gem "binding_of_caller", ">= 0.7.1", :group => :development, :platforms => [:mri_19, :rbx]

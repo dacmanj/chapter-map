@@ -1,22 +1,31 @@
 class ChaptersController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :unless => :index_json?
   before_filter :admin_only, :except => [:index, :edit, :update]
   before_filter :chapter_leader?, :except => [:index, :new, :show]
   
   # GET /chapters
   # GET /chapters.json
   def index
-    if params[:search].blank? && params[:inactive].blank?
-      @chapters = current_user.chapters.select{|h| !h.inactive? }
+    if current_user.nil?
+      @chapters = Chapter.active
     else
-      @chapters = current_user.search(params[:search], params[:inactive])
+      if params[:search].blank? && params[:inactive].blank?
+        @chapters = current_user.chapters.select{|h| !h.inactive? }
+      else
+        @chapters = current_user.search(params[:search], params[:inactive])
+      end
     end
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.csv { send_data Chapter.to_csv(@chapters) }
 
-      format.json { render json: @chapters }
+    respond_to do |format|
+
+      if current_user.nil?
+        format.json { render json: @chapters, :only => [:name,:website,:address,:city,:state,:zip,:latitude,:longitude] }
+      else
+        format.html # index.html.erb
+        format.csv { send_data Chapter.to_csv(@chapters) }
+        format.json { render json: @chapters }
+      end
     end
   end
 
@@ -149,6 +158,12 @@ class ChaptersController < ApplicationController
     end
     flash[:notice] = "Deleted chapters!"
     redirect_to chapters_path
+  end
+
+  protected
+
+  def index_json?
+    @_action_name ==  "index" and @_request.format.json?
   end
 
 end
