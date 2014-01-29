@@ -20,7 +20,7 @@ class ChaptersController < ApplicationController
     respond_to do |format|
 
       if current_user.nil?
-        format.json { render json: @chapters, :only => [:name,:website,:address,:city,:state,:zip,:latitude,:longitude] }
+        format.json { render json: @chapters, :only => [:name,:website,:street,:city,:state,:zip,:latitude,:longitude] }
       else
         format.html # index.html.erb
         format.csv { send_data Chapter.to_csv(@chapters) }
