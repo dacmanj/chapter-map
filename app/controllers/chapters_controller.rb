@@ -1,7 +1,4 @@
 class ChaptersController < ApplicationController
-  before_filter :authenticate_user!, :unless => :index_json?
-  before_filter :admin_only, :except => [:index, :edit, :update]
-  before_filter :chapter_leader?, :except => [:index, :new, :show]
   
   # GET /chapters
   # GET /chapters.json

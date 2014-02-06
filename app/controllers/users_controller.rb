@@ -1,7 +1,4 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, :except => [:new, :create, :confirm]
-  before_filter :correct_user?, :except => [:new, :create, :index,:delete_multiple, :confirm]
-  before_filter :admin_user?
 
   def index
     @users = User.all

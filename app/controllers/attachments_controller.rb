@@ -1,5 +1,4 @@
 class AttachmentsController < ApplicationController
-  before_filter :authenticate_user!
 #  before_filter :admin_only, :except => [:index, :edit, :new, create,]
 
   # GET /attachments
