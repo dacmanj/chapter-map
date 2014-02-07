@@ -214,7 +214,7 @@ class Chapter < ActiveRecord::Base
       chapter.attributes = row.to_hash.slice(*accessible_attributes)
       chapter.geocode
       chapter.save!
-      sleep 0.05
+      sleep 0.09
     end
        errors
   end
@@ -237,8 +237,14 @@ class Chapter < ActiveRecord::Base
     end
   end
 
-  def self.search(search)
-    Chapter.select{|h| h.name.downcase.include? search}
+  def self.search(params)
+    search = params[:search]
+    inactive = params[:inactive]
+    if inactive?
+      Chapter.select{|h| h.name.downcase.include? search}
+    else
+      Chapter.active.select{|h| h.name.downcase.include? search}
+    end
   end
 
   def self.find_by_did(name)

@@ -25,7 +25,8 @@ $ ->
   buildMap = (markers_json) ->
     if markers_json?
       draggable_markers = ($("body.chapters.edit").length > 0 || $("body.chapters.new").length > 0)
-      Gmaps.store.handler = Gmaps.build('Google')
+      handler_options = {markers: {clusterer: null} } if print == "1"
+      Gmaps.store.handler = Gmaps.build('Google', options = handler_options)
       handler = Gmaps.store.handler;
       handler.buildMap { provider: {}, internal: {id: 'map'}}, -> 
         markers = handler.addMarkers markers_json, {draggable: draggable_markers}

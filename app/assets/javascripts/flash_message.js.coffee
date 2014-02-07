@@ -8,7 +8,7 @@ $ ->
   $(document).ajaxComplete (event, request) ->
     msg = request.getResponseHeader("X-Message")
     alert_type = 'alert-success'
-    alert_type = 'alert-error' unless request.getResponseHeader("X-Message-Type").indexOf("error") is -1
+    alert_type = 'alert-danger' unless request.getResponseHeader("X-Message-Type").indexOf("error") is -1
     $("#flash-message").replaceWith("<div id='flash-message'>
     		<p>&nbsp;</p>
             <div class='row'>

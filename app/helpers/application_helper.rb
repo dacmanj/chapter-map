@@ -143,6 +143,10 @@ module ApplicationHelper
     ]
 	end
 
+	def glyph(g)
+	  content_tag(:i,"",:class=>"glyphicon glyphicon-"+g)
+	end
+
 	def us_states_and_int_long
 		us_states_long + [["International PFLAG Groups","IPG"]]
 	end

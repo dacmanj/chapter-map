@@ -54,6 +54,7 @@ class AttachmentsController < ApplicationController
         format.json { render json: {files: [@attachment.to_jq]}, status: :created, location: @attachment }
       else
         format.html { render action: "new" }
+        flash[:error] = @attachment.errors.full_messages.to_sentence
         format.json { render json: @attachment.errors, status: :unprocessable_entity }
       end
     end

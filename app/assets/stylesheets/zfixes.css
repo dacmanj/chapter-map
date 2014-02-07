@@ -66,6 +66,15 @@ input.file {
     margin-top: 10px;
 }
 
-form input.btn {
+form .btn {
   margin-top: 10px;
+}
+
+.form-control {
+	width: auto;
+}
+
+.row {
+	margin: 5px auto;
+
 }

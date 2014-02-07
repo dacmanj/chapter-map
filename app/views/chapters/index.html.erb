@@ -1,18 +1,19 @@
 <h1>Chapters</h1>
 
 <% if admin_user? %>
-  <%= form_tag chapters_path, :method => 'get', :class => "form-inline" do %>
-
-      <%= text_field_tag :search, params[:search], :class => "control-label", :placeholder => "Chapter Name" %>
-        <div class="checkbox">
-          <label for="inactive">
-            <%= check_box_tag :inactive, "yes", (params[:inactive] == "yes") %>
-            Include Inactive?
-          </label>
-        </div>
-        <%= submit_tag "Search", :name => nil, :class => "btn" %>
+<div class="row col-md-12 col-md-offset-0">
+  <%= simple_form_for :chapter, :method => 'get', :html => { :class => 'form-inline' } do |f| %>
+  <label>Search</label>
+  <% unless params[:chapter].blank? %>
+  <% @search = params[:chapter][:search] %>
+  <% @inactive = params[:chapter][:search] == 1 %>
 
   <% end %>
+      <%= f.input_field :search, :placeholder => "Chapter Name", :label=> "Search", :value => "#{@search}" %>
+      <label style="margin: auto 10px">Include Inactive?</label><%= f.check_box :inactive, :checked => true %>
+      <%= f.submit "Search", :class => "btn btn-default", :style=> "margin: 0px 10px" %>
+  <% end %>
+</div>
 <% end %>
 
 

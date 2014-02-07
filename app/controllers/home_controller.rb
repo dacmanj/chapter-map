@@ -15,17 +15,18 @@ class HomeController < ApplicationController
       marker.title   "#{chapter.name}"
       marker.infowindow render_to_string(:partial => "/chapters/infowindow",  :formats => [:html], :locals => { :chapter => chapter})
       case chapter.category
-#        when "Chapter"
+#        when "Representative"
 #          marker.picture({
 #                    :url => "http://maps.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png",
 #                    :width   => 32,
 #                    :height  => 32
 #                   });
-        when "Representative"
+        when "Chapter"
           marker.picture({
-                    :url => "http://maps.google.com/intl/en_us/mapfiles/ms/micons/purple-dot.png",
-                    :width   => 32,
-                    :height  => 32
+                    #:url => "https://maps.google.com/mapfiles/ms/icons/purple.png", //(size 32x32)
+                    :url => "#{root_url}"+ view_context.image_path('purple.png'),
+                    :width   => 10,
+                    :height  => 10
                    });
         end
       end
@@ -51,7 +52,7 @@ class HomeController < ApplicationController
   def embed
     index #call index
     respond_to do |format|
-      format.html { render 'index', :layout => 'pflag' }
+      format.html { render 'index', :layout => 'embed' }
       format.json { render json: @hash }
     end   
   end

@@ -41,9 +41,9 @@
       <%= f.input :revoked %>
       <%= f.input :revocation_date, :include_blank => true %>
       <%= f.input :database_identifier %>
-      <%= f.input :email_1_import_id %>
-      <%= f.input :email_2_import_id %>
-      <%= f.input :email_3_import_id %>
+      <%= f.input :email_1_import_id, :as => :string %>
+      <%= f.input :email_2_import_id, :as => :string %>
+      <%= f.input :email_3_import_id, :as => :string %>
       <%= f.input :helpline_import_id %>
       <%= f.input :phone_1_import_id %>
       <%= f.input :phone_2_import_id %>
@@ -71,7 +71,7 @@
 
             </div>
           <% end %>
-          <p><%= f.link_to_add "Add File", :attachments, class: "btn btn-primary" %></p>
+          <p><%= link_to "Add File", attachments_path, class: "btn btn-primary" %></p>
       </div>
     </div>
 
@@ -79,7 +79,7 @@
 
   <div class="form-actions">
     <%= f.button :submit, :class => "btn btn-primary" %>
-    <%= link_to content_tag(:i, "", class: "icon-trash icon-white") + ' Delete', @chapter, method: :delete, :class => "btn btn-danger" unless !admin_user? %>
+    <%= link_to glyph("trash gylphicon-white") + ' Delete', @chapter, method: :delete, :class => "btn btn-danger" unless !admin_user? %>
 
   </div>
 <% end %>
