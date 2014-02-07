@@ -94,3 +94,15 @@ $ ->
   $("body.home form.chapter-search").submit submitChapterSearch
   $("body.home #show-all-button").click showAllChapters
   $("form.chapter-search button.reset-search").click clearSearch
+  
+  $("#delete_multiple_users").submit (e) ->
+    marked = new Array()
+    k = 0
+    $("input:checked[name*=user_ids]").each (i,v) ->
+      marked[k] = $(v).val()
+      k++
+    marked = marked.join(",")
+    mf = $("<input/>",{type: "hidden", name: "user_ids[]", value: marked})
+    $("#delete_multiple_users").append(mf)
+
+  return

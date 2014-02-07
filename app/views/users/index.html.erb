@@ -1,12 +1,14 @@
 <h3>Users</h3>
 
-<%=form_tag delete_multiple_users_path do %>
 <table class="table table-striped">
   <tr>
     <th></th>
     <th>Name</th>
     <th>Email</th>
+    <th>Role</th>
     <th></th>
+    <th></th>
+
   </tr>
 
   <% @users.each do |user| %>
@@ -16,10 +18,16 @@
       <%end %>
       <td><%= link_to user.name, edit_user_path(user) %></td>
       <td><%= link_to user.email, "mailto:"+user.email %></td>
-      <td><%= link_to content_tag(:i, "", class: "glyphicon glyphicon-trash glyphicon-trash-white") + "", user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger remove_fields"%></td>
+      <td><%= user.roles.first.name.titleize unless user.roles.first.nil? %></td>
+      <td>
+        <a data-toggle="modal" href="#role-options-<%= user.id %>" class="btn btn-xs btn-default" type="button">Change role</a>
+        <%= render user %>
+      </td>
+      <td><%= link_to glyph("trash glyphicon-trash-white"), user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger remove_fields"%></td>
     </tr>
   <% end %>
 </table>
+<%=form_tag delete_multiple_users_path, :id=>"delete_multiple_users" do %>
 <%= submit_tag "Delete Checked", :class => "btn btn-danger remove_fields"%>
 <%= link_to 'New User', new_user_path, class: "btn btn-primary"%>
 

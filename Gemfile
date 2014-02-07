@@ -32,7 +32,11 @@ end
 gem 'nokogiri'
 gem 'paper_trail', '>= 3.0.0.beta1'
 gem "i18n"
+
 gem "devise"
+gem "cancan"
+gem "rolify"
+
 gem "jquery-fileupload-rails"
 gem "nested_form"
 gem "gmaps4rails", ">= 2.1.0"

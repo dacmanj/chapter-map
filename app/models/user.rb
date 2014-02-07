@@ -26,6 +26,7 @@
 
 #class User < OmniAuth::Identity::Models::ActiveRecord
 class User < ActiveRecord::Base
+  rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
@@ -33,7 +34,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
-  attr_accessible :name, :email, :admin, :chapter_ids, :password, :password_confirmation
+  attr_accessible :name, :email, :admin, :chapter_ids, :password, :password_confirmation, :role_ids
   has_and_belongs_to_many :chapters
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   has_many :authentications
