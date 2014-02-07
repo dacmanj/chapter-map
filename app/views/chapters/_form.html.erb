@@ -78,7 +78,7 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, :class => "btn btn-primary" %>
     <%= link_to content_tag(:i, "", class: "icon-trash icon-white") + ' Delete', @chapter, method: :delete, :class => "btn btn-danger" unless !admin_user? %>
 
   </div>

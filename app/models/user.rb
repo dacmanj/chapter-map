@@ -8,7 +8,6 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  admin                  :boolean
-#  password_digest        :string(255)
 #  activation_code        :string(255)
 #  encrypted_password     :string(255)      default(""), not null
 #  reset_password_token   :string(255)
@@ -29,7 +28,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:google_oauth2, :facebook]
 
   # Setup accessible (or protected) attributes for your model
@@ -48,6 +47,10 @@ class User < ActiveRecord::Base
     unless name.blank? || email.blank?
       name + " (" + email + ")"
     end
+  end
+
+  def has_no_password?
+    return self.encrypted_password.blank?
   end
 
   def attachments
@@ -92,38 +95,18 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.activate(params)
-    u = self.find_by_email_and_activation_code(params[:email],params[:code])
-    unless u.nil?
-      u.activation_code = nil
-      u.save
-      u = true
-    end
-    u
-  end
-
-  def self.special_initialize(user)
-    unless user.nil? 
-      domain = /@(.+$)/.match(user.email)[1]
-      user.activation_code = rand(36**10).to_s(36)
-      user.chapters.push(Chapter.find_by_email(user.email))
-      user.admin = domain.casecmp("pflag.org") != 0 ? false : true
-      user.save
-    end
-  end
-
   def self.find_for_omniauth(auth, signed_in_resource=nil)
-    authentication = Authentication.find_by_provider_and_uid(auth["provider"],auth["uid"])
-    authentication.user
-
+    @authentication = Authentication.find_with_omniauth(auth)
+    if @authentication.blank? || @authentication.user.blank?
+      user = User.create_from_omniauth(auth)
+    else
+      user = @authentication.user
+    end
+    user
   end
 
   def self.create_from_omniauth(auth)
     @authentication = Authentication.find_with_omniauth(auth)
-    if @authentication.nil?
-      # If no authentication was found, create a brand new one here
-      @authentication = Authentication.create_with_omniauth(auth)
-    end
 
     if (!auth["info"].blank?)
       email = auth["info"]["email"]
@@ -135,30 +118,52 @@ class User < ActiveRecord::Base
 
     domain = /@(.+$)/.match(email)[1]
     admin = domain.casecmp("pflag.org") != 0 ? false : true
-    password = auth["password"]
 
-    if !admin
-      raise UserDomainError, "Sorry! This site is not quite ready for you yet!"
+#    if !admin
+#      raise UserDomainError, "Sorry! This site is not quite ready for you yet!"
+#    end
+
+    user = User.find_by_email(email)
+
+
+    if user.blank?
+      chapters = Chapter.find_by_email(email)
+      if chapters.blank? && !admin
+#        raise UserDomainError, "#{email} is not found."
+          ""
+      end
+      user = create! do |u|
+          u.admin = false
+          u.chapters.push(chapters) unless chapters.blank?
+          u.authentications.build
+          u.name = name || ""
+          u.email = email || ""
+          u.admin = admin
+          u.skip_confirmation! 
+      end
     end
-
-    if Chapter.find_by_email(email).blank? && !admin
-      raise UserDomainError, "#{email} is not found."
+    if @authentication.blank?
+      Authentication.create_with_omniauth(auth,user)
+    elsif @authentication.user.blank?
+       @authentication.user = user
+       @authentication.save
     end
-    new_user = create! do |user|
-        user.admin = false
-        if password.blank?
-          user.password_digest = rand(36**10).to_s(36)
-        end
-        user.chapters.push(Chapter.find_by_email(email))
-        user.name = name || ""
-        user.email = email || ""
-        user.admin = admin
-        user.activation_code = rand(36**20).to_s(36) if auth["provider"] == "identify"
+    return user
+  end
+
+  def update_without_password(params, *options)
+    params.delete(:current_password)
+    if (params[:password].blank? or params[:password] != params[:password_confirmation])
+        params.delete(:password)
+        params.delete(:password_confirmation)
     end
+    result = update_attributes(params, *options)
+    clean_up_passwords
+    result    
+  end
 
-    @authentication.user = new_user
-    new_user
-
+  def password_required?
+    authentications.empty? && super
   end
 end
 

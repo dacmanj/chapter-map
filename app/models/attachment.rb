@@ -17,6 +17,7 @@ class Attachment < ActiveRecord::Base
   belongs_to :chapter
   attr_accessible :attachment, :tag, :chapter_id
   has_attached_file :attachment
+  validates_attachment_content_type :attachment, :content_type => %w(image/jpeg image/jpg image/png application/pdf image/tiff image/tif image/pdf)
 #  validate :attachment_presence => true
 #  validate :tag, :presence => true
 

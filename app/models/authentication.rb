@@ -14,8 +14,8 @@ class Authentication < ActiveRecord::Base
   attr_accessible :provider, :uid, :user_id
   belongs_to :user
 
-  def self.create_with_omniauth(auth)
-    create(uid: auth['uid'], provider: auth['provider']) # and other data you might want from the auth hash
+  def self.create_with_omniauth(auth, user=nil)
+    create(uid: auth['uid'], provider: auth['provider'], user_id: user.id) # and other data you might want from the auth hash
   end
 
   def self.find_with_omniauth(auth)
