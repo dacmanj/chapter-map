@@ -12,7 +12,8 @@ class Ability
 
     if user.has_role? :chapter_leader
       can [:index, :update], Chapter, :id => user.chapter_ids
-      can [:index, :create, :update], Attachment, :id => user.attachment_ids
+      can [:manage], Attachment, :id => user.attachment_ids
+      can :create, Attachment
     end
 
     # Define abilities for the passed in user here. For example:

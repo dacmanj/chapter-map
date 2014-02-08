@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :admin, :chapter_ids, :password, :password_confirmation, :role_ids
   has_and_belongs_to_many :chapters
   has_many :attachments, :through => :chapters
-
+  has_many :chapter_leaders, :through => :chapters
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   has_many :authentications
 
