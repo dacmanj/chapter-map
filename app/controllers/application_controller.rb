@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  check_authorization :unless => :do_not_check_authorization?
+
   helper_method :admin_user?
   after_filter :flash_to_headers
 
@@ -13,8 +15,12 @@ class ApplicationController < ActionController::Base
 
   private
 
+    def do_not_check_authorization?
+      respond_to?(:devise_controller?)
+    end
+
     def admin_user?
-      current_user.admin? unless current_user.blank?
+      current_user.has_role? :admin unless current_user.blank?
     end
 
     def flash_to_headers

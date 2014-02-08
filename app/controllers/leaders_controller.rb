@@ -1,4 +1,5 @@
 class LeadersController < ApplicationController
+  load_and_authorize_resource
   # GET /leaders
   # GET /leaders.json
   def index

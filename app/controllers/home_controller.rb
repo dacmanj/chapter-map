@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
-  def index
+    skip_authorization_check
+    
+    def index
     if !params[:state].blank?
       @chapters = Chapter.where(:state => params[:state]).order("name ASC")
     elsif !params[:zip].blank?

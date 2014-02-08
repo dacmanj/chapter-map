@@ -1,14 +1,17 @@
 <%= simple_form_for(@user) do |f| %>
   <%= f.input :name %>
   <%= f.input :email %>
-  <%= f.input :admin %>
-  <%= select :user, :chapter_ids, grouped_options_for_select(chapters_by_state_for_select, @user.chapter_ids), {}, :multiple => true %>
+  <%= f.association :roles %>
+  <%= f.input :override_sync %>
+  <div class="controls">
+  <%= select :user, :chapter_ids, grouped_options_for_select(chapters_by_state_for_select, @user.chapter_ids), {}, :multiple => true, :class=> "select optional form-control" %>
+  </div>
 <br />
 
 
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, :class => "btn btn-primary" %>
     <%= link_to content_tag(:i, "", class: "icon-trash icon-white") + ' Delete', @user, method: :delete, :class => "btn btn-danger" %>
 
   </div>

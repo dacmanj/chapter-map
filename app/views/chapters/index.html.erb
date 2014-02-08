@@ -10,7 +10,7 @@
 
   <% end %>
       <%= f.input_field :search, :placeholder => "Chapter Name", :label=> "Search", :value => "#{@search}" %>
-      <label style="margin: auto 10px">Include Inactive?</label><%= f.check_box :inactive, :checked => true %>
+      <label style="margin: auto 10px">Include Inactive?</label><%= f.check_box :inactive, :checked => @inactive %>
       <%= f.submit "Search", :class => "btn btn-default", :style=> "margin: 0px 10px" %>
   <% end %>
 </div>
@@ -26,7 +26,6 @@
     <th>Name</th>
     <th>Website</th>
     <th>Address</th>
-    <th>Email 1</th>
     <% if admin_user? %>
     <th>Ein</th>
     <th>Revoked?</th>
@@ -43,7 +42,6 @@
       <td><%= link_to chapter.name, edit_chapter_path(chapter) %></td>
       <td><%= link_to content_tag(:i, '', :class => "glyphicon glyphicon-link"), chapter.website_url, :class => "btn btn-default" unless chapter.website_url.blank? %></td>
       <td><%= simple_format([chapter.street,chapter.city_state_zip].join("\n")) %></td>
-      <td><%= chapter.email_1 %></td>
       <% if admin_user? %>
       <td><%= format_EIN(chapter.ein) %></td>     
       <td><%= link_to content_tag(:i, '', :class => "glyphicon glyphicon-ban-circle"), chapter.revocation_url, :class => "btn btn-default", :target => "_BLANK" if chapter.revoked? %></td>

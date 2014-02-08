@@ -1,4 +1,5 @@
 class ChapterLeadersController < ApplicationController
+  load_and_authorize_resource
   # GET /chapter_leaders
   # GET /chapter_leaders.json
   def index

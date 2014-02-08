@@ -1,5 +1,5 @@
 class AttachmentsController < ApplicationController
-#  before_filter :admin_only, :except => [:index, :edit, :new, create,]
+  load_and_authorize_resource
 
   # GET /attachments
   # GET /attachments.json

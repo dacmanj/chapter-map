@@ -1,10 +1,13 @@
-<div class="row">
-<h2>Sign in</h2>
-<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical col-md-4' }) do |f| %>
-  <%= f.input :email, :autofocus => true %>
-  <%= f.input :password %>
-  <%= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
-  <%= f.button :submit, "Sign in", :class => 'btn btn-primary top10' %>
-<% end %>
-</div>
+<div class="col-md-offset-4 col-md-4">
+  <h2>Sign in</h2>
+  	
+	<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f| %>
+	  <%= f.input :email, :autofocus => true %>
+	  <%= f.input :password %>
+	  <%= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
+	  <%= f.button :submit, "Sign in", :class => 'btn btn-primary top10' %>
+	<% end %>
+
+  </div>
+
 <%= render "devise/shared/links" %>

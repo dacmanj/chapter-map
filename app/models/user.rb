@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   end
 
   def chapters
-    if self.admin?
+    if self.has_role? :admin
       Chapter.all
     else
       super
@@ -134,8 +134,8 @@ class User < ActiveRecord::Base
           ""
       end
       user = create! do |u|
-          u.admin = false
           u.chapters.push(chapters) unless chapters.blank?
+          u.add_role :chapter_leader
           u.authentications.build
           u.name = name || ""
           u.email = email || ""

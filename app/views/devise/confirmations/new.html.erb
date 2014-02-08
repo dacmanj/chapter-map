@@ -1,5 +1,6 @@
+<div class="col-md-offset-4 col-md-4">
 <h2>Resend confirmation instructions</h2>
-
+<p>You must confirm your email address to be able to login. If you did not receive your confirmation email, enter your email address below to have it resent.</p>
 <%= simple_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
   <%= f.error_notification %>
   <%= f.full_error :confirmation_token %>
@@ -12,5 +13,5 @@
     <%= f.button :submit, "Resend confirmation instructions", :class => "btn btn-primary" %>
   </div>
 <% end %>
-
+</div>
 <%= render "devise/shared/links" %>

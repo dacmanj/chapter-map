@@ -1,11 +1,14 @@
 class ChaptersController < ApplicationController
-  
+  load_and_authorize_resource
+  skip_authorize_resource :only => [:index]
   # GET /chapters
   # GET /chapters.json
   def index
-    if current_user.nil?
+    if index_json?
+      authorize! :json, Chapter
       @chapters = Chapter.active
     else
+      authorize! :index, Chapter
       if params[:commit] == "Search"
         @chapters = current_user.search(params[:chapter][:search],params[:chapter][:inactive])
       else
@@ -13,16 +16,11 @@ class ChaptersController < ApplicationController
       end
     end
 
-
     respond_to do |format|
-
-      if current_user.nil?
-        format.json { render json: @chapters, :only => [:name,:website,:street,:city,:state,:zip,:latitude,:longitude] }
-      else
-        format.html # index.html.erb
-        format.csv { send_data Chapter.to_csv(@chapters) }
-        format.json { render json: @chapters }
-      end
+      format.html # index.html.erb
+      format.json { render json: @chapters, :only => [:name,:website,:street,:city,:state,:zip,:latitude,:longitude] }
+#        format.json { render json: @chapters }
+      format.csv { send_data Chapter.to_csv(@chapters) }
     end
   end
 
@@ -157,10 +155,10 @@ class ChaptersController < ApplicationController
     redirect_to chapters_path
   end
 
-  protected
+  private
 
   def index_json?
-    @_action_name ==  "index" and @_request.format.json?
+      @_action_name ==  "index" and @_request.format.json?
   end
 
 end

@@ -1,5 +1,5 @@
 class AssetsController < ApplicationController
-
+  load_and_authorize_resource
   # GET /assets
   # GET /assets.json
   def index
