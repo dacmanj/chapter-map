@@ -14,7 +14,9 @@ class Ability
       can [:index, :update], Chapter, :id => user.chapter_ids
       can [:manage], Attachment, :id => user.attachment_ids
       can :create, Attachment
+      can [:index,:manage], ChapterLeader, :id => user.chapter_leader_ids
     end
+
 
     # Define abilities for the passed in user here. For example:
     #
