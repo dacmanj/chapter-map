@@ -36,6 +36,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :name, :email, :admin, :chapter_ids, :password, :password_confirmation, :role_ids
   has_and_belongs_to_many :chapters
+  has_many :attachments, :through => :chapters
+
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   has_many :authentications
 
@@ -54,13 +56,13 @@ class User < ActiveRecord::Base
     return self.encrypted_password.blank?
   end
 
-  def attachments
-    if self.admin?
-      return Attachment.all
-    else
-      return self.chapters.collect(&:attachments).flatten
-    end
-  end
+#  def attachments
+#    if self.has_role :admin
+#      return Attachment.all
+#    else
+#      return self.chapters.collect(&:attachments).flatten
+#    end
+#  end
 
   def chapters
     if self.has_role? :admin

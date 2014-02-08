@@ -18,7 +18,7 @@ module ApplicationHelper
 	def chapters_for_upload_select
 		if current_user.nil?
 			return
-		elsif current_user.admin?
+		elsif current_user.has_role? :admin
 			return grouped_options_for_select(Chapter.order(:state).group_by(&:state).map{|k,v| [k,v.map{|l| [l.name,l.id]}]})
 		else
 			return options_for_select(current_user.chapters.order(:name).map{|c| [c.name,c.id]})
