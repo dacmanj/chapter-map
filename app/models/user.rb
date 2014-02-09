@@ -7,8 +7,6 @@
 #  email                  :string(255)      default(""), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  admin                  :boolean
-#  activation_code        :string(255)
 #  encrypted_password     :string(255)      default(""), not null
 #  reset_password_token   :string(255)
 #  reset_password_sent_at :datetime
@@ -22,6 +20,7 @@
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string(255)
+#  override_sync          :boolean
 #
 
 #class User < OmniAuth::Identity::Models::ActiveRecord

@@ -14,8 +14,9 @@ ChapterMap::Application.routes.draw do
   resources :chapter_leaders
 
 
-  resources :leaders
-
+  resources :members do
+    collection do post :import end
+  end
 
   resources :chapters
   resources :attachments
@@ -28,9 +29,7 @@ ChapterMap::Application.routes.draw do
     collection do post :delete_multiple end
   end
 
-  resources :leaders do
-    collection do post :import end
-  end
+  
   resources :users
 
   resources :users do
@@ -47,7 +46,7 @@ ChapterMap::Application.routes.draw do
   match 'pflag' => 'home#pflag'
   match 'show_chapters' => 'home#show_chapters'
   match 'import' => 'chapters#import'
-  match 'leaders/import' => 'leaders#import'
+  match 'members/import' => 'members#import'
 
   match "/activate" => "users#confirm"
 

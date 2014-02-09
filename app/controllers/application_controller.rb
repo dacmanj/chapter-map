@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   check_authorization :unless => :do_not_check_authorization?
 
   helper_method :admin_user?
+  helper_method :has_role?
   after_filter :flash_to_headers
 
   def after_sign_in_path_for(resource)
@@ -10,7 +11,11 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :alert => exception.message
+    if signed_in?
+      redirect_to chapters_path, :alert => exception.message
+    else
+      redirect_to new_user_session_path, :alert => exception.message
+    end
   end
 
   private
@@ -19,9 +24,14 @@ class ApplicationController < ActionController::Base
       respond_to?(:devise_controller?)
     end
 
+    def has_role?(role)
+      current_user.has_role(role) unless current_user.blank?
+    end
+
     def admin_user?
       current_user.has_role? :admin unless current_user.blank?
     end
+
 
     def flash_to_headers
 #      return unless request.xhr?

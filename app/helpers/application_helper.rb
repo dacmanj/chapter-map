@@ -10,7 +10,12 @@ module ApplicationHelper
     HTML
     html.html_safe
   end
-  
+
+  	def tt(key)
+ 		controller = params[:controller].singularize
+  		t("activerecord.attributes.#{controller}.#{key}")
+  	end
+
 	def chapters_by_state_for_select
 		Chapter.order(:state).group_by(&:state).map{|k,v| [k,v.map{|l| [l.name,l.id]}]}
 	end

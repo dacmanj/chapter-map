@@ -1,16 +1,21 @@
 <ul class="nav navbar-nav">
   <% if user_signed_in? %>
     <li>
-      <%= link_to 'Manage My Chapter Listings', chapters_path %>
+      <%= link_to 'Chapter Listings', chapters_path %>
     </li>
     <li>
-       <%= link_to "Manage My Chapter Files", attachments_path %>
+       <%= link_to "Chapter Files", attachments_path %>
      </li>
     <li>
-      <%= link_to 'Manage My Chapter Leaders', chapter_leaders_path %>
+      <%= link_to 'Chapter Leaders', chapter_leaders_path %>
     </li>
+
     <li>
-      <%= link_to 'My Profile', edit_user_registration_path %>
+      <%= link_to 'Members', members_path if can? :index, Member %>
+    </li>
+
+    <li>
+      <%= link_to current_user.email, edit_user_registration_path %>
     </li>
 
     <li>

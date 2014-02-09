@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140208175933) do
+ActiveRecord::Schema.define(:version => 20140209161729) do
 
   create_table "Attachments", :force => true do |t|
     t.datetime "created_at",              :null => false
@@ -56,19 +56,13 @@ ActiveRecord::Schema.define(:version => 20140208175933) do
 
   create_table "chapter_leaders", :force => true do |t|
     t.integer  "chapter_id"
-    t.integer  "leader_id"
-    t.string   "position_1"
-    t.string   "position_2"
-    t.string   "position_3"
-    t.string   "position_4"
-    t.string   "position_5"
-    t.string   "spouse_position_1"
-    t.string   "spouse_position_2"
-    t.string   "spouse_position_3"
-    t.string   "spouse_position_4"
-    t.string   "spouse_position_5"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.integer  "member_id"
+    t.string   "position"
+    t.string   "spouse_position"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.string   "position_import_id"
+    t.string   "spouse_position_import_id"
   end
 
   create_table "chapters", :force => true do |t|
@@ -114,7 +108,7 @@ ActiveRecord::Schema.define(:version => 20140208175933) do
     t.integer "user_id"
   end
 
-  create_table "leaders", :force => true do |t|
+  create_table "members", :force => true do |t|
     t.string   "contituent_id"
     t.string   "first_name"
     t.string   "last_name"

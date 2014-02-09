@@ -6,7 +6,6 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
   google_oauth2: 'Google'
   facebook: 'Facebook'
   date:
@@ -231,3 +230,6 @@ en:
         independent_import_id: Independent Attribute Import ID
         revoked: Revoked?
         revocation_date: Revocation Date (Effective Date)
+      chapter_leader:
+        spouse: Household Member
+        spouse_position: Household Member Position

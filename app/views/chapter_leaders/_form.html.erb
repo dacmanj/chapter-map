@@ -3,21 +3,17 @@
 
   <div class="form-inputs">
     <%= f.association :chapter, prompt: "Select a chapter..." %>
-    <%= f.association :leader, collection: current_user. %>
-    <%= f.input :position_1, collection: ChapterLeader.positions %>
-    <%= f.input :position_2, collection: ChapterLeader.positions %>
-    <%= f.input :position_3, collection: ChapterLeader.positions %>
-    <%= f.input :position_4, collection: ChapterLeader.positions %>
-    <%= f.input :position_5, collection: ChapterLeader.positions %>
-    <%= f.input :spouse_position_1, collection: ChapterLeader.positions %>
-    <%= f.input :spouse_position_2, collection: ChapterLeader.positions %>
-    <%= f.input :spouse_position_3, collection: ChapterLeader.positions %>
-    <%= f.input :spouse_position_4, collection: ChapterLeader.positions %>
-    <%= f.input :spouse_position_5, collection: ChapterLeader.positions %>
+    <%= f.association :member %>
+    <%= f.input :position, collection: ChapterLeader.positions %>
+    <%= f.input :spouse_position, collection: ChapterLeader.positions %>
+    <% if admin_user? %>
+    <%= f.input :position_import_id %>
+    <%= f.input :spouse_position_import_id %>
+    <% end %>
 
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, :class => "btn btn-primary" %>
   </div>
 <% end %>

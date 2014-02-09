@@ -15,6 +15,10 @@ class Ability
       can [:manage], Attachment, :id => user.attachment_ids
       can :create, Attachment
       can [:index,:manage], ChapterLeader, :id => user.chapter_leader_ids
+      can [:index,:manage], Member, :id => user.chapter_leader_ids
+      can :create, ChapterLeader
+      can :create, Member
+      
     end
 
 

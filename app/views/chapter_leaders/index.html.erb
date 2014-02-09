@@ -1,18 +1,10 @@
-<h1>Listing chapter_leaders</h1>
+<h1>Chapter Leaders</h1>
 <table class="table table-striped">
   <tr>
-    <th>Chapter</th>
-    <th>Leader</th>
-    <th>Position 1</th>
-    <th>Position 2</th>
-    <th>Position 3</th>
-    <th>Position 4</th>
-    <th>Position 5</th>
-    <th>Spouse position 1</th>
-    <th>Spouse position 2</th>
-    <th>Spouse position 3</th>
-    <th>Spouse position 4</th>
-    <th>Spouse position 5</th>
+    <th><%=tt "name" %></th>
+    <th><%=tt "chapter" %></th>
+    <th><%=tt "spouse" %></th>
+    <th><%=tt "spouse_position" %></th>
     <th></th>
     <th></th>
     <th></th>
@@ -20,19 +12,11 @@
 
 <% @chapter_leaders.each do |chapter_leader| %>
   <tr>
+    <% chapter_leader_name = chapter_leader.member.name unless chapter_leader.member.blank? || chapter_leader.id %>
+    <td><%= link_to chapter_leader_name, chapter_leader %></td>
     <td><%= chapter_leader.chapter_id %></td>
-    <td><%= chapter_leader.leader_id %></td>
-    <td><%= chapter_leader.position_1 %></td>
-    <td><%= chapter_leader.position_2 %></td>
-    <td><%= chapter_leader.position_3 %></td>
-    <td><%= chapter_leader.position_4 %></td>
-    <td><%= chapter_leader.position_5 %></td>
-    <td><%= chapter_leader.spouse_position_1 %></td>
-    <td><%= chapter_leader.spouse_position_2 %></td>
-    <td><%= chapter_leader.spouse_position_3 %></td>
-    <td><%= chapter_leader.spouse_position_4 %></td>
-    <td><%= chapter_leader.spouse_position_5 %></td>
-    <td><%= link_to 'Show', chapter_leader %></td>
+    <td><%= chapter_leader.position %></td>
+    <td><%= chapter_leader.spouse_position %></td>
     <td><%= link_to 'Edit', edit_chapter_leader_path(chapter_leader) %></td>
     <td><%= link_to 'Destroy', chapter_leader, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
@@ -41,4 +25,4 @@
 
 <br />
 
-<%= link_to 'New Chapter leader', new_chapter_leader_path %>
+<%= link_to 'New Chapter leader', new_chapter_leader_path, :class => "btn btn-primary" %>

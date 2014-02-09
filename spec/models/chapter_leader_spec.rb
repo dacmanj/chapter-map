@@ -2,21 +2,15 @@
 #
 # Table name: chapter_leaders
 #
-#  id                :integer          not null, primary key
-#  chapter_id        :integer
-#  leader_id         :integer
-#  position_1        :string(255)
-#  position_2        :string(255)
-#  position_3        :string(255)
-#  position_4        :string(255)
-#  position_5        :string(255)
-#  spouse_position_1 :string(255)
-#  spouse_position_2 :string(255)
-#  spouse_position_3 :string(255)
-#  spouse_position_4 :string(255)
-#  spouse_position_5 :string(255)
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
+#  id                        :integer          not null, primary key
+#  chapter_id                :integer
+#  member_id                 :integer
+#  position                  :string(255)
+#  spouse_position           :string(255)
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  position_import_id        :string(255)
+#  spouse_position_import_id :string(255)
 #
 
 require 'spec_helper'
