@@ -1,0 +1,43 @@
+<h1>Members</h1>
+
+<table class="table table-striped">
+  <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Spouse first name</th>
+    <th>Spouse last name</th>
+    <th>Address</th>
+    <th>Address 2</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zip</th>
+    <th>Phone</th>
+    <th>Email</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @members.each do |member| %>
+  <tr>
+    <td><%= member.first_name %></td>
+    <td><%= member.last_name %></td>
+    <td><%= member.spouse_first_name %></td>
+    <td><%= member.spouse_last_name %></td>
+    <td><%= member.address %></td>
+    <td><%= member.address_2 %></td>
+    <td><%= member.city %></td>
+    <td><%= member.state %></td>
+    <td><%= member.zip %></td>
+    <td><%= member.phone %></td>
+    <td><%= member.email %></td>
+    <td><%= link_to 'Show', member %></td>
+    <td><%= link_to 'Edit', edit_member_path(member) %></td>
+    <td><%= link_to 'Destroy', member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Leader', new_member_path %>

@@ -1,0 +1,32 @@
+<%= simple_nested_form_for(@member) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :contituent_id if admin_user? %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :chapter_code if admin_user?  %>
+    <%= select :member, :chapter_ids, grouped_options_for_select(chapters_by_state_for_select, @member.chapter_ids), {}, :multiple => true, :disabled => true %>
+
+    <%= render "chapter_leaders", :f => f %>
+    <%= f.input :spouse_first_name %>
+    <%= f.input :spouse_last_name %>
+    <%= f.input :address %>
+    <%= f.input :address_2 %>
+    <%= f.input :city %>
+    <%= f.input :state %>
+    <%= f.input :zip %>
+    <%= f.input :phone %>
+    <%= f.input :email %>
+    <% if has_role? :admin %>
+    <%= f.input :address_import_id %>
+    <%= f.input :phone_import_id %>
+    <%= f.input :email_import_id %>
+    <% end %>
+    <%= f.input :suppress_from_directory %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

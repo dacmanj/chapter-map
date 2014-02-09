@@ -1,0 +1,85 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Contituent:</b>
+  <%= @member.contituent_id %>
+</p>
+
+<p>
+  <b>First name:</b>
+  <%= @member.first_name %>
+</p>
+
+<p>
+  <b>Last name:</b>
+  <%= @member.last_name %>
+</p>
+
+<p>
+  <b>Chapter code:</b>
+  <%= @member.chapter_code %>
+</p>
+
+<p>
+  <b>Spouse first name:</b>
+  <%= @member.spouse_first_name %>
+</p>
+
+<p>
+  <b>Spouse last name:</b>
+  <%= @member.spouse_last_name %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @member.address %>
+</p>
+
+<p>
+  <b>Address 2:</b>
+  <%= @member.address_2 %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @member.city %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @member.state %>
+</p>
+
+<p>
+  <b>Zip:</b>
+  <%= @member.zip %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @member.phone %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @member.email %>
+</p>
+
+<p>
+  <b>Address import:</b>
+  <%= @member.address_import_id %>
+</p>
+
+<p>
+  <b>Phone import:</b>
+  <%= @member.phone_import_id %>
+</p>
+
+<p>
+  <b>Email import:</b>
+  <%= @member.email_import_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_member_path(@member) %> |
+<%= link_to 'Back', members_path %>
