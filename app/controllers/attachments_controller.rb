@@ -4,6 +4,8 @@ class AttachmentsController < ApplicationController
   # GET /attachments
   # GET /attachments.json
   def index
+    @chapters =  Chapter.accessible_by(current_ability).active
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @attachments.map{|attachment| attachment.to_jq } }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140210143434) do
+ActiveRecord::Schema.define(:version => 20140210220643) do
 
   create_table "Attachments", :force => true do |t|
     t.datetime "created_at",              :null => false
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20140210143434) do
     t.datetime "attachment_updated_at"
     t.integer  "chapter_id"
     t.string   "tag"
+    t.integer  "user_id"
   end
 
   create_table "authentications", :force => true do |t|

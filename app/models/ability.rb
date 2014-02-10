@@ -12,7 +12,8 @@ class Ability
 
     if user.has_role? :chapter_leader
       can [:index, :update], Chapter, :id => user.chapter_ids
-      can [:manage], Attachment, :id => user.attachment_ids
+      can [:manage], Attachment, :id => user.attachment_ids 
+      can [:manage], Attachment, :user_id => user.id
       can :create, Attachment
       can [:index,:manage], ChapterLeader, :id => user.chapter_leader_ids
       can [:index,:manage], Member, :id => user.chapter_leader_ids

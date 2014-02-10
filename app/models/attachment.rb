@@ -11,11 +11,12 @@
 #  attachment_updated_at   :datetime
 #  chapter_id              :integer
 #  tag                     :string(255)
+#  user_id                 :integer
 #
 
 class Attachment < ActiveRecord::Base
   belongs_to :chapter
-  attr_accessible :attachment, :tag, :chapter_id
+  attr_accessible :attachment, :tag, :chapter_id, :user_id
   has_attached_file :attachment
   validates_attachment_content_type :attachment, :content_type => %w(image/jpeg image/jpg image/png application/pdf image/tiff image/tif image/pdf)
 #  validate :attachment_presence => true

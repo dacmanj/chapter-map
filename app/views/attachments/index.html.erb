@@ -1,16 +1,15 @@
 <div class="container">
   <h2>Upload file</h2>
 
-  <%= form_for Attachment.new, :html => { :multipart => true, :id => "fileupload", :class => "form-horizontal"  } do |f| %>
-  <div class="form-group">
-    <%= f.label :default_chapter_for_uploads %>
-      <div>
-        <select name="attachment[chapter_id]" id="default_chapter", :class => "form-control">
-          <option value="">Choose a chapter...</option>
-          <%= chapters_for_upload_select %>
-        </select>
-    </div>
-  </div>
+
+  <%= simple_form_for :options do |f| %>
+    <%= f.input :default_chapter_for_uploads, :collection => @chapters %>
+  <% end %>
+
+  <%= simple_form_for :attachment, :html => { :multipart => true, :id => "fileupload", :class => "form-horizontal"  } do |f| %>
+
+    <%= f.input :chapter_id, as: :hidden %>
+    <%= f.input :user_id, as: :hidden %>
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
     <div class="row fileupload-buttonbar">
       <div class="span7">
@@ -28,7 +27,7 @@
           <i class="icon-ban-circle icon-white"></i>
           <span>Cancel upload</span>
         </button>
-        <button type="button" class="btn btn-danger delete">
+        <button type="button" class="btn btn-danger btn-xs delete">
           <i class="glyphicon glyphicon-trash glyphicon-trash-white"></i>
           <span>Delete</span>
         </button>
@@ -45,6 +44,7 @@
     <div class="fileupload-loading"></div>
     <br>
     <!-- The table listing the files available for upload/download -->
+    <h3>Chapter Files</h3>
     <table class="table table-striped attachment-ajax"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
     </table>
   <% end %>
@@ -112,9 +112,9 @@
         <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
         <td colspan="2"></td>
       <td class="delete">
-        <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
+        <button class="btn btn-danger btn-xs delete" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
           <%=glyph("trash icon-white")%>
-          <span>{%=locale.fileupload.destroy%}</span>
+          {%=locale.fileupload.destroy%}
         </button>
         <input type="checkbox" name="delete" value="1">
       </td>
@@ -164,7 +164,12 @@
   $(function () {
       // Initialize the jQuery File Upload widget:
       $('#fileupload').fileupload({autoUpload: true });
-      $("#default_chapter option").eq(1).attr("selected",true);
+      var sel = $("#options_default_chapter_for_uploads option").eq(1).attr("selected",true).val();
+      $("#attachment_chapter_id").val(sel);
+
+      $("#options_default_chapter_for_uploads").change(function(e) {
+        $("#attachment_chapter_id").val($(this).val());
+      })
       $(".attachment-ajax").delegate("select[name=chapter_id], select[name=tag]", "change", updateAttachmentAjax);
 
       // Load existing files:
