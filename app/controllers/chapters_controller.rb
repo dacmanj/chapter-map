@@ -31,12 +31,7 @@ class ChaptersController < ApplicationController
       render 'import'
     else
       @chapter = Chapter.find(params[:id])
-
-      respond_to do |format|
-        format.html { redirect_to :action => 'edit' }
-        format.json { render json: @chapter }
-      end
-
+      redirect_to :action => 'edit'
     end
   end
 
@@ -87,7 +82,8 @@ class ChaptersController < ApplicationController
         end
       end
     respond_to do |format|
-      format.html # new.html.erb
+      flash.now
+      format.html
       format.json { render json: @chapter }
     end
   end
@@ -118,17 +114,21 @@ class ChaptersController < ApplicationController
   # PUT /chapters/1.json
   def update
     @chapter = Chapter.find(params[:id])
-
-    respond_to do |format|
-      if @chapter.update_attributes(params[:chapter])
-        flash[:notice] = 'Chapter was successfully updated'
-        format.html { render action: "edit", notice: 'Chapter was successfully updated.' }
-        format.json { render :json => { notice: 'Chapter was successfully updated'} }
+    if @chapter.update_attributes(params[:chapter])
+      if request.format.json?
+        respond_to do |format|
+          flash[:notice] = 'Chapter was successfully updated'
+          format.json { render json: @chapter }
+        end
       else
+        redirect_to edit_chapter_url, notice: 'Chapter was successfully updated.'
+      end
+    else
+      respond_to do |format|
         @chapter.errors.each do |type,msg|
           flash[:error] = "Error: #{type}: #{msg}"
         end
-        format.html { render action: "edit" }
+        format.html { redirect_to edit_chapter_path }
         format.json { render json: @chapter.errors, status: :unprocessable_entity }
       end
     end

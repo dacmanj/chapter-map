@@ -38,6 +38,7 @@
 #  ein_import_id         :string(255)
 #  revoked               :boolean
 #  revocation_date       :date
+#  position_lock         :boolean
 #
 
 require 'spec_helper'

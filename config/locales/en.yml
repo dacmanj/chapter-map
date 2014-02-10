@@ -220,6 +220,7 @@ en:
         ein_import_id: IRS Tax ID (EIN) database import ID
         separate_exemption: Has the chapter filed form 1023 directly with the IRS for tax exempt status?
         inactive: No longer active (hidden from map)?
+        position_lock: Freeze position on the map
         email_1_import_id: Email 1 Import ID
         email_2_import_id: Email 2 Import ID
         email_3_import_id: Email 3 Import ID

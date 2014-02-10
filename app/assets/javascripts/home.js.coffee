@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 Gmaps.store = {}
 Gmaps.store.markers = {}
+Gmaps.store.rebuildMap = false
 Gmaps.store.HandleDragend = (pos) ->
   geocoder = new google.maps.Geocoder();
   geocoder.geocode { latLng: pos }, (responses) ->
@@ -10,9 +11,10 @@ Gmaps.store.HandleDragend = (pos) ->
       #alert "Updated Display Location to #{responses[0].formatted_address}\n(#{responses[0].geometry.location.lat()},#{responses[0].geometry.location.lng()}"
       $("#chapter_latitude").val(responses[0].geometry.location.lat());
       $("#chapter_longitude").val(responses[0].geometry.location.lng());
+      $("#chapter_position_lock").prop("checked",true)
+      $("body.chapters.edit form").submit()
     else
       alert 'Cannot determine address at this location.'
-    $("body.chapters.edit form").submit()
 
 $ ->
   $("div.rainbowNavigationTop").click ->
@@ -27,17 +29,17 @@ $ ->
       draggable_markers = ($("body.chapters.edit").length > 0 || $("body.chapters.new").length > 0)
       handler_options = {markers: {clusterer: null} } if print == "1"
       Gmaps.store.handler = Gmaps.build('Google', options = handler_options)
-      handler = Gmaps.store.handler;
+      handler = Gmaps.store.handler
       handler.buildMap { provider: {}, internal: {id: 'map'}}, -> 
-        markers = handler.addMarkers markers_json, {draggable: draggable_markers}
-        handler.bounds.extendWith markers
+        Gmaps.store.markers = handler.addMarkers markers_json, {draggable: draggable_markers}
+        handler.bounds.extendWith Gmaps.store.markers
         handler.fitMapToBounds()
         zoom = handler.getMap().getZoom()
         handler.getMap().setZoom 1
         zoom = Math.max(3,Math.min(zoom,8))
         handler.getMap().setZoom zoom
         if (draggable_markers)
-          for marker in markers
+          for marker in Gmaps.store.markers
             google.maps.event.addListener marker.serviceObject, 'dragend', ->
               Gmaps.store.HandleDragend this.getPosition()
       true
@@ -105,4 +107,31 @@ $ ->
     mf = $("<input/>",{type: "hidden", name: "user_ids[]", value: marked})
     $("#delete_multiple_users").append(mf)
 
-  return
+  $("#chapter_position_lock").change -> 
+    if $("#chapter_position_lock").prop("checked")
+      console.log "Position Locked"
+    else
+      Gmaps.store.rebuildMap = true
+      $("body.chapters.edit form").submit()
+
+  updateAjax = (data) ->
+    console.log("Latitude #{data.latitude}")
+    console.log("Longitude #{data.longitude}")
+    buildMap markers_json if Gmaps.store.rebuildMap
+    $("#chapter_latitude").val(data.latitude)
+    $("#chapter_longitude").val(data.longitude)
+    markers_json[0].lat = data.latitude
+    markers_json[0].lng = data.longitude
+    true
+
+  submitAjax = (e) -> 
+    e.preventDefault()
+    valuesToSubmit = $(@).serialize()
+    url = $(@).attr('action')
+    $.ajax { url: url, data: valuesToSubmit, dataType: "JSON", type: 'PUT', success: updateAjax }
+    $(window).scrollTop(0)
+    true
+
+  $("body.chapters.edit form").submit submitAjax
+
+  true

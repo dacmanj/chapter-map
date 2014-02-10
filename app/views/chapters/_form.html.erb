@@ -23,9 +23,7 @@
     <%= f.input :helpline %>
     <%= f.input :phone_1 %>
     <%= f.input :phone_2 %>
-    <%= f.label :geocode do %>
-      <%= check_box_tag :geocode %>Update Latitude/Longitude from Address
-    <% end %>
+    <%= f.input :position_lock %>
     <%= f.input :latitude %>
     <%= f.input :longitude %>
     <% if current_user.has_role? :admin %>
