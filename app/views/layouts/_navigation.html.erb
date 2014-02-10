@@ -26,7 +26,11 @@
     </li>
   <% else %>
     <li>
+    <%if not Rails.env.production?%>
     <%= link_to 'Login', new_user_session_path %>
+    <% else %>
+    <%= link_to 'Login', 'http://pflag.org/login' %>
+    <%end%>
     </li>
   <% end %>
   <% if admin_user? %>
