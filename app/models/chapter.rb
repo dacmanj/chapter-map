@@ -179,7 +179,7 @@ class Chapter < ActiveRecord::Base
                 new
       
       chapter.attributes = row.to_hash.slice(*accessible_attributes)
-      chapter.geocode
+      chapter.geocode unless chapter.position_lock?
       chapter.save!
     end
        errors

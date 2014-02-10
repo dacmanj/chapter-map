@@ -1,6 +1,7 @@
 class ChaptersController < ApplicationController
   load_and_authorize_resource
   skip_authorize_resource :only => [:index]
+  skip_load_resource :only => [:show]
   # GET /chapters
   # GET /chapters.json
   def index
@@ -11,8 +12,8 @@ class ChaptersController < ApplicationController
       authorize! :index, Chapter
       if params[:commit] == "Search"
         @chapters = @chapters.search(params[:chapter][:search],params[:chapter][:inactive])
-
-#        @chapters = current_user.chapters.select{|h| !h.inactive? }
+      else
+        @chapters = @chapters.active
       end
     end
 

@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
-  attr_accessible :name, :email, :admin, :chapter_ids, :password, :password_confirmation, :role_ids
+  attr_accessible :name, :email, :admin, :chapter_ids, :password, :password_confirmation, :role_ids, :override_sync
   has_and_belongs_to_many :chapters
   has_many :attachments, :through => :chapters
   has_many :chapter_leaders, :through => :chapters
@@ -136,11 +136,15 @@ class User < ActiveRecord::Base
       end
       user = create! do |u|
           u.chapters.push(chapters) unless chapters.blank?
-          u.add_role :chapter_leader
+          if admin
+            u.add_role :admin 
+          else
+            u.add_role :chapter_leader
+          end
+
           u.authentications.build
           u.name = name || ""
           u.email = email || ""
-          u.admin = admin
           u.skip_confirmation! 
       end
     end
