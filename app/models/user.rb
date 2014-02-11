@@ -63,14 +63,6 @@ class User < ActiveRecord::Base
 #    end
 #  end
 
-  def chapters
-    if self.has_role? :admin
-      Chapter.all
-    else
-      super
-    end
-  end
-
   def search(s,i)
     c = self.chapters
     s = s.downcase

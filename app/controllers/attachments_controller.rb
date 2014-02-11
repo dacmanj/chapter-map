@@ -5,7 +5,7 @@ class AttachmentsController < ApplicationController
   # GET /attachments.json
   def index
     #load chapter for dropdown attachment selector
-    @chapters =  Chapter.accessible_by(current_ability).active
+    @chapters =  Chapter.accessible_by(current_ability).active.sort
 
     respond_to do |format|
       format.html # index.html.erb
