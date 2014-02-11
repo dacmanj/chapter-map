@@ -3,7 +3,7 @@
 
 
   <%= simple_form_for :options do |f| %>
-    <%= f.input :default_chapter_for_uploads, :collection => @chapters, :required => false %>
+    <%= f.input :default_chapter_for_uploads, :collection => @chapters, :required => false, :class=> "col-md-4" %>
   <% end %>
 
   <%= simple_form_for :attachment, :html => { :multipart => true, :id => "fileupload", :class => "form-horizontal"  } do |f| %>
