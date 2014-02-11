@@ -61,7 +61,7 @@ class Chapter < ActiveRecord::Base
   scope :chapters_only, where("category = ?","Chapter")
   scope :ungeo, where("latitude = ? or longitude is ?", nil, nil)
 
-  after_validation :geocode, if: ->(obj){ obj.address.present? and !obj.position_lock? }
+  after_validation :geocode, if: ->(obj){ obj.address.present? and !obj.position_lock? and obj.address_changed}
 
   before_validation do
     self.ein = "%09d" % ein.gsub(/[^0-9]/, "").to_i if attribute_present?("ein")
@@ -242,6 +242,10 @@ class Chapter < ActiveRecord::Base
     Chapter.all.each{|h| h.update_revocation_status}
   end
 
+  protected
+    def address_changed
+       ["street","city","state","zip"].any? { |a| self.changed.include? a }
+    end
 
 end
 
