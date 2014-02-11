@@ -4,6 +4,7 @@ class AttachmentsController < ApplicationController
   # GET /attachments
   # GET /attachments.json
   def index
+    #load chapter for dropdown attachment selector
     @chapters =  Chapter.accessible_by(current_ability).active
 
     respond_to do |format|
@@ -51,6 +52,7 @@ class AttachmentsController < ApplicationController
           :content_type => 'text/html',
           :layout => false
         }
+        flash[:notice] = "File uploaded successfully."
         format.json { render json: {files: [@attachment.to_jq]}, status: :created, location: @attachment }
       else
         format.html { render action: "new" }
@@ -67,8 +69,9 @@ class AttachmentsController < ApplicationController
 
     respond_to do |format|
       if @attachment.update_attributes(params[:attachment])
-        format.html { redirect_to attachments_url, notice: 'Attachment was successfully updated.' }
-        format.json { render json: {files: [@attachment.to_jq]}, status: :created, location: @attachment  }
+        format.html { redirect_to attachments_url, notice: 'File was successfully updated.' }
+          flash[:notice] = 'File was successfully updated'
+          format.json { render json: @attachment }
       else
         format.html { render action: "edit" }
         format.json { render json: @attachment.errors, status: :unprocessable_entity }
@@ -84,6 +87,7 @@ class AttachmentsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to attachments_url }
+      flash[:notice] = 'File was successfully deleted'
       format.json { head :no_content }
     end
   end

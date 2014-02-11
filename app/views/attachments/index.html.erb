@@ -9,10 +9,10 @@
   <%= simple_form_for :attachment, :html => { :multipart => true, :id => "fileupload", :class => "form-horizontal"  } do |f| %>
 
     <%= f.input :chapter_id, as: :hidden %>
-    <%= f.input :user_id, as: :hidden %>
+    <%= f.input :user_id, as: :hidden, :input_html => { :value => current_user.id} %>
     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
     <div class="row fileupload-buttonbar">
-      <div class="span7">
+      <div class="col-md-7">
         <!-- The fileinput-button span is used to style the file input field as button -->
         <span class="btn btn-success fileinput-button">
           <i class="icon-plus icon-white"></i>
@@ -27,17 +27,13 @@
           <i class="icon-ban-circle icon-white"></i>
           <span>Cancel upload</span>
         </button>
-        <button type="button" class="btn btn-danger btn-xs delete">
+        <button type="button" class="btn btn-danger delete">
           <i class="glyphicon glyphicon-trash glyphicon-trash-white"></i>
           <span>Delete</span>
         </button>
         <input type="checkbox" class="toggle">
       </div>
-      <div class="span5">
-        <!-- The global progress bar -->
-        <div class="progress progress-success progress-striped active fade">
-          <div class="bar" style="width:0%;"></div>
-        </div>
+      <div class="col-md-5">
       </div>
     </div>
     <!-- The loading indicator is shown during image processing -->
@@ -65,16 +61,21 @@
 <script id="template-upload" type="text/x-tmpl">
   {% for (var i=0, file; file=o.files[i]; i++) { %}
   <tr class="template-upload fade">
-    <td class="preview" colspan="7"><span class="fade"></span></td>
-    <td class="chapter"><span>{%=file.chapter%}</span></td>
-    <td class="tag" colspan="2">{%=file.tag%}</td> 
+    <td class="preview"><span class="fade">
+    </span>
+    </td>
+    <td class="progress" colspan="9">
+      <div class="progress progress-striped">
+        <div class="progress-bar bar progress-bar-info" role="progressbar"></div>
+      </div>
+    </td>
     <td class="name"><span>{%=file.name%}</span></td>
     <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
     {% if (file.error) { %}
-    <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+    <td class="error" colspan="3"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
     {% } else if (o.files.valid && !i) { %}
     <td>
-      <div class="progress progress-success progress-striped active"><div class="bar" style="width:0%;"></div></div>
+      &nbsp;
     </td>
     <td class="start">{% if (!o.options.autoUpload) { %}
       <button class="btn btn-primary">
@@ -100,7 +101,7 @@
     {% if (!file.error) { %}
     <input type="hidden" value="{%=file.id%}" name="id" data-id="{%=file.id%}"/>
     <tr class="template-download fade" data-id="{%=file.id%}">
-        <td class="error" colspan="7"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+        <td class="error" colspan="7"><span class="label label-important" style="display:none;">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
         <td class="preview">{% if (file.thumbnail_url) { %}
           <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
           {% } %}</td>
@@ -121,8 +122,14 @@
     </tr>
     </form>
     {% } %}
-
     {% } %}
+    {% if (o.files.length == 0) { %}
+
+      <tr class="template-download fade" id="no-files-message">
+        <td colspan="15">No files stored for your chapters. Why not drag some here (or click "Add Files" to select files to upload)?</td>
+      </tr>
+    {% } %}
+
 </script>
 
 <script type="text/javascript" charset="utf-8">
@@ -164,6 +171,7 @@
   $(function () {
       // Initialize the jQuery File Upload widget:
       $('#fileupload').fileupload({autoUpload: true });
+
       var sel = $("#options_default_chapter_for_uploads option").eq(1).attr("selected",true).val();
       $("#attachment_chapter_id").val(sel);
 
@@ -199,8 +207,8 @@
                 '<td class="name"></td>' +
                 '<td class="size"></td>' +
                 (file.error ? '<td class="error" colspan="2"></td>' :
-                        '<td><div class="progress">' +
-                            '<div class="bar" style="width:0%;"></div></div></td>' +
+                        '<td><div class="progress progress-striped">' +
+                            '<div class="progress-bar bar progress-bar-info" role="progressbar" style="width:0%;"></div></div></td>' +
                             '<td class="start"><button>Start</button></td>'
                 ) + '<td class="cancel"><button>Cancel</button></td></tr>');
             row.find('.name').text(file.name);
