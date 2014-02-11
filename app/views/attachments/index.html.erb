@@ -3,7 +3,7 @@
 
 
   <%= simple_form_for :options do |f| %>
-    <%= f.input :default_chapter_for_uploads, :collection => @chapters %>
+    <%= f.input :default_chapter_for_uploads, :collection => @chapters, :required => false %>
   <% end %>
 
   <%= simple_form_for :attachment, :html => { :multipart => true, :id => "fileupload", :class => "form-horizontal"  } do |f| %>
@@ -170,7 +170,27 @@
 
   $(function () {
       // Initialize the jQuery File Upload widget:
-      $('#fileupload').fileupload({autoUpload: true });
+      $('#fileupload').fileupload({autoUpload: true, destroy: function (e, data) {
+        var that = $(this).data('blueimpFileupload');  
+        var multiple_selected = (typeof e.originalEvent.originalEvent == "undefined");
+        console.log("test"+multiple_selected);
+        if ( multiple_selected || confirm("Are you sure?") == true) {
+            if (data.url) {
+                $.ajax(data)
+                    .success(function () {
+                        that._adjustMaxNumberOfFiles(1);
+                        $(this).fadeOut(function () {
+                            $(this).remove();
+                        });
+                    });
+            } else {
+                data.context.fadeOut(function () {
+                    $(this).remove();
+                });
+            }
+        }
+       }
+      });
 
       var sel = $("#options_default_chapter_for_uploads option").eq(1).attr("selected",true).val();
       $("#attachment_chapter_id").val(sel);

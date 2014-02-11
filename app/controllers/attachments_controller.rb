@@ -88,7 +88,7 @@ class AttachmentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to attachments_url }
       flash[:notice] = 'File was successfully deleted'
-      format.json { head :no_content }
+      format.json { render json: flash }
     end
   end
 end

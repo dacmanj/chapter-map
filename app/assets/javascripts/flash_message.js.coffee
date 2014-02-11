@@ -6,13 +6,15 @@
 $ -> 
   console.log "ajaxFlashLoading..."
   flash_msg_event = (event, request) ->
+    console.log "ajax request"
     console.log request
-    console.log request.responseHTML
-    msg = request.getResponseHeader("X-Message")
-    console.log "test #{msg}"
-    if msg.length > 0
+    msg = decodeURIComponent(request.getResponseHeader("X-Message")) || ""
+    msg_type = request.getResponseHeader("X-Message-Type") || ""
+    if msg?.length and msg_type?.length
+      console.log "Flash Message: #{msg}"
       alert_type = 'alert-success'
-      alert_type = 'alert-danger' unless request.getResponseHeader("X-Message-Type").match("error") is null
+      alert_type = 'alert-danger' unless (request.getResponseHeader("X-Message-Type") || "").match("error") is null
+      console.log "Flash Message Type: #{alert_type}"
       $("#flash-message").html("
                   <div class='alert " + alert_type + "'>
                     <button type='button' class='close' data-dismiss='alert'>&times;</button>
@@ -25,4 +27,11 @@ $ ->
     setTimeout hideflash, 5000
     true
 
+  file_upload_event = (e,r) ->
+    result = confirm("Are you sure?")
+    e.preventDefault()
+    return result
+
   $(document).on "ajaxComplete", flash_msg_event
+  
+  
