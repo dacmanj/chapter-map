@@ -7,6 +7,8 @@ class AttachmentsController < ApplicationController
     #load chapter for dropdown attachment selector
     @chapters =  Chapter.accessible_by(current_ability).active.sort
 
+    @attachments = @attachments.paginate(:page => params[:page])
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @attachments.map{|attachment| attachment.to_jq } }

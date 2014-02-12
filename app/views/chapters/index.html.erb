@@ -16,6 +16,7 @@
 </div>
 <% end %>
 
+<%= will_paginate @chapters, renderer: BootstrapPagination::Rails %>
 
 <%=form_tag delete_multiple_chapters_path do %>
 <table class="table table-striped">
@@ -51,6 +52,7 @@
     </tr>
   <% end %>
 </table>
+<%= will_paginate @chapters, renderer: BootstrapPagination::Rails %>
 
 <br />
 <% unless !admin_user? %>

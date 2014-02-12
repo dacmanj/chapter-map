@@ -41,6 +41,8 @@
     <br>
     <!-- The table listing the files available for upload/download -->
     <h3>Chapter Files</h3>
+    <%= will_paginate @attachments, renderer: BootstrapPagination::Rails %>
+
     <table class="table table-striped attachment-ajax"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
     </table>
   <% end %>

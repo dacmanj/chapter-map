@@ -17,6 +17,8 @@ class ChaptersController < ApplicationController
       end
     end
 
+    @chapters = @chapters.paginate(:page => params[:page])
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @chapters, :only => [:name,:website,:street,:city,:state,:zip,:latitude,:longitude] }

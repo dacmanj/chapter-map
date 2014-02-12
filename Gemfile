@@ -4,7 +4,7 @@ gem 'rails', '3.2.13'
 gem 'paperclip'
 gem 'aws-sdk'
 
-gem 'pg', :group => :production
+gem 'pg', :group => [:production, :development]
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
@@ -15,7 +15,6 @@ end
 
 group :development do
   gem 'webrick', '~> 1.3.1'
-  gem 'pg'
   gem "better_errors", ">= 0.7.2"
   gem "binding_of_caller"
   gem "quiet_assets", ">= 1.0.2"
@@ -32,7 +31,7 @@ end
 gem 'nokogiri'
 gem 'paper_trail', '>= 3.0.0.beta1'
 gem "i18n"
-
+gem "will_paginate-bootstrap"
 gem "devise"
 gem "cancan"
 gem "rolify"
