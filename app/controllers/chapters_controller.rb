@@ -11,7 +11,7 @@ class ChaptersController < ApplicationController
     else
       authorize! :index, Chapter
       if params[:commit] == "Search"
-        @chapters = @chapters.search(params[:chapter][:search],params[:chapter][:inactive])
+        @chapters = @chapters.search(params[:chapter])
       else
         @chapters = @chapters.active
       end
