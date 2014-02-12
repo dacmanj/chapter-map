@@ -18,7 +18,7 @@ class Attachment < ActiveRecord::Base
   belongs_to :chapter
   attr_accessible :attachment, :tag, :chapter_id, :user_id
   has_attached_file :attachment
-  validates_attachment_content_type :attachment, :content_type => %r{image/.*|application/pdf|application/msword.*|application/vnd.*},
+  validates_attachment_content_type :attachment, :content_type => %r{image/.*|application/pdf|application/msword.*|application/vnd.*|text/.*},
                                     :size => { :in => 0..10.megabytes}
 
 #  validate :attachment_presence => true

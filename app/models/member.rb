@@ -10,7 +10,6 @@
 #  spouse_first_name       :string(255)
 #  spouse_last_name        :string(255)
 #  address                 :string(255)
-#  address_2               :string(255)
 #  city                    :string(255)
 #  state                   :string(255)
 #  zip                     :string(255)
@@ -23,6 +22,7 @@
 #  updated_at              :datetime         not null
 #  suppress_from_directory :boolean
 #  chapter_id              :integer
+#  import_id               :string(255)
 #
 
 class Member < ActiveRecord::Base

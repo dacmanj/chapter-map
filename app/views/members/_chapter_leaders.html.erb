@@ -3,17 +3,9 @@
         <%= cl.select :chapter_id, grouped_options_for_select(chapters_by_state_for_select, @member.chapter_id) %>
         <p>Positions</p>
 
-        <%= cl.select :position_1, ChapterLeader.positions %>
-        <%= cl.select :position_2, ChapterLeader.positions %>
-        <%= cl.select :position_3, ChapterLeader.positions %>
-        <%= cl.select :position_4, ChapterLeader.positions %>
-        <%= cl.select :position_5, ChapterLeader.positions %>
-        <p>Household Member Positions:</p>
-        <%= cl.select :spouse_position_1, ChapterLeader.positions %>
-        <%= cl.select :spouse_position_2, ChapterLeader.positions %>
-        <%= cl.select :spouse_position_3, ChapterLeader.positions %>
-        <%= cl.select :spouse_position_4, ChapterLeader.positions %>
-        <%= cl.select :spouse_position_5, ChapterLeader.positions %>
+        <%= cl.select :position, ChapterLeader.positions %>
+        <p>Household Member Position:</p>
+        <%= cl.select :spouse_position, ChapterLeader.positions %>
         <p>
           <%= cl.link_to_remove "Remove this position" %>
         </p>

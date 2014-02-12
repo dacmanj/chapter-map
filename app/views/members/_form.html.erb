@@ -11,14 +11,14 @@
     <%= render "chapter_leaders", :f => f %>
     <%= f.input :spouse_first_name %>
     <%= f.input :spouse_last_name %>
-    <%= f.input :address %>
-    <%= f.input :address_2 %>
+    <%= f.input :address, :as => :text, :input_html => { :cols => 40, :rows => 3 } %>
     <%= f.input :city %>
     <%= f.input :state %>
     <%= f.input :zip %>
     <%= f.input :phone %>
     <%= f.input :email %>
     <% if has_role? :admin %>
+    <%= f.input :import_id %>
     <%= f.input :address_import_id %>
     <%= f.input :phone_import_id %>
     <%= f.input :email_import_id %>

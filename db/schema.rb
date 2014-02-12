@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140210220643) do
+ActiveRecord::Schema.define(:version => 20140212210802) do
 
   create_table "attachments", :force => true do |t|
     t.datetime "created_at",              :null => false
@@ -96,7 +96,6 @@ ActiveRecord::Schema.define(:version => 20140210220643) do
     t.string   "spouse_first_name"
     t.string   "spouse_last_name"
     t.string   "address"
-    t.string   "address_2"
     t.string   "city"
     t.string   "state"
     t.string   "zip"
@@ -109,6 +108,7 @@ ActiveRecord::Schema.define(:version => 20140210220643) do
     t.datetime "updated_at",              :null => false
     t.boolean  "suppress_from_directory"
     t.integer  "chapter_id"
+    t.string   "import_id"
   end
 
   create_table "roles", :force => true do |t|
