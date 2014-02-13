@@ -166,9 +166,10 @@ class Chapter < ActiveRecord::Base
     header = spreadsheet.row(1)
     header.map! { |h| RAISERS_EDGE_FIELD_MAP[h] || h.downcase  }
     (2..spreadsheet.last_row).each do |i|
-simple#      logger.info("row: " + row.to_hash.slice(*accessible_attributes).map{|k,v| "#{k}=#{v}" }.join(','))
-#      logger.info ("header " + header.to_s)
-
+      row = Hash[[header, spreadsheet.row(i)].transpose]
+      logger.info("row: " + row.to_hash.slice(*accessible_attributes).map{|k,v| "#{k}=#{v}" }.join(','))
+      logger.info ("header " + header.to_s)
+      
       address_lines = row.select { |k,v| /^address(_line_\d)*$/.match(k) && !v.blank? && v != "" }.map{|k,v| v}.join("\n")
       row["street"] ||= address_lines unless address_lines.blank?
      
