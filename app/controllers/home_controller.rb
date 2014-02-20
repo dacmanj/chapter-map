@@ -26,9 +26,9 @@ class HomeController < ApplicationController
         when "Chapter"
           marker.picture({
                     #:url => "https://maps.google.com/mapfiles/ms/icons/purple.png", //(size 32x32)
-                    :url => "#{root_url}"+ view_context.image_path('purple.png'),
-                    :width   => 10,
-                    :height  => 10
+                    :url => "#{root_url}"+ view_context.image_path('purple_24.png'),
+                    :width   => 24,
+                    :height  => 24
                    });
         end
       end
