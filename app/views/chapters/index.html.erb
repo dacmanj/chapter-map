@@ -9,7 +9,7 @@
   <% @inactive = (params[:chapter][:inactive] == "1") %>
   <% end %>
       <%= f.input_field :search, :placeholder => "Chapter Name", :label=> "Search", :value => "#{@search}" %>
-      <label style="margin: auto 10px">Include Inactive?</label><%= f.check_box :inactive, :checked => true %>
+      <label style="margin: auto 10px">Include Inactive?</label><%= f.check_box :inactive, :checked => @inactive %>
       <%= f.submit "Search", :class => "btn btn-default", :style=> "margin: 0px 10px" %>
   <% end %>
 </div>
