@@ -227,20 +227,26 @@ class Chapter < ActiveRecord::Base
   end
   
   def update_revocation_status
+    count = 0
     unless self.revoked? || self.ein.blank?
       ein = self.ein
       url = "http://apps.irs.gov/app/eos/revokeSearch.do?ein1=#{ein}&names=&city=&state=All...&zipCode=&country=US&exemptTypeCode=al&postDateFrom=&postDateTo=&dispatchMethod=searchRevocation&submitName=Search"
       html = Nokogiri::HTML(open(url).read)
       self.revoked = !html.css("div.content").children[6].text.include?("There were no organizations found matching the search values you entered")
       self.revocation_date = Date.parse(html.css('tr')[3].children[14].text) if (self.revoked)
-      logger.info("Revoked: #{self.database_identifier} #{name} #{revocation_date}") if self.revoked && self.changed?
-      self.save if self.changed?
+      if self.changed?
+        logger.info("Revoked: #{self.database_identifier} #{name} #{revocation_date}") if self.revoked?
+        count = 1
+        self.save if self.changed?
+      end
     end
-    return "done"
+    return count
   end
 
   def self.update_all_revocation_status
-    Chapter.all.each{|h| h.update_revocation_status}
+    count = 0
+    Chapter.all.each{|h| count += h.update_revocation_status}
+    logger.info("Revocation Status update complete; #{count} updated")
   end
 
   def address_changed?
