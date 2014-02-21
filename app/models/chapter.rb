@@ -56,6 +56,7 @@ class Chapter < ActiveRecord::Base
 
   scope :active, where("inactive = ? OR inactive is ?",false,nil)
   scope :representatives, where("category = ?","Representative")
+  scope :revoked, where("revoked = ?",true)
   scope :chapters_only, where("category = ?","Chapter")
   scope :ungeo, where("latitude = ? or longitude is ?", nil, nil)
 
@@ -232,9 +233,10 @@ class Chapter < ActiveRecord::Base
       html = Nokogiri::HTML(open(url).read)
       self.revoked = !html.css("div.content").children[6].text.include?("There were no organizations found matching the search values you entered")
       self.revocation_date = Date.parse(html.css('tr')[3].children[14].text) if (self.revoked)
-      logger.info("Revoked: #{self.database_identifier} #{name}") if self.revoked && self.changed?
+      logger.info("Revoked: #{self.database_identifier} #{name} #{revocation_date}") if self.revoked && self.changed?
       self.save if self.changed?
     end
+    return "done"
   end
 
   def self.update_all_revocation_status
