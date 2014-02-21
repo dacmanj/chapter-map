@@ -51,8 +51,6 @@ class Chapter < ActiveRecord::Base
   has_paper_trail
 
   attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes, :email_1_import_id, :email_2_import_id, :email_3_import_id, :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, :independent_import_id, :ein_import_id, :revoked, :revocation_date, :position_lock
- # acts_as_gmappable :lat => 'latitude', :lng => 'longitude', :validation => false, :process_geocoding => true, :checker => "gmaps", :check_process => true, 
- #                 :address => "address", :normalized_address => "gmaps_address"
 
   accepts_nested_attributes_for :attachments, :allow_destroy => true
 
@@ -61,7 +59,7 @@ class Chapter < ActiveRecord::Base
   scope :chapters_only, where("category = ?","Chapter")
   scope :ungeo, where("latitude = ? or longitude is ?", nil, nil)
 
-  after_validation :geocode, if: ->(obj){ obj.address.present? and !obj.position_lock? and obj.address_changed}
+  after_validation :geocode, if: ->(obj){ obj.address.present? and !obj.position_lock? and obj.address_changed?}
 
   before_validation do
     self.ein = "%09d" % ein.gsub(/[^0-9]/, "").to_i if attribute_present?("ein")
@@ -164,14 +162,14 @@ class Chapter < ActiveRecord::Base
     errors = Array.new
     spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1)
+    logger.info ("header " + header.to_s)
     header.map! { |h| RAISERS_EDGE_FIELD_MAP[h] || h.downcase  }
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
       logger.info("row: " + row.to_hash.slice(*accessible_attributes).map{|k,v| "#{k}=#{v}" }.join(','))
-      logger.info ("header " + header.to_s)
       
       address_lines = row.select { |k,v| /^address(_line_\d)*$/.match(k) && !v.blank? && v != "" }.map{|k,v| v}.join("\n")
-      row["street"] ||= address_lines unless address_lines.blank?
+      row["street"] ||= address_lines
      
       chapter = find_by_database_identifier(row["database_identifier"]) || 
                 (find_by_ein(row["ein"]) unless row["ein"].blank?) ||
@@ -179,7 +177,7 @@ class Chapter < ActiveRecord::Base
                 new
       
       chapter.attributes = row.to_hash.slice(*accessible_attributes)
-      chapter.geocode unless chapter.position_lock?
+      chapter.geocode if chapter.address.present? and !chapter.position_lock? and chapter.address_changed?
       chapter.save!
     end
        errors
@@ -242,10 +240,9 @@ class Chapter < ActiveRecord::Base
     Chapter.all.each{|h| h.update_revocation_status}
   end
 
-  protected
-    def address_changed
-       ["street","city","state","zip"].any? { |a| self.changed.include? a }
-    end
+  def address_changed?
+    ["street","city","state","zip"].any? { |a| self.changed.include? a }
+  end
 
 end
 
