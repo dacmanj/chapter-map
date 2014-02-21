@@ -232,7 +232,8 @@ class Chapter < ActiveRecord::Base
       html = Nokogiri::HTML(open(url).read)
       self.revoked = !html.css("div.content").children[6].text.include?("There were no organizations found matching the search values you entered")
       self.revocation_date = Date.parse(html.css('tr')[3].children[14].text) if (self.revoked)
-      self.save!
+      logger.info("Revoked: #{self.database_identifier} #{name}")
+      self.save if self.changed?
     end
   end
 
