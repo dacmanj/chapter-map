@@ -27,7 +27,7 @@ $ ->
   buildMap = (markers_json) ->
     if markers_json?
       draggable_markers = ($("body.chapters.edit").length > 0 || $("body.chapters.new").length > 0)
-      handler_options = {markers: {clusterer: null} } unless cluster == "1"
+      handler_options = {markers: {clusterer: null} } unless cluster?
       Gmaps.store.handler = Gmaps.build('Google', options = handler_options)
       handler = Gmaps.store.handler
       handler.buildMap { provider: {}, internal: {id: 'map'}}, -> 
