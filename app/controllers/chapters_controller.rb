@@ -7,7 +7,7 @@ class ChaptersController < ApplicationController
   def index
     if index_json?
       authorize! :json, Chapter
-      @chapters = Chapter.active
+      @chapters = Chapter.active.sort(&:name)
     else
       authorize! :index, Chapter
       if params[:commit] == "Search"
