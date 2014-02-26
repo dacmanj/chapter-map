@@ -58,6 +58,14 @@ class HomeController < ApplicationController
       format.json { render json: @hash }
     end   
   end
+
+  def full
+    index #call index
+    respond_to do |format|
+      format.html { render 'index', :layout => 'full' }
+      format.json { render json: @hash }
+    end   
+  end  
   def pflag
     index #call index
     respond_to do |format|

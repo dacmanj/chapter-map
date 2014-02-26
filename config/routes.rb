@@ -42,6 +42,7 @@ ChapterMap::Application.routes.draw do
   end
 
 
+  match 'full' => 'home#full'
   match 'embed' => 'home#embed'
   match 'pflag' => 'home#pflag'
   match 'show_chapters' => 'home#show_chapters'

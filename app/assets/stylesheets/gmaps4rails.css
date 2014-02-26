@@ -32,6 +32,33 @@ width: 100%;
   height: 400px !important;
 }
 
+body, html {
+  height: 100%;
+}
+
+.full .map_container {
+  position: relative;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0px none;
+  margin: 0px;
+  padding: 0px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.full {
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+}
+
+.full div#map {
+  position: relative;
+  height: 100% !important;
+}
+
 .gmaps4rails_map img, #map img {
   max-width: none;
 }

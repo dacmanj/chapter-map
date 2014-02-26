@@ -27,7 +27,7 @@ $ ->
   buildMap = (markers_json) ->
     if markers_json?
       draggable_markers = ($("body.chapters.edit").length > 0 || $("body.chapters.new").length > 0)
-      handler_options = {markers: {clusterer: null} } if print == "1"
+      handler_options = {markers: {clusterer: null} } unless cluster == "1"
       Gmaps.store.handler = Gmaps.build('Google', options = handler_options)
       handler = Gmaps.store.handler
       handler.buildMap { provider: {}, internal: {id: 'map'}}, -> 
@@ -38,6 +38,8 @@ $ ->
         handler.getMap().setZoom 1
         zoom = Math.max(3,Math.min(zoom,8))
         handler.getMap().setZoom zoom
+        if zoom == 3
+          handler.getMap().setCenter(new google.maps.LatLng(38.2722002603348,-104.619597467049))
         if (draggable_markers)
           for marker in Gmaps.store.markers
             google.maps.event.addListener marker.serviceObject, 'dragend', ->
