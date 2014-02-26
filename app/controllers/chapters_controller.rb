@@ -17,7 +17,7 @@ class ChaptersController < ApplicationController
       end
     end
 
-    @chapters = @chapters.paginate(:page => params[:page])
+    @chapters = @chapters.paginate(:page => params[:page]) unless index_csv?
 
     respond_to do |format|
       format.html # index.html.erb
@@ -162,6 +162,11 @@ class ChaptersController < ApplicationController
 
   def index_json?
       @_action_name ==  "index" and @_request.format.json?
+  end
+
+
+  def index_csv?
+      @_action_name ==  "index" and @_request.format.csv?
   end
 
 end
