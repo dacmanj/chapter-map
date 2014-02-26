@@ -59,6 +59,7 @@ class Chapter < ActiveRecord::Base
   scope :revoked, where("revoked = ?",true)
   scope :chapters_only, where("category = ?","Chapter")
   scope :ungeo, where("latitude = ? or longitude is ?", nil, nil)
+  scope :unlocked, where("position_lock = ? or position_lock is ?",false,nil)
 
   after_validation :geocode, if: ->(obj){ obj.address.present? and !obj.position_lock? and obj.address_changed?}
 
