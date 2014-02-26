@@ -23,7 +23,6 @@ $ ->
   
 $ ->
 
-
   buildMap = (markers_json) ->
     if markers_json?
       draggable_markers = ($("body.chapters.edit").length > 0 || $("body.chapters.new").length > 0)

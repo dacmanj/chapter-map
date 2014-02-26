@@ -7,9 +7,9 @@
 	<% distance = params[:distance] %>
 	<% distance = 100 if distance.blank? %>
 
-	$('#main-content-yield').prepend("<div id='chapter-listing-error' class='alert alert-danger'>No Chapters Found within <%="#{distance} miles of #{params[:zip]}" %></div>");
+	$('div.chapter-search:first').before($("<div id='chapter-listing-error' class='alert alert-danger'>No Chapters Found within <%="#{distance} miles of #{params[:zip]}" %><button type='button' class='close' data-dismiss='alert'>&times;</button></div>"));
+	
 	$('#chapter-listings').html("");
-	$("window").scrollTop($("#chapter-listings").position().top);
 	function hideflash() { 
 		$("#chapter-listing-error").fadeOut();
 		$("window").scrollTop($("#zip").position().top);
