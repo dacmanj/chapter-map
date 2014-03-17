@@ -1,7 +1,9 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+
 Gmaps.store = {}
+Gmaps.store.vars = []
 Gmaps.store.markers = {}
 Gmaps.store.rebuildMap = false
 Gmaps.store.HandleDragend = (pos) ->
@@ -22,6 +24,14 @@ $ ->
   $("div.rainbowNavigationTop").width($("td.rainbowNavigationTop").siblings().width()/4-12)
   
 $ ->
+
+  q = document.URL.split('?')[1]
+  if q?
+    q = q.split('&')
+    for i in q
+      hash = i.split('=')
+      Gmaps.store.vars.push(hash[1])
+      Gmaps.store.vars[hash[0]] = hash[1]
 
   buildMap = (markers_json) ->
     if markers_json?
@@ -134,5 +144,8 @@ $ ->
     true
 
   $("body.chapters.edit form").submit submitAjax
+
+  if Gmaps.store.vars["zip"]?
+    chapterSearch()
 
   true
