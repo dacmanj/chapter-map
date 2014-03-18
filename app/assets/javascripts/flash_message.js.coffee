@@ -4,10 +4,11 @@
 # 2) you've got a div with the id flash_message somewhere in your html code
 
 $ -> 
-  console.log "ajaxFlashLoading..."
+  console.log "ajaxFlashLoading..." if console?
   flash_msg_event = (event, request) ->
-    console.log "ajax request"
-    console.log request
+    if console?
+      console.log "ajax request"
+      console.log request
     msg = decodeURIComponent(request.getResponseHeader("X-Message")) || ""
     msg_type = request.getResponseHeader("X-Message-Type") || ""
     if msg?.length and msg_type?.length

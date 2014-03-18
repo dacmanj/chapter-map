@@ -109,15 +109,16 @@ $ ->
     $("#delete_multiple_users").append(mf)
 
   $("#chapter_position_lock").change -> 
-    if $("#chapter_position_lock").prop("checked")
-      console.log "Position Locked"
+    if $("#chapter_position_lock").prop("checked") 
+      console.log "Position Locked" if console?
     else
       Gmaps.store.rebuildMap = true
       $("body.chapters.edit form").submit()
 
   updateAjax = (data) ->
-    console.log("Latitude #{data.latitude}")
-    console.log("Longitude #{data.longitude}")
+    if console?
+      console.log("Latitude #{data.latitude}")
+      console.log("Longitude #{data.longitude}")
     buildMap markers_json if Gmaps.store.rebuildMap
     $("#chapter_latitude").val(data.latitude)
     $("#chapter_longitude").val(data.longitude)
