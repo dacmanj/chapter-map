@@ -54,7 +54,7 @@ class Chapter < ActiveRecord::Base
 
   accepts_nested_attributes_for :attachments, :allow_destroy => true
 
-  scope :active, where("inactive = ? OR inactive is ?",false,nil)
+  scope :active, where("inactive = ? OR inactive is ? ORDER name ASC",false,nil)
   scope :representatives, where("category = ?","Representative")
   scope :revoked, where("revoked = ?",true)
   scope :chapters_only, where("category = ?","Chapter")
