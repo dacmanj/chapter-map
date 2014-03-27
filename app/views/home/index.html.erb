@@ -26,6 +26,8 @@
 		    <label for="state" class="col-sm-4 control-label">Address or State/Zip Code</label>
 			<div class="col-sm-4">
 				<%=text_field_tag :zip, params[:zip] || "", :placeholder => 'Enter Address/State/Zip Code', :class => "form-control" %>
+			    <%= hidden_field_tag :longitude, "" %>
+    	  		<%= hidden_field_tag :latitude, "" %>
 
 			</div>
 			<div class="col-sm-2">
@@ -34,6 +36,7 @@
 		</div>
 		<br>
 		<div class="control-group">
+
 			<%=submit_tag "Search", :class => "btn btn-danger"%>
 	      	<%= button_tag "Clear Search", :type => "reset", :class => "reset-search btn btn-danger" %>
 	      	<%= button_tag "Show All", :class => "reset-search btn btn-danger", :id => "show-all-button"%>

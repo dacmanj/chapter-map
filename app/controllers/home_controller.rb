@@ -4,6 +4,9 @@ class HomeController < ApplicationController
     def index
     if !params[:state].blank?
       @chapters = Chapter.active.where(:state => params[:state]).order("name ASC")
+    elsif !params[:latitude].blank? and !params[:longitude].blank?
+      distance = params[:distance] unless params[:distance].blank? || params[:distance].to_f == 0 
+      @chapters = Chapter.active.near([params[:latitude],params[:longitude]], distance || 100)
     elsif !params[:zip].blank?
       if !!(params[:zip] =~ /^[-+]?[0-9]+$/) and params[:zip].length == 5
         zip = params[:zip] + ", USA"
@@ -42,13 +45,15 @@ class HomeController < ApplicationController
   def show_chapters
     if !params[:state].blank?
       @chapters = Chapter.active.where(:state => params[:state]).order("name ASC")
+    elsif !params[:latitude].blank? and !params[:longitude].blank?
+      distance = params[:distance] unless params[:distance].blank? || params[:distance].to_f == 0 
+      @chapters = Chapter.active.near([params[:latitude],params[:longitude]], distance || 100)
     elsif !params[:zip].blank?
       if !!(params[:zip] =~ /^[-+]?[0-9]+$/) and params[:zip].length == 5
         zip = params[:zip] + ", USA"
       else
         zip = params[:zip]
       end
-
       distance = params[:distance] unless params[:distance].blank? || params[:distance].to_f == 0 
       @chapters = Chapter.active.near(zip, distance || 100)
     else
