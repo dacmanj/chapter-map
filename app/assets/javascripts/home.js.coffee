@@ -58,9 +58,10 @@ $ ->
   chapterSearch = -> 
     form = $("body.home form.chapter-search")
     zip = $("#zip").val()
+    state = $("#state").val()
     latitude = $("#latitude")
     longitude = $("#longitude")
-    if zip?
+    if zip? and !state?
       geocoder = new google.maps.Geocoder()
       geocoder.geocode { 'address': zip.toString() }, (results, status) ->
         if status == google.maps.GeocoderStatus.OK
@@ -70,15 +71,18 @@ $ ->
           alert("address not found!")
         if results.length > 1
           alert("Warning! Multiple results found by Google, you may want to try a more specific search.")
-        searchParams = $("body.home form.chapter-search").serialize()
-        console.log "lat:" + results[0].geometry.location.lat()
-        console.log "lng:" + results[0].geometry.location.lng()
-        console.log searchParams
-        $.ajax({ url: "/pflag.json", data: searchParams }).done (data) ->
-          Gmaps.store.markers = data if data[0]?
-          buildMap data if data[0]?
-        $.ajax {url: "/show_chapters.js", data: searchParams }, (data) ->
-          $("#chapter-listings").html data
+        ajaxSearch()
+    else
+      ajaxSearch()
+
+
+  ajaxSearch = ->
+    searchParams = $("body.home form.chapter-search").serialize()
+    $.ajax({ url: "/pflag.json", data: searchParams }).done (data) ->
+      Gmaps.store.markers = data if data[0]?
+      buildMap data if data[0]?
+    $.ajax {url: "/show_chapters.js", data: searchParams }, (data) ->
+      $("#chapter-listings").html data  
 
   zipChange = (e) ->
     form = $("body.home form.chapter-search")
