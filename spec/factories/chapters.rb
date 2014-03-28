@@ -39,6 +39,7 @@
 #  revoked               :boolean
 #  revocation_date       :date
 #  position_lock         :boolean
+#  ambiguate_address     :boolean
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

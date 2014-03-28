@@ -39,6 +39,7 @@
 #  revoked               :boolean
 #  revocation_date       :date
 #  position_lock         :boolean
+#  ambiguate_address     :boolean
 #
 
 require 'open-uri'
@@ -50,7 +51,7 @@ class Chapter < ActiveRecord::Base
   has_many :members, through: :chapter_leaders
   has_paper_trail
 
-  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes, :email_1_import_id, :email_2_import_id, :email_3_import_id, :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, :independent_import_id, :ein_import_id, :revoked, :revocation_date, :position_lock
+  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes, :email_1_import_id, :email_2_import_id, :email_3_import_id, :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, :independent_import_id, :ein_import_id, :revoked, :revocation_date, :position_lock, :ambiguate_address
 
   accepts_nested_attributes_for :attachments, :allow_destroy => true
 
@@ -123,7 +124,7 @@ class Chapter < ActiveRecord::Base
   end
 
   def vague_address
-    address = [(self.city + "," unless self.city.blank?), self.state, self.zip].reject{|h| h.blank?}.join(" ")
+    address = [(self.city + "," unless self.city.blank?), self.state, "USA"].reject{|h| h.blank?}.join(" ")
   end
 
   def representative?
@@ -140,7 +141,7 @@ class Chapter < ActiveRecord::Base
 
   def geo_address
     geocode_address = ""
-    if (self.category == "Representative")
+    if (self.category == "Representative" or self.ambiguate_address?)
       geocode_address = self.vague_address
     else
       geocode_address = self.address
@@ -183,6 +184,10 @@ class Chapter < ActiveRecord::Base
       chapter.save!
     end
        errors
+  end
+
+  def coordinates
+    [self.latitude, self.longitude]
   end
 
   def self.open_spreadsheet(file)
@@ -251,7 +256,7 @@ class Chapter < ActiveRecord::Base
   end
 
   def address_changed?
-    ["street","city","state","zip"].any? { |a| self.changed.include? a }
+    ["street","city","state","zip", "ambiguate_address"].any? { |a| self.changed.include? a }
   end
 
 end

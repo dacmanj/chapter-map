@@ -7,7 +7,7 @@
 <% if (chapter.representative?) %>
 <div><%= chapter.category %></div>
 <% end %>
-<% unless (chapter.street.blank? || chapter.representative?) %>
+<% unless (chapter.street.blank? or chapter.representative? or chapter.ambiguate_address?)  %>
 <div><%= "#{chapter.street}" %></div>
 <% end %>
 <div><%= chapter.city_state_zip %></div>

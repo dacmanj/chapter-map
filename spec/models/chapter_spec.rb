@@ -39,6 +39,7 @@
 #  revoked               :boolean
 #  revocation_date       :date
 #  position_lock         :boolean
+#  ambiguate_address     :boolean
 #
 
 require 'spec_helper'

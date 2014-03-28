@@ -33,7 +33,7 @@ $ ->
       Gmaps.store.vars.push(hash[1])
       Gmaps.store.vars[hash[0]] = hash[1]
 
-  buildMap = (markers_json) ->
+  Gmaps.store.buildMap = (markers_json) ->
     if markers_json?
       draggable_markers = ($("body.chapters.edit").length > 0 || $("body.chapters.new").length > 0)
       handler_options = {markers: {clusterer: null} } unless cluster?
@@ -80,7 +80,7 @@ $ ->
     searchParams = $("body.home form.chapter-search").serialize()
     $.ajax({ url: "/pflag.json", data: searchParams }).done (data) ->
       Gmaps.store.markers = data if data[0]?
-      buildMap data if data[0]?
+      Gmaps.store.buildMap data if data[0]?
     $.ajax {url: "/show_chapters.js", data: searchParams }, (data) ->
       $("#chapter-listings").html data  
 
@@ -120,7 +120,7 @@ $ ->
     event.preventDefault()
     false
 
-  buildMap markers_json if markers_json?
+  Gmaps.store.buildMap markers_json if markers_json?
   $("body.home #state").change stateSelectChange
   $("body.home #zip").change zipChange
   $("body.home #distance").change submitChapterSearch
@@ -149,11 +149,12 @@ $ ->
     if console?
       console.log("Latitude #{data.latitude}")
       console.log("Longitude #{data.longitude}")
-    buildMap markers_json if Gmaps.store.rebuildMap
     $("#chapter_latitude").val(data.latitude)
     $("#chapter_longitude").val(data.longitude)
     markers_json[0].lat = data.latitude
     markers_json[0].lng = data.longitude
+    markers_json[0].infowindow = data.infowindow
+    Gmaps.store.buildMap markers_json if markers_json
     true
 
   submitAjax = (e) -> 

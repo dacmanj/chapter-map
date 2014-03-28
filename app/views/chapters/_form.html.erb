@@ -36,6 +36,7 @@
     <% if current_user.has_role? :admin %>
     <div class="well">
       <h2>Admin Fields</h2>
+      <%= f.input :ambiguate_address %>
       <%= f.input :revoked %>
       <%= f.input :revocation_date, :include_blank => true %>
       <%= f.input :database_identifier %>

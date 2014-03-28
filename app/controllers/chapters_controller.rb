@@ -119,9 +119,12 @@ class ChaptersController < ApplicationController
     @chapter = Chapter.find(params[:id])
     if @chapter.update_attributes(params[:chapter])
       if request.format.json?
+        @infowindow = render_to_string :partial => 'chapters/infowindow', locals: { :chapter => @chapter}
+        @chapter_hash = @chapter.attributes
+        @chapter_hash[:infowindow] = @infowindow
         respond_to do |format|
           flash[:notice] = 'Chapter was successfully updated'
-          format.json { render json: @chapter }
+          format.json { render json: @chapter_hash.to_json }
         end
       else
         redirect_to edit_chapter_url, notice: 'Chapter was successfully updated.'
