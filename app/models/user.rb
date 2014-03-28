@@ -113,9 +113,9 @@ class User < ActiveRecord::Base
     domain = /@(.+$)/.match(email)[1]
     admin = domain.casecmp("pflag.org") != 0 ? false : true
 
-#    if !admin
-#      raise UserDomainError, "Sorry! This site is not quite ready for you yet!"
-#    end
+    if !admin
+      raise UserDomainError, "Sorry! This site is not quite ready for you yet!"
+    end
 
     user = User.find_by_email(email)
 
@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
     if user.blank?
       chapters = Chapter.find_by_email(email)
       if chapters.blank? && !admin
-#        raise UserDomainError, "#{email} is not found."
+        raise UserDomainError, "#{email} is not found please email info@pflag.org."
           ""
       end
       user = create! do |u|
