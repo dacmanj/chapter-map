@@ -2,7 +2,7 @@
 Geocoder.configure(
 
   # geocoding service (see below for supported options):
-  :lookup => :esri,
+  :lookup => :google,
 
   # IP address geocoding service (see below for supported options):
   :ip_lookup => :freegeoip,
