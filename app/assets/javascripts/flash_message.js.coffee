@@ -12,10 +12,10 @@ $ ->
     msg = decodeURIComponent(request.getResponseHeader("X-Message")) || ""
     msg_type = request.getResponseHeader("X-Message-Type") || ""
     if msg?.length and msg_type?.length
-      console.log "Flash Message: #{msg}"
+      console.log "Flash Message: #{msg}" if console?
       alert_type = 'alert-success'
       alert_type = 'alert-danger' unless (request.getResponseHeader("X-Message-Type") || "").match("error") is null
-      console.log "Flash Message Type: #{alert_type}"
+      console.log "Flash Message Type: #{alert_type}" if console?
       $("#flash-message").html("
                   <div class='alert " + alert_type + "'>
                     <button type='button' class='close' data-dismiss='alert'>&times;</button>
