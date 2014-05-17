@@ -173,10 +173,22 @@ class Chapter < ActiveRecord::Base
     header.map! { |h| RAISERS_EDGE_FIELD_MAP[h] || h.downcase  }
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      if !row["separate_exemption"].in?(['','TRUE','FALSE','false','true'])
+      row["separate_exemption"] = row["separate_exemption"].downcase
+      row["inactive"] = row["inactive"].downcase
+      row["revoked"] = row["inactive"].downcase
+      row["position_lock"] = row["inactive"].downcase
+
+      if !row["separate_exemption"].in?(['','true','false'])
         throw 'invalid true/false import format'
       end 
-      if !row["inactive"].in?(['','TRUE','FALSE','false','true'])
+      if !row["inactive"].in?(['','true','false'])
+        throw 'invalid true/false import format'
+      end 
+      if !row["revoked"].in?(['','true','false'])
+        throw 'invalid true/false import format'
+      end 
+
+      if !row["position_lock"].in?(['','true','false'])
         throw 'invalid true/false import format'
       end 
       address_lines = row.select { |k,v| /^address(_line_\d)*$/.match(k) && !v.blank? && v != "" }.map{|k,v| v}.join("\n")
