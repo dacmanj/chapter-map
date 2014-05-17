@@ -15,10 +15,11 @@
    width="640"
    height="690"
    xml:space="preserve"
-   sodipodi:docname="Social_Media_Icons_Set.ai"><metadata
+   sodipodi:docname="Social_Media_Icons_Set.svg"><metadata
      id="metadata8"><rdf:RDF><cc:Work
          rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title><dc:contributor><cc:Agent><dc:title>http://simpleicon.com/link-2.html
+https://dribbble.com/shots/1509889-Free-Social-Media-Icons</dc:title></cc:Agent></dc:contributor></cc:Work></rdf:RDF></metadata><defs
      id="defs6"><clipPath
        clipPathUnits="userSpaceOnUse"
        id="clipPath16"><path
@@ -38,12 +39,12 @@
      id="namedview4"
      showgrid="false"
      inkscape:zoom="1.28"
-     inkscape:cx="134.74768"
+     inkscape:cx="280.15813"
      inkscape:cy="523.53765"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g10" /><g
+     inkscape:current-layer="g44" /><g
      id="g10"
      inkscape:groupmode="layer"
      inkscape:label="Social_Media_Icons_Set"
@@ -69,9 +70,9 @@
        id="g32"
        transform="translate(75.373,417.8213)"
        style="fill:#482458;fill-opacity:1"
-       inkscape:export-filename="/Users/dacmanj/Downloads/Social Media Icons/facebook90.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90"><path
+       inkscape:export-filename="/Users/dacmanj/Downloads/Social Media Icons/facebook20.png"
+       inkscape:export-xdpi="20"
+       inkscape:export-ydpi="20"><path
          d="m 0,0 -5.031,0 c -1.777,0 -2.147,-0.728 -2.147,-2.565 l 0,-4.44 7.178,0 -0.691,-7.794 -6.487,0 0,-23.282 -9.297,0 0,23.184 -4.835,0 0,7.892 4.835,0 0,6.215 c 0,5.833 3.12,8.879 10.038,8.879 L 0,8.089 0,0 z m -10.655,21.179 c -19.883,0 -36,-16.117 -36,-36 0,-19.883 16.117,-36 36,-36 19.882,0 36,16.117 36,36 0,19.883 -16.118,36 -36,36"
          style="fill:#482458;fill-opacity:1;fill-rule:nonzero;stroke:none"
          id="path34"
@@ -79,9 +80,9 @@
        id="g36"
        transform="translate(176.4834,409.2031)"
        style="fill:#482458;fill-opacity:1"
-       inkscape:export-filename="/Users/dacmanj/Downloads/Social Media Icons/twitter90.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90"><path
+       inkscape:export-filename="/Users/dacmanj/Downloads/Social Media Icons/twitter20.png"
+       inkscape:export-xdpi="20"
+       inkscape:export-ydpi="20"><path
          d="m 0,0 c 0.527,-11.744 -8.23,-24.838 -23.733,-24.838 -4.715,0 -9.104,1.383 -12.799,3.752 4.429,-0.522 8.851,0.706 12.361,3.458 -3.653,0.067 -6.737,2.481 -7.799,5.798 1.308,-0.25 2.595,-0.177 3.77,0.142 -4.016,0.808 -6.787,4.425 -6.697,8.293 1.126,-0.625 2.414,-1.001 3.783,-1.043 -3.719,2.484 -4.772,7.394 -2.584,11.147 4.117,-5.052 10.269,-8.376 17.209,-8.725 -1.217,5.224 2.745,10.253 8.134,10.253 2.402,0 4.572,-1.013 6.094,-2.636 C -0.359,5.975 1.428,6.67 3.041,7.627 2.418,5.677 1.094,4.04 -0.63,3.008 1.059,3.209 2.668,3.658 4.166,4.322 3.047,2.647 1.631,1.177 0,0 m -18.105,29.797 c -19.882,0 -36,-16.117 -36,-36 0,-19.883 16.118,-36 36,-36 19.882,0 36,16.117 36,36 0,19.883 -16.118,36 -36,36"
          style="fill:#482458;fill-opacity:1;fill-rule:nonzero;stroke:none"
          id="path38"
@@ -177,9 +178,9 @@
          id="path98"
          inkscape:connector-curvature="0" /></g><g
        id="g4156"
-       inkscape:export-filename="/Users/dacmanj/Downloads/Social Media Icons/link90.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90"><path
+       inkscape:export-filename="/Users/dacmanj/Downloads/Social Media Icons/link20.png"
+       inkscape:export-xdpi="20"
+       inkscape:export-ydpi="20"><path
          sodipodi:nodetypes="csssc"
          inkscape:connector-curvature="0"
          id="path4153"

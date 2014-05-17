@@ -1,6 +1,11 @@
 <h1>Chapters</h1>
 
 <% if admin_user? %>
+<div>
+  <p>
+    Showing <%= @chapters.count %> chapters.
+  </p>
+</div>
 <div class="row col-md-12 col-md-offset-0">
   <%= simple_form_for :chapter, :method => 'get', :html => { :class => 'form-inline' } do |f| %>
   <label>Search</label>

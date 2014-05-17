@@ -116,7 +116,31 @@ ActiveRecord::Schema.define(:version => 20140517154753) do
     t.integer "user_id"
   end
 
-  create_table "members", :force => true do |t|
+  create_table "leaders", :force => true do |t|
+    t.string   "contituent_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "chapter_code"
+    t.string   "spouse_first_name"
+    t.string   "spouse_last_name"
+    t.string   "address"
+    t.string   "address_2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "address_import_id"
+    t.string   "phone_import_id"
+    t.string   "email_import_id"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+    t.boolean  "suppress_from_directory"
+    t.integer  "chapter_id"
+  end
+
+  create_table "members", :id => false, :force => true do |t|
+    t.integer  "id",                      :null => false
     t.string   "contituent_id"
     t.string   "first_name"
     t.string   "last_name"
