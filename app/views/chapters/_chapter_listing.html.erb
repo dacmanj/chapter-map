@@ -8,6 +8,23 @@
 			<% end %>
 		</strong>
 	</div>
+
+	<% unless chapter.website.blank? and chapter.facebook_url.blank? and chapter.twitter_url.blank? %>
+	<div>
+
+	<% unless chapter.website.blank? %>
+		<%= link_to image_tag("link20.png",:height => "20",:alt => "#{chapter.name}'s Website"), chapter.website_url %>
+	<%end%>
+	<% unless chapter.facebook_url.blank? %>
+		<%= link_to image_tag("twitter20.png",:height => "20", :alt => "#{chapter.name}'s Facebook Page"), chapter.website_url %>
+	<%end%>
+	<% unless chapter.twitter_url.blank? %>
+		<%= link_to image_tag("twitter20.png",:height => "20",:alt => "#{chapter.name}'s Twitter Feed"), chapter.website_url %>
+	<%end%>
+
+	</div>
+	<%end%>
+
 	<% unless chapter.category.blank? or true %>
 	<div><%=chapter.category%></div>
  	<%end%>

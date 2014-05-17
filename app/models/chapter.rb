@@ -51,7 +51,7 @@ class Chapter < ActiveRecord::Base
   has_many :members, through: :chapter_leaders
   has_paper_trail
 
-  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes, :email_1_import_id, :email_2_import_id, :email_3_import_id, :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, :independent_import_id, :ein_import_id, :revoked, :revocation_date, :position_lock, :ambiguate_address
+  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes,:website_import_id, :facebook_url, :facebook_url_import_id, :twitter_url, :twitter_url_import_id, :email_1_import_id, :email_2_import_id, :email_3_import_id, :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, :independent_import_id, :ein_import_id, :revoked, :revocation_date, :position_lock, :ambiguate_address
 
   accepts_nested_attributes_for :attachments, :allow_destroy => true
 
@@ -108,6 +108,10 @@ class Chapter < ActiveRecord::Base
     "CnAdrPrfPh_6_01_Import_ID" => "website_import_id",
     "CnAdrPrfPh_7_01_Phone_number" => "phone_3",
     "CnAdrPrfPh_7_01_Import_ID" => "phone_3_import_id",
+    "CnAdrPrfPh_8_01_Phone_number" => "facebook_url",
+    "CnAdrPrfPh_8_01_Import_ID" => "facebook_url_import_id",
+    "CnAdrPrfPh_9_01_Phone_number" => "twitter_url",
+    "CnAdrPrfPh_9_01_Import_ID" => "twitter_url_import_id",
     "CnAttrCat_1_01_Description" => "separate_exemption",
     "CnAttrCat_1_01_Import_ID" => "separate_exemption_import_id",
     "CnAttrCat_2_01_Description" => "ein",

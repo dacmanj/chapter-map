@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140328124819) do
+ActiveRecord::Schema.define(:version => 20140517154753) do
 
   create_table "Attachments", :force => true do |t|
     t.datetime "created_at",              :null => false
@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(:version => 20140328124819) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "ein"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
     t.boolean  "gmaps"
     t.string   "gmaps_address"
     t.integer  "radius"
@@ -104,6 +104,11 @@ ActiveRecord::Schema.define(:version => 20140328124819) do
     t.date     "revocation_date"
     t.boolean  "position_lock"
     t.boolean  "ambiguate_address"
+    t.string   "twitter_url"
+    t.string   "twitter_url_import_id"
+    t.string   "facebook_url"
+    t.string   "facebook_url_import_id"
+    t.string   "website_import_id"
   end
 
   create_table "chapters_users", :force => true do |t|

@@ -13,6 +13,8 @@
     <%= f.input :name %>
     <%= f.input :category, :collection => { :Chapter => "Chapter", :Representative => "Representative" } %>
     <%= f.input :website %>
+    <%= f.input :facebook_url %>
+    <%= f.input :twitter_url %>
     <%= f.input :street, :as => :text, :input_html => { :cols => 40, :rows => 3 } %>
     <%= f.input :city %>
     <%= f.input :state %>
@@ -40,6 +42,9 @@
       <%= f.input :revoked %>
       <%= f.input :revocation_date, :include_blank => true %>
       <%= f.input :database_identifier %>
+      <%= f.input :website_import_id %>
+      <%= f.input :facebook_url_import_id %>
+      <%= f.input :twitter_url_import_id %>
       <%= f.input :email_1_import_id, :as => :string %>
       <%= f.input :email_2_import_id, :as => :string %>
       <%= f.input :email_3_import_id, :as => :string %>
