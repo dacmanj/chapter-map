@@ -16,10 +16,10 @@
 		<%= link_to image_tag("link20.png",:height => "20",:alt => "#{chapter.name}'s Website"), chapter.website_url %>
 	<%end%>
 	<% unless chapter.facebook_url.blank? %>
-		<%= link_to image_tag("twitter20.png",:height => "20", :alt => "#{chapter.name}'s Facebook Page"), chapter.website_url %>
+		<%= link_to image_tag("facebook20.png",:height => "20", :alt => "#{chapter.name}'s Facebook Page"), chapter.facebook_url %>
 	<%end%>
 	<% unless chapter.twitter_url.blank? %>
-		<%= link_to image_tag("twitter20.png",:height => "20",:alt => "#{chapter.name}'s Twitter Feed"), chapter.website_url %>
+		<%= link_to image_tag("twitter20.png",:height => "20",:alt => "#{chapter.name}'s Twitter Feed"), chapter.twitter_url %>
 	<%end%>
 
 	</div>
