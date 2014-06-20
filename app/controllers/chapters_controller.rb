@@ -19,9 +19,15 @@ class ChaptersController < ApplicationController
 
     @chapters = @chapters.paginate(:page => params[:page]) unless index_csv? or index_json?
 
+    if params[:database_identifier].present?
+      json_fields = [:database_identifier, :name,:website,:street,:city,:state,:zip,:latitude,:longitude]
+    else
+      json_fields = [:name,:website,:street,:city,:state,:zip,:latitude,:longitude]
+    end
+
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @chapters, :only => [:name,:website,:street,:city,:state,:zip,:latitude,:longitude] }
+      format.json { render json: @chapters, :only => json_fields }
 #        format.json { render json: @chapters }
       format.csv { send_data Chapter.to_csv(@chapters) }
     end
