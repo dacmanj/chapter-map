@@ -7,7 +7,7 @@ class ChaptersController < ApplicationController
   def index
     if index_json?
       authorize! :json, Chapter
-      @chapters = Chapter.active.order(:name)
+      @chapters = Chapter.active
     else
       authorize! :index, Chapter
       if params[:commit] == "Search"
@@ -21,7 +21,9 @@ class ChaptersController < ApplicationController
 
     if params[:database_identifier].present?
       json_fields = [:database_identifier, :name,:website,:street,:city,:state,:zip,:latitude,:longitude]
+      @chapters = @chapters.order(:database_identifier)
     else
+      @chapters = @chapters.order(:name)
       json_fields = [:name,:website,:street,:city,:state,:zip,:latitude,:longitude]
     end
 
