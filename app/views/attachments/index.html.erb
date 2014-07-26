@@ -195,20 +195,26 @@
       });
 
       var sel = $("#options_chapter_for_uploads option:selected").val();
+      updateAddFileBtnStatus(sel); //toggle btn off if blank chapter
       $("#attachment_chapter_id").val(sel);
-
       $("#options_chapter_for_uploads").change(function(e) {
         $("#attachment_chapter_id").val($(this).val());
         loadFiles();
-        if ($(this).val() == "") { //disable add file button if chapter not selected
-          $("#add_file_btn, #add_file_btn input").attr("disabled","disabled").prop("disabled","true");
-        } else { //enable add button
-          $("#add_file_btn, #add_file_btn input").removeAttr("disabled").remoteProp("disabled");
-        }
+        updateAddFileBtnStatus($(this).val())
+
       })
       $(".attachment-ajax").delegate("select[name=chapter_id], select[name=tag]", "change", updateAttachmentAjax);
       loadFiles();
   });
+
+  function updateAddFileBtnStatus(sel) {
+    if (sel == "") { //disable add file button if chapter not selected
+      $("#add_file_btn, #add_file_btn input").attr("disabled","disabled").prop("disabled","true");
+    } else { //enable add button
+      $("#add_file_btn, #add_file_btn input").removeAttr("disabled").remoteProp("disabled");
+    }
+
+  }
 
   function loadFiles() {
       //destroy current files
