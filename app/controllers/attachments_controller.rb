@@ -5,9 +5,9 @@ class AttachmentsController < ApplicationController
   # GET /attachments.json
   def index
     #load chapter for dropdown attachment selector
-    @chapters =  Chapter.accessible_by(current_ability).active.sort
+    @chapters =  Chapter.accessible_by(current_ability).active.order(:name)
     @attachments = @attachments.where(chapter_id: params[:chapter_id]) if params[:chapter_id].present?
-
+    raise 'poop'
     @attachments = @attachments.paginate(:page => params[:page]) unless params[:format] == "json"
 
     respond_to do |format|
