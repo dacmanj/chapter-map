@@ -3,7 +3,7 @@
 
 
   <%= simple_form_for :options do |f| %>
-    <%= f.input :default_chapter_for_uploads, :collection => @chapters, :required => false, :class=> "col-md-4" %>
+    <%= f.input :chapter_for_uploads, :collection => @chapters, :required => false, :include_blank => (current_user.has_role? :admin), :class=> "col-md-4", :selected => params[:chapter_id] %>
   <% end %>
 
   <%= simple_form_for :attachment, :html => { :multipart => true, :id => "fileupload", :class => "form-horizontal"  } do |f| %>
@@ -14,7 +14,7 @@
     <div class="row fileupload-buttonbar">
       <div class="col-md-7">
         <!-- The fileinput-button span is used to style the file input field as button -->
-        <span class="btn btn-success fileinput-button">
+        <span class="btn btn-success fileinput-button" id="add_file_btn">
           <i class="icon-plus icon-white"></i>
           <span>Add files...</span>
           <%= f.file_field :attachment %>
@@ -194,16 +194,29 @@
        }
       });
 
-      var sel = $("#options_default_chapter_for_uploads option").eq(1).attr("selected",true).val();
+      var sel = $("#options_chapter_for_uploads option:selected").val();
       $("#attachment_chapter_id").val(sel);
 
-      $("#options_default_chapter_for_uploads").change(function(e) {
+      $("#options_chapter_for_uploads").change(function(e) {
         $("#attachment_chapter_id").val($(this).val());
+        loadFiles();
+        if ($(this).val() == "") { //disable add file button if chapter not selected
+          $("#add_file_btn, #add_file_btn input").attr("disabled","disabled").prop("disabled","true");
+        } else { //enable add button
+          $("#add_file_btn, #add_file_btn input").removeAttr("disabled").remoteProp("disabled");
+        }
       })
       $(".attachment-ajax").delegate("select[name=chapter_id], select[name=tag]", "change", updateAttachmentAjax);
+      loadFiles();
+  });
 
+  function loadFiles() {
+      //destroy current files
+      $('#fileupload .files tr').remove();
       // Load existing files:
-      $.getJSON($('#fileupload').prop('action'), function (files) {
+      var sel = $("#options_chapter_for_uploads option:selected").val();
+      var attachments_url = $('#fileupload').prop('action')+"?chapter_id="+sel;
+      $.getJSON(attachments_url, function (files) {
         var fu = $('#fileupload').data('blueimpFileupload'), 
           template;
         fu._adjustMaxNumberOfFiles(-files.length);
@@ -219,7 +232,8 @@
           loadSelectValues();
           $('#loading').remove();
       });
-  });
+
+  }
 
   function uploadTemplateLS(o) {
         var rows = $();
