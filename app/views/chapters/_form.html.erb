@@ -61,7 +61,7 @@
 
       <div class="well form-horizontal">
         <h2>Chapter File Storage</h2>
-        <%= link_to "Manage My Chapter Files", attachments_path %>
+        <%= link_to "Manage My Chapter Files", attachments_path(:chapter_id => @chapter.id) %>
 
           <%= f.fields_for :attachments do |attachment_form| %>
             <div class="well">
@@ -75,7 +75,7 @@
 
             </div>
           <% end %>
-          <p><%= link_to "Add File", attachments_path, class: "btn btn-primary" %></p>
+          <p><%= link_to "Add File", attachments_path(:chapter_id => @chapter.id), class: "btn btn-primary" %></p>
       </div>
     </div>
 
