@@ -170,7 +170,7 @@
     };
   })(window.tmpl); // pass the reference of the original function
   function updateAddFileBtnStatus() {
-    var sel = $("#add_file_btn input").val()
+    var sel = $("#options_chapter_for_uploads").val()
     if (sel == "") { //disable add file button if chapter not selected
       $("#add_file_btn, #add_file_btn input").attr("disabled","disabled").prop("disabled","true");
     } else { //enable add button
