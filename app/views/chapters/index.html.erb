@@ -36,7 +36,7 @@
     <% if admin_user? %>
     <th>Ein</th>
     <th>Revoked?</th>
-    <th>Inactive/Pending?</th>
+    <th>Inactive (<%=content_tag(:i, '', :class => "glyphicon glyphicon-ban-circle")%>) or Pending (<%=content_tag(:i, '', :class => "glyphicon glyphicon-flag")%>)?</th>
     <% end %>
     <th></th>
   </tr>
