@@ -17,7 +17,15 @@
 class Attachment < ActiveRecord::Base
   belongs_to :chapter
   attr_accessible :attachment, :tag, :chapter_id, :user_id
-  has_attached_file :attachment
+
+  Paperclip.interpolates :chapter_id do |attachment, style|
+    attachment.instance.chapter.database_identifier || "ID#{attachment.instance.chapter.id}" # or whatever you've named your User's login/username/etc. attribute
+  end
+
+  has_attached_file :attachment, {
+        :path => "/:class/:chapter_id/:hash/:filename",
+        :hash_secret => "C0n0mByoBzQWLk4cXJzJd9zxiJwcDe2X7@$BAiyrd7QoDphH9mC&i&jF^#R#0nc1"
+  }
   validates_attachment_content_type :attachment, :content_type => %r{image/.*|application/pdf|application/msword.*|application/vnd.*|text/.*},
                                     :size => { :in => 0..10.megabytes}
 
@@ -27,7 +35,7 @@ class Attachment < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
   def self.tags
-  	["EIN Letter","IRS Determination Letter","Affiliation Agreement", "Bylaws", "Articles of Incorporation","Group Inclusion Letter","Verification Letter", "Other"]
+  	["EIN Letter","IRS Determination Letter","Affiliation Agreement", "Bylaws", "Articles of Incorporation","Correspondence with National","Group Inclusion Letter","Verification Letter", "Other"]
   end
 
   def self.search
