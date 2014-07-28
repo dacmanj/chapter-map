@@ -11,10 +11,11 @@
   <label>Search</label>
   <% unless params[:chapter].blank? %>
   <% @search = params[:chapter][:search] %>
+  <% @show = params[:chapter][:show] %>
   <% end %>
       <%= f.input_field :search, :placeholder => "Chapter Name", :label=> "Search", :value => "#{@search}" %>
       <div class="btn btn-default">
-      <%= f.input_field :show, collection: [[" Active","active"],[" Inactive ","inactive"],[" Pending ","pending"],[" All","all"]], as: :radio_buttons, :checked => params[:chapter][:show] || "active" %>
+      <%= f.input_field :show, collection: [[" Active","active"],[" Inactive ","inactive"],[" Pending ","pending"],[" All","all"]], as: :radio_buttons, :checked => @show || "active" %>
       </div>
       <%= f.submit "Search", :class => "btn", :style=> "margin: 0px 10px" %>
   <% end %>
