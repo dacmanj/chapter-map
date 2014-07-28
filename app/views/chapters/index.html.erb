@@ -11,11 +11,12 @@
   <label>Search</label>
   <% unless params[:chapter].blank? %>
   <% @search = params[:chapter][:search] %>
-  <% @inactive = (params[:chapter][:inactive] == "1") %>
   <% end %>
       <%= f.input_field :search, :placeholder => "Chapter Name", :label=> "Search", :value => "#{@search}" %>
-      <label style="margin: auto 10px">Include Inactive?</label><%= f.check_box :inactive, :checked => @inactive %>
-      <%= f.submit "Search", :class => "btn btn-default", :style=> "margin: 0px 10px" %>
+      <div class="btn btn-default">
+      <%= f.input_field :show, collection: [[" Active","active"],[" Inactive ","inactive"],[" Pending ","pending"],[" All","all"]], as: :radio_buttons, :checked => params[:chapter][:show] || "active" %>
+      </div>
+      <%= f.submit "Search", :class => "btn", :style=> "margin: 0px 10px" %>
   <% end %>
 </div>
 <% end %>
@@ -34,7 +35,7 @@
     <% if admin_user? %>
     <th>Ein</th>
     <th>Revoked?</th>
-    <th>Inactive?</th>
+    <th>Inactive/Pending?</th>
     <% end %>
     <th></th>
   </tr>
@@ -50,7 +51,8 @@
       <% if admin_user? %>
       <td><%= format_EIN(chapter.ein) %></td>     
       <td><%= link_to content_tag(:i, '', :class => "glyphicon glyphicon-ban-circle"), chapter.revocation_url, :class => "btn btn-default", :target => "_BLANK" if chapter.revoked? %></td>
-      <td><%= content_tag :div, content_tag(:i, '', :class => "glyphicon glyphicon-ban-circle"), :class => "btn" if chapter.inactive? %></td>
+      <td><%= content_tag :div, content_tag(:i, '', :class => "glyphicon glyphicon-ban-circle"), :class => "btn" if chapter.inactive? %>
+          &nbsp;<%= content_tag :div, content_tag(:i, '', :class => "glyphicon glyphicon-flag"), :class => "btn" if chapter.pending? %></td>
       <%end%>
       <td><%= link_to content_tag(:i, "", class: "glyphicon glyphicon-trash glyphicon-trash-white") + "", chapter, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger remove_fields" unless !admin_user? %> </td>
     </tr>

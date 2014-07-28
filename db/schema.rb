@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140517154753) do
+ActiveRecord::Schema.define(:version => 20140728171842) do
 
   create_table "Attachments", :force => true do |t|
     t.datetime "created_at",              :null => false
@@ -109,6 +109,8 @@ ActiveRecord::Schema.define(:version => 20140517154753) do
     t.string   "facebook_url"
     t.string   "facebook_url_import_id"
     t.string   "website_import_id"
+    t.boolean  "pending"
+    t.string   "pending_reason"
   end
 
   create_table "chapters_users", :force => true do |t|

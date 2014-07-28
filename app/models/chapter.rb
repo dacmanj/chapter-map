@@ -55,7 +55,9 @@ class Chapter < ActiveRecord::Base
 
   accepts_nested_attributes_for :attachments, :allow_destroy => true
 
-  scope :active, where("inactive = ? OR inactive is ?",false,nil)
+  scope :active, where("(inactive = ? OR inactive is ?) and (pending = ? OR pending is ?)",false,nil,false,nil)
+  scope :inactive, where("inactive = ?",true)
+  scope :pending, where("pending = ?",true)
   scope :representatives, where("category = ?","Representative")
   scope :revoked, where("revoked = ?",true)
   scope :chapters_only, where("category = ?","Chapter")
@@ -234,11 +236,21 @@ class Chapter < ActiveRecord::Base
 
   def self.search(params)
     search = "%#{params[:search]}%"
-    inactive = params[:inactive] == "1"
-    if inactive
-      Chapter.where("name ILIKE ?", search)
+
+    case params[:show]
+    when "active"
+      self.active.where("name ILIKE ?", search)
+    when "inactive"
+      self.inactive.where("name ILIKE ?", search)
+
+    when "pending"
+      self.pending.where("name ILIKE ?", search)
+
+    when "all"
+      self.where("name ILIKE ?", search)
     else
-      Chapter.active.where("name ILIKE ?", search)
+      self.active.where("name ILIKE ?", search)
+
     end
   end
 
