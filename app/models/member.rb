@@ -2,7 +2,7 @@
 #
 # Table name: members
 #
-#  id                      :integer          not null, primary key
+#  id                      :integer          not null
 #  contituent_id           :string(255)
 #  first_name              :string(255)
 #  last_name               :string(255)

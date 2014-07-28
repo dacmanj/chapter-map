@@ -2,44 +2,51 @@
 #
 # Table name: chapters
 #
-#  id                    :integer          not null, primary key
-#  name                  :string(255)
-#  website               :string(255)
-#  street                :string(255)
-#  city                  :string(255)
-#  state                 :string(255)
-#  zip                   :string(255)
-#  email_1               :string(255)
-#  email_2               :string(255)
-#  email_3               :string(255)
-#  helpline              :string(255)
-#  phone_1               :string(255)
-#  phone_2               :string(255)
-#  latitude              :float
-#  longitude             :float
-#  ein                   :string(255)
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  gmaps                 :boolean
-#  gmaps_address         :string(255)
-#  radius                :integer
-#  category              :string(255)
-#  separate_exemption    :boolean
-#  inactive              :boolean
-#  database_identifier   :string(255)
-#  email_1_import_id     :string(255)
-#  email_2_import_id     :string(255)
-#  email_3_import_id     :string(255)
-#  helpline_import_id    :string(255)
-#  phone_1_import_id     :string(255)
-#  phone_2_import_id     :string(255)
-#  address_import_id     :string(255)
-#  independent_import_id :string(255)
-#  ein_import_id         :string(255)
-#  revoked               :boolean
-#  revocation_date       :date
-#  position_lock         :boolean
-#  ambiguate_address     :boolean
+#  id                     :integer          not null, primary key
+#  name                   :string(255)
+#  website                :string(255)
+#  street                 :string(255)
+#  city                   :string(255)
+#  state                  :string(255)
+#  zip                    :string(255)
+#  email_1                :string(255)
+#  email_2                :string(255)
+#  email_3                :string(255)
+#  helpline               :string(255)
+#  phone_1                :string(255)
+#  phone_2                :string(255)
+#  latitude               :float
+#  longitude              :float
+#  ein                    :string(255)
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  gmaps                  :boolean
+#  gmaps_address          :string(255)
+#  radius                 :integer
+#  category               :string(255)
+#  separate_exemption     :boolean
+#  inactive               :boolean
+#  database_identifier    :string(255)
+#  email_1_import_id      :string(255)
+#  email_2_import_id      :string(255)
+#  email_3_import_id      :string(255)
+#  helpline_import_id     :string(255)
+#  phone_1_import_id      :string(255)
+#  phone_2_import_id      :string(255)
+#  address_import_id      :string(255)
+#  independent_import_id  :string(255)
+#  ein_import_id          :string(255)
+#  revoked                :boolean
+#  revocation_date        :date
+#  position_lock          :boolean
+#  ambiguate_address      :boolean
+#  twitter_url            :string(255)
+#  twitter_url_import_id  :string(255)
+#  facebook_url           :string(255)
+#  facebook_url_import_id :string(255)
+#  website_import_id      :string(255)
+#  pending                :boolean
+#  pending_reason         :string(255)
 #
 
 require 'open-uri'
@@ -51,7 +58,7 @@ class Chapter < ActiveRecord::Base
   has_many :members, through: :chapter_leaders
   has_paper_trail
 
-  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes,:website_import_id, :facebook_url, :facebook_url_import_id, :twitter_url, :twitter_url_import_id, :email_1_import_id, :email_2_import_id, :email_3_import_id, :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, :independent_import_id, :ein_import_id, :revoked, :revocation_date, :position_lock, :ambiguate_address
+  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes,:website_import_id, :facebook_url, :facebook_url_import_id, :twitter_url, :twitter_url_import_id, :email_1_import_id, :email_2_import_id, :email_3_import_id, :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, :independent_import_id, :ein_import_id, :revoked, :revocation_date, :position_lock, :ambiguate_address, :pending, :pending_reason
 
   accepts_nested_attributes_for :attachments, :allow_destroy => true
 
