@@ -182,24 +182,18 @@ class Chapter < ActiveRecord::Base
     header.map! { |h| RAISERS_EDGE_FIELD_MAP[h] || h.downcase  }
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      row["separate_exemption"] = row["separate_exemption"].downcase
-      row["inactive"] = row["inactive"].downcase
-      row["revoked"] = row["inactive"].downcase
-      row["position_lock"] = row["inactive"].downcase
 
-      if !row["separate_exemption"].in?(['','true','false'])
-        throw 'invalid true/false import format'
-      end 
-      if !row["inactive"].in?(['','true','false'])
-        throw 'invalid true/false import format'
-      end 
-      if !row["revoked"].in?(['','true','false'])
-        throw 'invalid true/false import format'
-      end 
+      booleans = ["separate_exemption","inactive", "revoked","position_lock"]
 
-      if !row["position_lock"].in?(['','true','false'])
-        throw 'invalid true/false import format'
-      end 
+      booleans.each do |x|
+        unless row[x].nil?
+          row[x] = row[x].downcase
+          row[x] == true if row[x] == "yes" || row["x"] == "true"
+          row[x] == false if row[x] == "no" || row["x"] == "false"
+          throw 'invalid true/false import format' unless row[x].in? ['','true','false','yes','no']
+        end
+      end
+
       address_lines = row.select { |k,v| /^address(_line_\d)*$/.match(k) && !v.blank? && v != "" }.map{|k,v| v}.join("\n")
       row["street"] ||= address_lines
       logger.info("row: " + row.to_hash.slice(*accessible_attributes).map{|k,v| "#{k}=#{v}" }.join(','))
