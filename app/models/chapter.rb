@@ -188,8 +188,8 @@ class Chapter < ActiveRecord::Base
       booleans.each do |x|
         unless row[x].nil?
           row[x] = row[x].downcase
-          row[x] == true if row[x] == "yes" || row["x"] == "true"
-          row[x] == false if row[x] == "no" || row["x"] == "false"
+          row[x] == true if row[x] == "yes" or row["x"] == "true"
+          row[x] == false if row[x] == "no" or row["x"] == "false"
           throw 'invalid true/false import format' unless row[x].in? ['','true','false','yes','no']
         end
       end
