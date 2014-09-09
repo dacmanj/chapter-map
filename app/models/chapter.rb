@@ -205,7 +205,11 @@ class Chapter < ActiveRecord::Base
       
       chapter.attributes = row.to_hash.slice(*accessible_attributes)
       chapter.geocode if chapter.address.present? and !chapter.position_lock? and chapter.address_changed?
-      chapter.save!
+      begin
+        chapter.save!
+      rescue
+        errors.push("Error on row #{i} #{$!}")
+      end
     end
        errors
   end
