@@ -38,7 +38,10 @@
 	<% unless chapter.email_2.blank? %>
 		<div><%= link_to chapter.email_2, 'mailto:' + chapter.email_2%></div>
 	<% end %>
-	<% unless chapter.email_1.blank? %>
+	<% unless chapter.phone_1.blank? %>
+		<div><%= chapter.phone_1 %></div>
+	<% end %>
+	<% unless chapter.phone_2.blank? %>
 		<div><%= chapter.phone_1 %></div>
 	<% end %>
 	<% if admin_user? %>

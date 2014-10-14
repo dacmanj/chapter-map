@@ -187,9 +187,9 @@ class Chapter < ActiveRecord::Base
 
       booleans.each do |x|
         unless row[x].nil?
-          row[x] = row[x].downcase
-          row[x] == true if row[x] == "yes" or row["x"] == "true"
-          row[x] == false if row[x] == "no" or row["x"] == "false"
+          value = row[x].downcase
+          row[x] = "true" if value.in?(["yes","true"])
+          row[x] = "false" if value.in?(["no","false"])
           throw 'invalid true/false import format' unless row[x].in? ['','true','false','yes','no']
         end
       end
@@ -205,7 +205,11 @@ class Chapter < ActiveRecord::Base
       
       chapter.attributes = row.to_hash.slice(*accessible_attributes)
       chapter.geocode if chapter.address.present? and !chapter.position_lock? and chapter.address_changed?
-      chapter.save!
+      begin
+        chapter.save!
+      rescue
+        errors.push("Error on row #{i} #{$!}")
+      end
     end
        errors
   end
