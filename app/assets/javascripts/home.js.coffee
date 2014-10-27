@@ -80,6 +80,19 @@ $ ->
 
   ajaxSearch = ->
     searchParams = $("body.home form.chapter-search").serialize()
+    zipV = $("#zip").val()
+    stateV = $("#state").val()
+    latitudeV = $("#latitude")
+    longitudeV = $("#longitude")
+    latlng = latitudeV.val() + ", " + longitudeV.val()
+    latlng = "" if latlng = ", "
+    if zipV?
+      ga 'send', 'event', 'zip search', "#{zipV}"
+    else
+      ga 'send', 'event', 'state search', "#{stateV}"
+
+
+    return 0;
     $.ajax({ url: "/pflag.json", data: searchParams }).done (data) ->
       Gmaps.store.markers = data if data[0]?
       Gmaps.store.buildMap data if data[0]?
