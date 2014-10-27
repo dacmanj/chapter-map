@@ -90,9 +90,6 @@ $ ->
       ga 'send', 'event', 'zip search', "#{zipV}"
     else
       ga 'send', 'event', 'state search', "#{stateV}"
-
-
-    return 0;
     $.ajax({ url: "/pflag.json", data: searchParams }).done (data) ->
       Gmaps.store.markers = data if data[0]?
       Gmaps.store.buildMap data if data[0]?
