@@ -44,7 +44,7 @@ gem "roo"
 gem "jquery-rails"
 gem "rspec-rails", ">= 2.12.2", :group => [:development, :test]
 gem "factory_girl_rails", ">= 4.2.0", :group => [:development, :test]
-gem "bootstrap-sass", ">= 2.3.0.0"
+gem "bootstrap-sass", "~> 3.1.0"
 gem 'underscore-rails'
 gem "omniauth", ">= 1.1.3"
 gem "omniauth-google-oauth2"
