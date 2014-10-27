@@ -7,6 +7,11 @@ body {
 	background-color: transparent;
 }
 
+.checkbox input[type="checkbox"],
+.checkbox-inline input[type="checkbox"] {
+	margin-left: 0px;
+}
+
 a:visited, a:hover {
 	text-decoration: underline;
 	color: #62006e;
