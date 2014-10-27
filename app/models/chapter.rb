@@ -71,6 +71,8 @@ class Chapter < ActiveRecord::Base
   scope :ungeo, where("latitude = ? or longitude is ?", nil, nil)
   scope :unlocked, where("position_lock = ? or position_lock is ?",false,nil)
 
+  validates_uniqueness_of :database_identifier
+
   after_validation :geocode, if: ->(obj){ obj.address.present? and !obj.position_lock? and obj.address_changed?}
 
   before_validation do
