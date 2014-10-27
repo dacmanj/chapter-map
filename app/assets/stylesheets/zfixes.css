@@ -79,3 +79,12 @@ input.file {
 body.home #zip {
 	width: 250px;
 }
+
+.chapter-mailing-address-toggle {
+	font-size: 8pt;
+	font-style: italic;
+}
+
+.chapter-street, .chapter-zip {
+	display: none;
+}

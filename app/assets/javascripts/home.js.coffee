@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 Gmaps.store = {}
+Gmaps.store.map
 Gmaps.store.vars = []
 Gmaps.store.markers = {}
 Gmaps.store.rebuildMap = false
@@ -54,6 +55,7 @@ $ ->
             google.maps.event.addListener marker.serviceObject, 'dragend', ->
               Gmaps.store.HandleDragend this.getPosition()
       true
+      Gmaps.store.map = handler.getMap()
 
   chapterSearch = -> 
     form = $("body.home form.chapter-search")
@@ -126,7 +128,7 @@ $ ->
   $("body.home #distance").change submitChapterSearch
   $("body.home form.chapter-search").submit submitChapterSearch
   $("body.home #show-all-button").click showAllChapters
-  $("form.chapter-search button.reset-search").click clearSearch
+  $("button.reset-search").click clearSearch
   
   $("#delete_multiple_users").submit (e) ->
     marked = new Array()
