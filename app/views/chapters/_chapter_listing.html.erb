@@ -32,7 +32,9 @@
 		<div style="white-space: pre-wrap;" class="chapter-street"><%= chapter.street %></div>		
 	<% end %>
 	<div><%= "#{chapter.city}, " unless chapter.city.blank? %><%= "#{chapter.state} <span class=\"chapter-zip\">#{chapter.zip}</span>".html_safe %></div>
+	<% unless chapter.state.blank? and chapter.city.blank? %>
 	<a class="chapter-mailing-address-toggle">Show Mailing Address >> </a>	
+	<% end %>
 	<% unless chapter.email_1.blank? %>
 		<div><%= link_to chapter.email_1, 'mailto:' + chapter.email_1%></div>
 	<% end %>
