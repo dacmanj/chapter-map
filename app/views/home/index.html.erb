@@ -40,7 +40,12 @@
 			<%=submit_tag "Search", :class => "btn btn-danger"%>
 	      	<%= button_tag "Clear Search", :type => "reset", :class => "reset-search btn btn-danger" %>
 	      	<%= button_tag "Show All", :class => "reset-search btn btn-danger", :id => "show-all-button"%>
-	      	<%= button_tag "Search Near Me", :class => "btn btn-danger", :id => "search-near-me-button", :type => "button", :style => "display: none" %>
+	      	<% if params[:search_near_me].present? %>
+	      	<script type="text/javascript">
+				var SEARCH_NEAR_ME = true;
+	      	</script>
+	      	<%= button_tag "Search Near Me", :class => "btn btn-danger", :id => "search-near-me-button", :type => "button" %>
+	      	<% end%>
 
       	</div>
 	<% end %>
