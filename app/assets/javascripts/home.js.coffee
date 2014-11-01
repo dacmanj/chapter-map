@@ -63,7 +63,7 @@ $ ->
     state = $("#state").val()
     latitude = $("#latitude")
     longitude = $("#longitude")
-    if zip? and !state?
+    if zip? and state == ""
       geocoder = new google.maps.Geocoder()
       geocoder.geocode { 'address': zip.toString() }, (results, status) ->
         if status == google.maps.GeocoderStatus.OK
@@ -82,9 +82,9 @@ $ ->
     searchParams = $("body.home form.chapter-search").serialize()
     zipV = $("#zip").val()
     stateV = $("#state").val()
-    latitudeV = $("#latitude")
-    longitudeV = $("#longitude")
-    latlng = latitudeV.val() + ", " + longitudeV.val()
+    latitude = $("#latitude")
+    longitude = $("#longitude")
+    latlng = latitude.val() + ", " + longitude.val()
     latlng = "" if latlng = ", "
     if zipV?
       ga 'send', 'event', 'zip search', "#{zipV}"
