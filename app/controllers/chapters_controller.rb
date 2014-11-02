@@ -29,7 +29,7 @@ class ChaptersController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @chapters, :only => json_fields }
+      format.json { render json: @chapters, :only => json_fields, :callback => params['callback'] }
 #        format.json { render json: @chapters }
       format.csv { send_data Chapter.to_csv(@chapters) }
     end

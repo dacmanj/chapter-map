@@ -67,8 +67,9 @@ $ ->
       geocoder = new google.maps.Geocoder()
       geocoder.geocode { 'address': zip.toString() }, (results, status) ->
         if status == google.maps.GeocoderStatus.OK
-          latitude.val results[0].geometry.location.lat()
-          longitude.val results[0].geometry.location.lng()
+          loc = results[0].geometry.location
+          latitude.val loc.lat()
+          longitude.val loc.lng()
         else
           alert("address not found!")
         if results.length > 1
