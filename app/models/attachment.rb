@@ -16,7 +16,7 @@
 
 class Attachment < ActiveRecord::Base
   belongs_to :chapter
-  attr_accessible :attachment, :tag, :chapter_id, :user_id
+#  attr_accessible :attachment, :tag, :chapter_id, :user_id
 
   Paperclip.interpolates :chapter_id do |attachment, style|
     attachment.instance.chapter.database_identifier || "ID#{attachment.instance.chapter.id}" # or whatever you've named your User's login/username/etc. attribute

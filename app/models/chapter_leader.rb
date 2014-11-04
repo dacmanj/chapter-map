@@ -14,7 +14,7 @@
 #
 
 class ChapterLeader < ActiveRecord::Base
-  attr_accessible :chapter_id, :leader_id, :position_1, :position_2, :position_3, :position_4, :position_5, :spouse_position_1, :spouse_position_2, :spouse_position_3, :spouse_position_4, :spouse_position_5
+#  attr_accessible :chapter_id, :leader_id, :position_1, :position_2, :position_3, :position_4, :position_5, :spouse_position_1, :spouse_position_2, :spouse_position_3, :spouse_position_4, :spouse_position_5
   belongs_to :chapter
   belongs_to :member
 

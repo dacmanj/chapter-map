@@ -11,7 +11,7 @@
 #
 
 class Authentication < ActiveRecord::Base
-  attr_accessible :provider, :uid, :user_id
+#  attr_accessible :provider, :uid, :user_id
   belongs_to :user
 
   def self.create_with_omniauth(auth, user=nil)

@@ -58,18 +58,18 @@ class Chapter < ActiveRecord::Base
   has_many :members, through: :chapter_leaders
   has_paper_trail
 
-  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes,:website_import_id, :facebook_url, :facebook_url_import_id, :twitter_url, :twitter_url_import_id, :email_1_import_id, :email_2_import_id, :email_3_import_id, :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, :independent_import_id, :ein_import_id, :revoked, :revocation_date, :position_lock, :ambiguate_address, :pending, :pending_reason
+#  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes,:website_import_id, :facebook_url, :facebook_url_import_id, :twitter_url, :twitter_url_import_id, :email_1_import_id, :email_2_import_id, :email_3_import_id, :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, :independent_import_id, :ein_import_id, :revoked, :revocation_date, :position_lock, :ambiguate_address, :pending, :pending_reason
 
   accepts_nested_attributes_for :attachments, :allow_destroy => true
 
-  scope :active, where("(inactive = ? OR inactive is ?) and (pending = ? OR pending is ?)",false,nil,false,nil)
-  scope :inactive, where("inactive = ?",true)
-  scope :pending, where("pending = ?",true)
-  scope :representatives, where("category = ?","Representative")
-  scope :revoked, where("revoked = ?",true)
-  scope :chapters_only, where("category = ?","Chapter")
-  scope :ungeo, where("latitude = ? or longitude is ?", nil, nil)
-  scope :unlocked, where("position_lock = ? or position_lock is ?",false,nil)
+  scope :active, lambda { where("(inactive = ? OR inactive is ?) and (pending = ? OR pending is ?)",false,nil,false,nil) }
+  scope :inactive, lambda{ where("inactive = ?",true) }
+  scope :pending, lambda { where("pending = ?",true) }
+  scope :representatives, lambda { where("category = ?","Representative") }
+  scope :revoked, lambda {where("revoked = ?",true) }
+  scope :chapters_only, lambda {where("category = ?","Chapter")}
+  scope :ungeo, lambda { where("latitude = ? or longitude is ?", nil, nil)}
+  scope :unlocked, lambda {where("position_lock = ? or position_lock is ?",false,nil)}
 
   validates_uniqueness_of :database_identifier
 

@@ -8,7 +8,7 @@ ChapterMap::Application.routes.draw do
     get "/login" => "devise/sessions#new"
   end
 
-  match '/users/auth/:provider/callback' => 'users#omniauth_callbacks'
+  match '/users/auth/:provider/callback', to: 'users#omniauth_callbacks', via: [:get, :post]
 
                    
   resources :chapter_leaders
@@ -42,14 +42,14 @@ ChapterMap::Application.routes.draw do
   end
 
 
-  match 'full' => 'home#full'
-  match 'embed' => 'home#embed'
-  match 'pflag' => 'home#pflag'
-  match 'show_chapters' => 'home#show_chapters'
-  match 'chapters/import' => 'chapters#import'
-  match 'members/import' => 'members#import'
+  get 'full' => 'home#full'
+  get 'embed' => 'home#embed'
+  get 'pflag' => 'home#pflag'
+  get 'show_chapters' => 'home#show_chapters'
+  get 'chapters/import' => 'chapters#import'
+  get 'members/import' => 'members#import'
 
-  match "/activate" => "users#confirm"
+  get "/activate" => "users#confirm"
 
   root :to => "home#pflag"
 

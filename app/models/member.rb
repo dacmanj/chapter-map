@@ -26,7 +26,7 @@
 #
 
 class Member < ActiveRecord::Base
-  attr_accessible :address, :address_2, :address_import_id, :chapter_code, :city, :contituent_id, :email, :email_import_id, :first_name, :last_name, :phone, :phone_import_id, :spouse_first_name, :spouse_last_name, :state, :zip, :suppress_from_directory, :chapter_leaders_attributes
+#  attr_accessible :address, :address_2, :address_import_id, :chapter_code, :city, :contituent_id, :email, :email_import_id, :first_name, :last_name, :phone, :phone_import_id, :spouse_first_name, :spouse_last_name, :state, :zip, :suppress_from_directory, :chapter_leaders_attributes
   has_many :chapter_leaders
   has_many :chapters, through: :chapter_leaders
   has_many :users, through: :chapters

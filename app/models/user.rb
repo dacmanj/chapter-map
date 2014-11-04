@@ -32,8 +32,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:google_oauth2, :facebook]
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
-  attr_accessible :name, :email, :admin, :chapter_ids, :password, :password_confirmation, :role_ids, :override_sync
+#  attr_accessible :email, :password, :password_confirmation, :remember_me
+#  attr_accessible :name, :email, :admin, :chapter_ids, :password, :password_confirmation, :role_ids, :override_sync
   has_and_belongs_to_many :chapters
   has_many :attachments, :through => :chapters
   has_many :chapter_leaders, :through => :chapters
