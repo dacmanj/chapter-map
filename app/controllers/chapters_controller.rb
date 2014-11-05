@@ -21,7 +21,11 @@ class ChaptersController < ApplicationController
 
     if params[:database_identifier].present?
       json_fields = [:database_identifier, :name,:website,:street,:city,:state,:zip,:latitude,:longitude]
-      @chapters = @chapters.order(:database_identifier)
+      if params[:sort] == "name"
+        @chapters = @chapters.order(:name)
+      else
+        @chapters = @chapters.order(:database_identifier)
+      end
     else
       @chapters = @chapters.order(:name)
       json_fields = [:name,:website,:street,:city,:state,:zip,:latitude,:longitude]
