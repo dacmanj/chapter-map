@@ -35,7 +35,8 @@ class Attachment < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
   def self.tags
-  	["EIN Letter","IRS Determination Letter","Affiliation Agreement", "Bylaws", "Articles of Incorporation","Correspondence with National","Group Inclusion Letter","Verification Letter", "Other"]
+  	["EIN Letter","IRS Determination Letter","Affiliation Agreement", "Bylaws", "Articles of Incorporation","Correspondence with National",
+      "Group Inclusion Letter","Verification Letter", "State Tax Exemption", "Certificate of Incorporation", "IRS Form 1023", "Other"].sort
   end
 
   def self.search
