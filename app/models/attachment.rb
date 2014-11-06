@@ -36,7 +36,7 @@ class Attachment < ActiveRecord::Base
 
   def self.tags
   	["EIN Letter","IRS Determination Letter","Affiliation Agreement", "Bylaws", "Articles of Incorporation","Correspondence with National",
-      "Group Inclusion Letter","Verification Letter", "State Tax Exemption", "Certificate of Incorporation", "IRS Form 1023", "Other"].sort
+      "Group Inclusion Letter","Verification Letter", "State Tax Exemption", "Certificate of Incorporation", "IRS Form 1023", "Trademark Agreement", "Other"].sort
   end
 
   def self.search
