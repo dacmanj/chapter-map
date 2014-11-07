@@ -63,7 +63,7 @@ $ ->
     state = $("#state").val()
     latitude = $("#latitude")
     longitude = $("#longitude")
-    if zip? and state == ""
+    if zip != "" and state == ""
       geocoder = new google.maps.Geocoder()
       geocoder.geocode { 'address': zip.toString() }, (results, status) ->
         if status == google.maps.GeocoderStatus.OK
