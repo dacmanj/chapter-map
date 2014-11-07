@@ -85,11 +85,15 @@ body.home #zip {
 	width: 250px;
 }
 
+
 .chapter-mailing-address-toggle {
 	font-size: 8pt;
 	font-style: italic;
 }
 
+.chapter_listing {
+	color: #444444;
+}
 .chapter-street, .chapter-zip {
 	display: none;
 }
