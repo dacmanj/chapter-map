@@ -7,58 +7,18 @@
 
 <p>
   <b>Leader:</b>
-  <%= @chapter_leader.leader_id %>
+  <%= @chapter_leader.member.name %>
 </p>
 
 <p>
-  <b>Position 1:</b>
-  <%= @chapter_leader.position_1 %>
+  <b>Position:</b>
+  <%= @chapter_leader.position %>
 </p>
 
-<p>
-  <b>Position 2:</b>
-  <%= @chapter_leader.position_2 %>
+  <b>Spouse position:</b>
+  <%= @chapter_leader.spouse_position %>
 </p>
 
-<p>
-  <b>Position 3:</b>
-  <%= @chapter_leader.position_3 %>
-</p>
-
-<p>
-  <b>Position 4:</b>
-  <%= @chapter_leader.position_4 %>
-</p>
-
-<p>
-  <b>Position 5:</b>
-  <%= @chapter_leader.position_5 %>
-</p>
-
-<p>
-  <b>Spouse position 1:</b>
-  <%= @chapter_leader.spouse_position_1 %>
-</p>
-
-<p>
-  <b>Spouse position 2:</b>
-  <%= @chapter_leader.spouse_position_2 %>
-</p>
-
-<p>
-  <b>Spouse position 3:</b>
-  <%= @chapter_leader.spouse_position_3 %>
-</p>
-
-<p>
-  <b>Spouse position 4:</b>
-  <%= @chapter_leader.spouse_position_4 %>
-</p>
-
-<p>
-  <b>Spouse position 5:</b>
-  <%= @chapter_leader.spouse_position_5 %>
-</p>
 
 <br>
 <%= link_to 'Edit', edit_chapter_leader_path(@chapter_leader), :class => "btn btn-default" %> 

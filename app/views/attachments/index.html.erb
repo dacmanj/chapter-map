@@ -3,7 +3,11 @@
 
 
   <%= simple_form_for :options do |f| %>
-    <%= f.input :chapter_for_uploads, :collection => @chapters, :required => false, :include_blank => (current_user.has_role? :admin), :class=> "col-md-4", :selected => params[:chapter_id] %>
+    <% if current_user.has_role? :admin %>
+      <%= f.input :chapter_for_uploads, :collection => @chapters, :required => false, :include_blank => true, :class=> "col-md-4", :selected => params[:chapter_id], as: :group, group_method: :state %>
+    <% else %>
+      <%= f.input :chapter_for_uploads, :collection => @chapters, :required => false, :class=> "col-md-4", :selected => params[:chapter_id] %>
+    <% end %>
   <% end %>
 
   <%= simple_form_for :attachment, :html => { :multipart => true, :id => "fileupload", :class => "form-horizontal"  } do |f| %>

@@ -21,11 +21,11 @@ module ApplicationHelper
 	end
 
 	def chapters_for_upload_select(selected = "")
-		if current_user.nil?
-			return
+		@chapters =  Chapter.accessible_by(current_ability)
+		if current_user.has_role? :admin
+			grouped_options_for_select(@chapters.group_by{ |d| d[:state]}.map{|k,v| [k,v.map{|l| [l.name,l.id]}]}.sort_by{|k,v| k || "" })
 		else
-		    @chapters =  current_user.chapters
-			return options_for_select(@chapters.order(:name).map{|c| [c.name,c.id]}, selected)
+			options_for_select(@chapters.order(:name).map{|c| [c.name,c.id]}, selected)
 		end
 	end
 

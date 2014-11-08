@@ -16,8 +16,9 @@ $ ->
       msg_type = "error"
     if msg?.length and msg_type?.length
       console.log "Flash Message: #{msg}" if console?
+
       alert_type = 'alert-success'
-      alert_type = 'alert-danger' unless msg_type.match("error") is null
+      alert_type = 'alert-danger' if msg_type.match("error") > null
       console.log "Flash Message Type: #{alert_type}" if console?
       $("#flash-message").html("
                   <div class='alert " + alert_type + "'>

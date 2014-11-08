@@ -81,7 +81,6 @@ class ChaptersController < ApplicationController
 
   # GET /chapters/1/edit
   def edit
-    @chapter = Chapter.find(params[:id])
     @hash = Gmaps4rails.build_markers(@chapter) do |chapter, marker|
       marker.lat chapter.latitude
       marker.lng chapter.longitude
@@ -106,8 +105,6 @@ class ChaptersController < ApplicationController
   # POST /chapters
   # POST /chapters.json
   def create
-    @chapter = Chapter.new(params[:chapter])
-
     respond_to do |format|
       if @chapter.save
         format.html { render action: "edit", notice: 'Chapter was successfully created.' }
@@ -128,8 +125,7 @@ class ChaptersController < ApplicationController
   # PUT /chapters/1
   # PUT /chapters/1.json
   def update
-    @chapter = Chapter.find(params[:id])
-    if @chapter.update_attributes(params[:chapter].permit(Chapter.allowed_attributes))
+    if @chapter.update_attributes(chapter_params)
       if request.format.json?
         @infowindow = render_to_string :partial => 'chapters/infowindow', locals: { :chapter => @chapter}
         @chapter_hash = @chapter.attributes
@@ -182,6 +178,17 @@ class ChaptersController < ApplicationController
 
   def index_csv?
       @_action_name ==  "index" and @_request.format.csv?
+  end
+
+  def chapter_params
+    params.require(:chapter).permit(:city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude,
+    :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category,
+     :inactive, :separate_exemption, :users_attributes, :database_identifier, :attachment_ids, 
+     :bylaws, :attachments_attributes,:website_import_id, :facebook_url, :facebook_url_import_id, 
+     :twitter_url, :twitter_url_import_id, :email_1_import_id, :email_2_import_id, :email_3_import_id, 
+     :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, 
+     :independent_import_id, :ein_import_id, :revoked, :revocation_date, :position_lock, 
+     :ambiguate_address, :pending, :pending_reason)
   end
 
 end

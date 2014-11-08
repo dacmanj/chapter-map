@@ -33,7 +33,7 @@ gem 'paper_trail', '>= 3.0.0.beta1'
 gem "i18n"
 gem "will_paginate-bootstrap"
 gem "devise"
-gem "cancan"
+gem "cancancan"
 gem "rolify"
 
 gem "jquery-fileupload-rails"

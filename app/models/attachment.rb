@@ -34,10 +34,6 @@ class Attachment < ActiveRecord::Base
 
   include Rails.application.routes.url_helpers
 
-  def self.allowed_attributes
-    [:attachment, :tag, :chapter_id, :user_id]
-  end
-
   def self.tags
   	["EIN Letter","IRS Determination Letter","Affiliation Agreement", "Bylaws", "Articles of Incorporation","Correspondence with National",
       "Group Inclusion Letter","Letter of Commitment", "Verification Letter", "State Tax Exemption", "Certificate of Incorporation", "IRS Form 1023", "Trademark Agreement", "Other"].sort

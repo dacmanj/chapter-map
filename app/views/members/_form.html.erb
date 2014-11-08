@@ -6,7 +6,6 @@
     <%= f.input :first_name %>
     <%= f.input :last_name %>
     <%= f.input :chapter_code if admin_user?  %>
-    <%= select :member, :chapter_ids, grouped_options_for_select(chapters_by_state_for_select, @member.chapter_ids), {}, :multiple => true, :disabled => true %>
 
     <%= render "chapter_leaders", :f => f %>
     <%= f.input :spouse_first_name %>
@@ -27,6 +26,6 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, :class => "btn btn-primary" %>
   </div>
 <% end %>

@@ -39,8 +39,6 @@ class MembersController < ApplicationController
   # POST /members
   # POST /members.json
   def create
-    @member = Member.new(params[:member])
-
     respond_to do |format|
       if @member.save
         format.html { redirect_to @member, notice: 'Member was successfully created.' }
@@ -55,10 +53,8 @@ class MembersController < ApplicationController
   # PUT /members/1
   # PUT /members/1.json
   def update
-    @member = Member.find(params[:id].permit(Member.allowed_attributes))
-
     respond_to do |format|
-      if @member.update_attributes(params[:member])
+      if @member.update_attributes(member_params)
         format.html { redirect_to @member, notice: 'Member was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,4 +75,13 @@ class MembersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+  def member_params
+    params.require(:member).permit(:address, :address_import_id, :chapter_code, :city, 
+      :contituent_id, :email, :email_import_id, :first_name, :last_name, 
+      :phone, :phone_import_id, :spouse_first_name, :spouse_last_name, 
+      :state, :zip, :suppress_from_directory, :chapter_leaders_attributes, :import_id)
+  end
+
 end

@@ -41,8 +41,6 @@ class ChapterLeadersController < ApplicationController
   # POST /chapter_leaders
   # POST /chapter_leaders.json
   def create
-    @chapter_leader = ChapterLeader.new(params[:chapter_leader])
-
     respond_to do |format|
       if @chapter_leader.save
         format.html { redirect_to @chapter_leader, notice: 'Chapter leader was successfully created.' }
@@ -57,10 +55,8 @@ class ChapterLeadersController < ApplicationController
   # PUT /chapter_leaders/1
   # PUT /chapter_leaders/1.json
   def update
-    @chapter_leader = ChapterLeader.find(params[:id].permit(ChapterLeader.allowed_attributes))
-
     respond_to do |format|
-      if @chapter_leader.update_attributes(params[:chapter_leader])
+      if @chapter_leader.update_attributes(chapter_leader_params)
         format.html { redirect_to @chapter_leader, notice: 'Chapter leader was successfully updated.' }
         format.json { head :no_content }
       else
@@ -80,5 +76,9 @@ class ChapterLeadersController < ApplicationController
       format.html { redirect_to chapter_leaders_url }
       format.json { head :no_content }
     end
+  end
+  private
+  def chapter_leader_params
+    params.require(:chapter_leader).permit(:chapter_id, :member_id, :position, :spouse_position,:position_import_id,:spouse_position_import_id)
   end
 end

@@ -32,13 +32,6 @@ class Member < ActiveRecord::Base
   has_many :users, through: :chapters
   accepts_nested_attributes_for :chapter_leaders, :allow_destroy => true
 
-  def self.allowed_attributes
-    [:address, :address_2, :address_import_id, :chapter_code, :city, 
-      :contituent_id, :email, :email_import_id, :first_name, :last_name, 
-      :phone, :phone_import_id, :spouse_first_name, :spouse_last_name, 
-      :state, :zip, :suppress_from_directory, :chapter_leaders_attributes]
-  end
-
   def link_to_chapter
   	unless chapter_code.empty?
   		self.chapter = Chapter.find_by_chapter_legacy_identifier chapter_code

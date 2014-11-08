@@ -39,14 +39,11 @@ class AttachmentsController < ApplicationController
 
   # GET /attachments/1/edit
   def edit
-    @attachment = Attachment.find(params[:id])
   end
 
   # POST /attachments
   # POST /attachments.json
   def create
-    @attachment = Attachment.new(params[:attachment])
-
     respond_to do |format|
       if @attachment.save
         format.html {
@@ -67,10 +64,8 @@ class AttachmentsController < ApplicationController
   # PUT /attachments/1
   # PUT /attachments/1.json
   def update
-    @attachment = Attachment.find(params[:id])
-
     respond_to do |format|
-      if @attachment.update_attributes(params[:attachment].permit(Attachment.allowed_attributes))
+      if @attachment.update_attributes(attachment_params)
         format.html { redirect_to attachments_url, notice: 'File was successfully updated.' }
           flash[:notice] = 'File was successfully updated'
           format.json { render json: @attachment }
@@ -84,7 +79,6 @@ class AttachmentsController < ApplicationController
   # DELETE /attachments/1
   # DELETE /ssets/1.json
   def destroy
-    @attachment = Attachment.find(params[:id])
     @attachment.destroy
 
     respond_to do |format|
@@ -92,5 +86,10 @@ class AttachmentsController < ApplicationController
       flash[:notice] = 'File was successfully deleted'
       format.json { render json: flash }
     end
+  end
+
+  private
+  def attachment_params
+    params.require(:attachment).permit(:attachment, :tag, :chapter_id, :user_id)
   end
 end
