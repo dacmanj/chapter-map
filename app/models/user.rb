@@ -45,6 +45,11 @@ class User < ActiveRecord::Base
             :format     => { :with => email_regex },
             :uniqueness => { :case_sensitive => false }
 
+  def allowed_attributes
+    [:email, :password, :password_confirmation, :remember_me, :name, :admin, 
+      :chapter_ids, :password, :password_confirmation, :role_ids, :override_sync]
+  end
+
   def name_and_email
     unless name.blank? || email.blank?
       name + " (" + email + ")"

@@ -61,7 +61,7 @@ class AssetsController < ApplicationController
   # PUT /assets/1
   # PUT /assets/1.json
   def update
-    @asset = Asset.find(params[:id])
+    @asset = Asset.find(params[:id].permit(Asset.allowed_attributes))
 
     respond_to do |format|
       if @asset.update_attributes(params[:asset])

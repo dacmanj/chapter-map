@@ -70,7 +70,7 @@ class AttachmentsController < ApplicationController
     @attachment = Attachment.find(params[:id])
 
     respond_to do |format|
-      if @attachment.update_attributes(params[:attachment])
+      if @attachment.update_attributes(params[:attachment].permit(Attachment.allowed_attributes))
         format.html { redirect_to attachments_url, notice: 'File was successfully updated.' }
           flash[:notice] = 'File was successfully updated'
           format.json { render json: @attachment }

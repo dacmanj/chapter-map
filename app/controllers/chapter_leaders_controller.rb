@@ -57,7 +57,7 @@ class ChapterLeadersController < ApplicationController
   # PUT /chapter_leaders/1
   # PUT /chapter_leaders/1.json
   def update
-    @chapter_leader = ChapterLeader.find(params[:id])
+    @chapter_leader = ChapterLeader.find(params[:id].permit(ChapterLeader.allowed_attributes))
 
     respond_to do |format|
       if @chapter_leader.update_attributes(params[:chapter_leader])

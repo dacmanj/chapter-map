@@ -37,7 +37,7 @@ load_and_authorize_resource
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = User.find(params[:id].permit(User.allowed_attributes))
 
     respond_to do |format|
       if @user.update_attributes(params[:user])

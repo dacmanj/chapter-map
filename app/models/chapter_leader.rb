@@ -17,7 +17,11 @@ class ChapterLeader < ActiveRecord::Base
 #  attr_accessible :chapter_id, :leader_id, :position_1, :position_2, :position_3, :position_4, :position_5, :spouse_position_1, :spouse_position_2, :spouse_position_3, :spouse_position_4, :spouse_position_5
   belongs_to :chapter
   belongs_to :member
-
+  def self.allowed_attributes
+  	[:chapter_id, :leader_id, :position_1, :position_2, :position_3, :position_4, 
+  		:position_5, :spouse_position_1, :spouse_position_2, :spouse_position_3, 
+  		:spouse_position_4, :spouse_position_5]
+  end
   def self.positions
   	["","Board Member","President","Vice President","Treasurer","Secretary","Executive Director","Co-President","Communications Coordinator","Diversity Coordinator","Advocacy Coordinator","Fundraising Coordinator","Membership Coordinator","Safe Schools Coordinator","Speakers Bureau Coordinator","State Coordinator","Transgender Coordinator","Programs Coordinator","Web Manager"]
   end

@@ -2,7 +2,7 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.association :chapter, prompt: "Select a chapter..." %>
+    <%= f.association :chapter, prompt: "Select a chapter...", collection: Chapter.all, as: :group, group_method: :state %>
     <%= f.association :member %>
     <%= f.input :position, collection: ChapterLeader.positions %>
     <%= f.input :spouse_position, collection: ChapterLeader.positions %>

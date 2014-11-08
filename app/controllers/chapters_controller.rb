@@ -129,7 +129,7 @@ class ChaptersController < ApplicationController
   # PUT /chapters/1.json
   def update
     @chapter = Chapter.find(params[:id])
-    if @chapter.update_attributes(params[:chapter])
+    if @chapter.update_attributes(params[:chapter].permit(Chapter.allowed_attributes))
       if request.format.json?
         @infowindow = render_to_string :partial => 'chapters/infowindow', locals: { :chapter => @chapter}
         @chapter_hash = @chapter.attributes

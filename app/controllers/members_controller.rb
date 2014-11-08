@@ -55,7 +55,7 @@ class MembersController < ApplicationController
   # PUT /members/1
   # PUT /members/1.json
   def update
-    @member = Member.find(params[:id])
+    @member = Member.find(params[:id].permit(Member.allowed_attributes))
 
     respond_to do |format|
       if @member.update_attributes(params[:member])

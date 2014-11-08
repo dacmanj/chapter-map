@@ -11,8 +11,12 @@
 #
 
 class Authentication < ActiveRecord::Base
-#  attr_accessible :provider, :uid, :user_id
+#  attr_accessible 
   belongs_to :user
+
+  def self.allowed_attributes
+  	[:provider, :uid, :user_id]
+  end
 
   def self.create_with_omniauth(auth, user=nil)
     create(uid: auth['uid'], provider: auth['provider'], user_id: user.id) # and other data you might want from the auth hash

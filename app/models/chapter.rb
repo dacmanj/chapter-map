@@ -58,8 +58,6 @@ class Chapter < ActiveRecord::Base
   has_many :members, through: :chapter_leaders
   has_paper_trail
 
-#  attr_accessible :city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes,:website_import_id, :facebook_url, :facebook_url_import_id, :twitter_url, :twitter_url_import_id, :email_1_import_id, :email_2_import_id, :email_3_import_id, :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, :independent_import_id, :ein_import_id, :revoked, :revocation_date, :position_lock, :ambiguate_address, :pending, :pending_reason
-
   accepts_nested_attributes_for :attachments, :allow_destroy => true
 
   scope :active, lambda { where("(inactive = ? OR inactive is ?) and (pending = ? OR pending is ?)",false,nil,false,nil) }
@@ -128,6 +126,17 @@ class Chapter < ActiveRecord::Base
     "CnAttrCat_2_01_Description" => "ein",
     "CnAttrCat_2_01_Import_ID" => "ein_import_id"}
 
+  def self.allowed_attributes
+   [:city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude,
+    :name, :phone_1, :phone_2, :state, :street, :website, :zip, :radius, :category,
+     :inactive, :separate_exemption, :users_attributes, :database_identifier, :attachment_ids, 
+     :bylaws, :attachments_attributes,:website_import_id, :facebook_url, :facebook_url_import_id, 
+     :twitter_url, :twitter_url_import_id, :email_1_import_id, :email_2_import_id, :email_3_import_id, 
+     :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, 
+     :independent_import_id, :ein_import_id, :revoked, :revocation_date, :position_lock, 
+     :ambiguate_address, :pending, :pending_reason]
+  end
+
   def address
   #describe how to retrieve the address from your model, if you use directly a db column, you can dry your code, see wiki
     address = [self.street, (self.city + "," unless self.city.blank?), self.state, self.zip].reject{|h| h.blank?}.join(" ")
@@ -151,7 +160,11 @@ class Chapter < ActiveRecord::Base
   end
 
   def self.states
-    Chapter.order(:state).group_by(&:state)
+    chapters = Chapter.order(:state).group_by(&:state)
+  end
+
+  def self.for_select
+    Chapter.all.map {|c| [:value => c.id, :label => c.name, :state => c.state]}.group_by {|c| c[2]}
   end
 
   def geo_address
