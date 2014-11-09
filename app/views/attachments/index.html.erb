@@ -115,6 +115,9 @@
         <td class="tag"><select name="tag" data-id="{%=file.id%}" value="{%=file.tag%}"><option value="">Choose a tag...</option><%= options_for_select(Attachment.tags) %> </select></td>
         <td class="name">
           <a href="{%=file.url%}" title="{%=file.name%}" class="name" data-id="{%=file.id%}">{%=file.name%}</a>
+          <a class="btn-primary btn btn-xs rename" data-id="{%=file.id%}">          
+            <%=glyph("pencil icon-white")%>
+          </a>
         </td>
         <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
         <td colspan="2"></td>
@@ -123,9 +126,7 @@
           <%=glyph("trash icon-white")%>
           {%=locale.fileupload.destroy%}
         </button>
-        <a class="btn-primary btn btn-xs rename" data-id="{%=file.id%}">          
-          <%=glyph("pencil icon-white")%>
-        </a>
+
         <input type="checkbox" name="delete" value="1">
 
       </td>
@@ -248,6 +249,8 @@
       })
       $(".attachment-ajax").delegate("select[name=chapter_id], select[name=tag]", "change", updateAttachmentAjax);
       loadFiles();
+      setupRename();
+
   });
 
 
@@ -271,7 +274,6 @@
             template[0].offsetWidth;
           template.addClass('in');
           loadSelectValues();
-          setupRename();
           $('#loading').remove();
       });
 
