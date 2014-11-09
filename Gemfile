@@ -9,8 +9,6 @@ gem 'uglifier', '>= 1.0.3'
 
 gem 'pg', :group => [:production, :development]
 
-
-
 group :development do
   gem 'webrick', '~> 1.3.1'
   gem "better_errors"
