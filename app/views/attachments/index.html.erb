@@ -114,7 +114,7 @@
         <td class="chapter"><span><select name="chapter_id" data-id="{%=file.id%}" value="{%=file.chapter_id%}"><option value="{%=file.chapter_id%}">{%=file.chapter%}</option><%= chapters_for_upload_select %></select></span></td>
         <td class="tag"><select name="tag" data-id="{%=file.id%}" value="{%=file.tag%}"><option value="">Choose a tag...</option><%= options_for_select(Attachment.tags) %> </select></td>
         <td class="name">
-          <a href="{%=file.url%}" title="{%=file.name%}" rel="{%=file.thumbnail_url&&'gallery'%}">{%=file.name%}</a>
+          <a href="{%=file.url%}" title="{%=file.name%}" class="name" data-id="{%=file.id%}">{%=file.name%}</a>
         </td>
         <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
         <td colspan="2"></td>
@@ -123,7 +123,11 @@
           <%=glyph("trash icon-white")%>
           {%=locale.fileupload.destroy%}
         </button>
+        <a class="btn-primary btn btn-xs rename" data-id="{%=file.id%}">          
+          <%=glyph("pencil icon-white")%>
+        </a>
         <input type="checkbox" name="delete" value="1">
+
       </td>
     </tr>
     </form>
@@ -148,6 +152,32 @@
     $.ajax({ url: "/attachments/"+id, data: updateJson, dataType: "JSON", type: 'PUT' });
 
   }
+
+  function setupRename() {
+    $('#fileupload').on('click', 'a.rename', function(e) {
+      var id = $(this).attr("data-id");
+      var old_name = $("a.name[data-id=" + id + "]").html();
+      var new_name = prompt("Enter the new name",old_name);
+      var updateJson = {"attachment[name]": new_name, "attachment[id]": id};
+      if (new_name == "" || new_name == null) {
+        return;
+      }
+      else {
+        $.ajax({ url: "/attachments/"+id, data: updateJson, dataType: "JSON", type: 'PUT', success:function(data){
+          var id = data.id;
+          var file_name = data.attachment_file_name;
+          var url = data.url;
+          var link = $("a.name[data-id=" + id + "]");
+          link.html(file_name);
+          link.attr("href",url);
+          link.attr("title",file_name);
+        }});
+
+      }
+    })
+    
+  }
+
 
   function loadSelectValues() {
     //convert value attributes to selections
@@ -241,6 +271,7 @@
             template[0].offsetWidth;
           template.addClass('in');
           loadSelectValues();
+          setupRename();
           $('#loading').remove();
       });
 

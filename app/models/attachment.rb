@@ -53,6 +53,14 @@ class Attachment < ActiveRecord::Base
    	end
   end
 
+  def url
+    if self.attachment.present?
+      self.attachment.url
+    else
+      ""
+    end
+  end
+
   def chapter_name
     if self.chapter.nil?
       return ""
@@ -61,6 +69,18 @@ class Attachment < ActiveRecord::Base
     end
   end
 
+  def rename(new_name)
+    if (new_name == nil || new_name == "")
+      return false
+    end
+    old_path = self.attachment.path
+    old_path.slice!(0)
+    self.attachment_file_name = new_name
+    new_path = "#{self.attachment.path}"
+    new_path.slice!(0)
+    self.attachment.s3_bucket.objects[old_path].move_to new_path, acl: :public_read
+    self.save
+  end
 
   def to_jq
 	{

@@ -65,10 +65,10 @@ class AttachmentsController < ApplicationController
   # PUT /attachments/1.json
   def update
     respond_to do |format|
-      if @attachment.update_attributes(attachment_params)
+      if @attachment.rename(params[:attachment][:name]) || @attachment.update_attributes(attachment_params)
         format.html { redirect_to attachments_url, notice: 'File was successfully updated.' }
           flash[:notice] = 'File was successfully updated'
-          format.json { render json: @attachment }
+          format.json { render json: @attachment.to_json(:methods => :url) }
       else
         format.html { render action: "edit" }
         format.json { render json: @attachment.errors, status: :unprocessable_entity }
