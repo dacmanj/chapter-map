@@ -1,5 +1,13 @@
 require File.expand_path('../boot', __FILE__)
-require 'rails/all'
+#require 'rails/all'
+
+require "active_record/railtie"
+require "action_controller/railtie"
+require 'rake/testtask'
+require "action_mailer/railtie"
+#require "active_resource/railtie"
+require "sprockets/railtie"
+require "minitest/rails/railtie"
 require 'csv'
 
 if defined?(Bundler)
@@ -15,9 +23,8 @@ module ChapterMap
     # don't generate RSpec tests for views and helpers
     config.generators do |g|
       
-      g.test_framework :rspec, fixture: true
+      g.test_framework :minitest, spec: true, fixture: false
       g.fixture_replacement :factory_girl, dir: 'spec/factories'
-      
       
       g.view_specs false
       g.helper_specs false

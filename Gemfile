@@ -17,14 +17,14 @@ group :development do
   gem "binding_of_caller"
   gem "quiet_assets", ">= 1.0.2"
   gem "annotate"
-  gem "minitest"
-  gem "minitest-rails"
 end
 
 group :test do
   gem "sqlite3"
+  gem 'minitest-rails'
+  gem 'minitest-rails-capybara'
   gem 'minitest-reporters'
-  gem 'mini_backtrace'
+  gem 'minitest-focus'
   gem 'guard-minitest'
 end
 
