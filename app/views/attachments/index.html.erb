@@ -182,9 +182,9 @@
 
   function loadSelectValues() {
     //convert value attributes to selections
-    console.log("loading select values from attributes");
+    //console.log("loading select values from attributes");
     $("select[value]").each(function(i,v) {
-      console.log(v);
+      //console.log(v);
       if ($(v).attr("value") < 1)
         $(v).removeAttr("value");
       else
@@ -193,7 +193,7 @@
   }
 
   function formDataDefault(form) {
-    console.log(form.serializeArray());
+    form.serializeArray()
   }
 
   var originalFn = window.tmpl;
@@ -219,7 +219,7 @@
       $('#fileupload').fileupload({autoUpload: true, destroy: function (e, data) {
         var that = $(this).data('blueimpFileupload');  
         var multiple_selected = (typeof e.originalEvent.originalEvent == "undefined");
-        console.log("test"+multiple_selected);
+        //console.log("test"+multiple_selected);
         if ( multiple_selected || confirm("Are you sure?") == true) {
             if (data.url) {
                 $.ajax(data)
@@ -264,7 +264,7 @@
         var fu = $('#fileupload').data('blueimpFileupload'), 
           template;
         fu._adjustMaxNumberOfFiles(-files.length);
-        console.log(files);
+        //console.log(files);
         template = fu._renderDownload(files)
           .appendTo($('#fileupload .files'));
 

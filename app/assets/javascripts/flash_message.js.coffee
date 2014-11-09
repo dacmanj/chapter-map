@@ -3,10 +3,12 @@
 # 1) you're using twitter-bootstrap (although it will work if you don't)
 # 2) you've got a div with the id flash_message somewhere in your html code
 
+debug = false
+
 $ -> 
-  console.log "ajaxFlashLoading..." if console?
+  console.log "ajaxFlashLoading..." if console? && debug
   flash_msg_event = (event, request) ->
-    if console?
+    if console? && debug
       console.log "ajax request"
       console.log request
     msg = decodeURIComponent(request.getResponseHeader("X-Message")) || ""
@@ -15,11 +17,11 @@ $ ->
       msg = "500 Server Error"
       msg_type = "error"
     if msg?.length and msg_type?.length
-      console.log "Flash Message: #{msg}" if console?
+      console.log "Flash Message: #{msg}" if console? && debug
 
       alert_type = 'alert-success'
       alert_type = 'alert-danger' if msg_type.match("error") != null
-      console.log "Flash Message Type: #{alert_type}" if console?
+      console.log "Flash Message Type: #{alert_type}" if console? && debug
       $("#flash-message").html("
                   <div class='alert " + alert_type + "'>
                     <button type='button' class='close' data-dismiss='alert'>&times;</button>
