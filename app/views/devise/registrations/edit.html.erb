@@ -5,14 +5,14 @@
   <%= display_base_errors resource %>
   <%= f.input :name, :autofocus => true %>
   <%= f.input :email, :required => true %>
-  <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
+  <%= f.input :password, :autocomplete => "off", :hint => "Leave blank if you don't want to change your password", :required => false %>
   <%= f.input :password_confirmation, :required => false %>
   
-  <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => @user.password_required? %>
-<% if @user.password_required? %>  <%end%>
+  <%= f.input :current_password, :hint => ( @user.password_required? ? "We need your current password to confirm your changes" : "Password has not been set yet"), :required => @user.password_required?, :disabled => !@user.password_required?  %>
+<% if @user.password_required? %>
+<%end%>
   <%= f.button :submit, 'Update', :class => 'btn btn-primary' %>
 <% end %>
 <h3>Delete my account</h3>
-<p><%= link_to "Delete my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
-<%= link_to "Back", :back, :class => "btn btn-default" %>
+<div><%= link_to glyph("trash"), registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => "btn btn-danger"%></div>
 </div>

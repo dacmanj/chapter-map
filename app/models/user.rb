@@ -161,7 +161,7 @@ class User < ActiveRecord::Base
   end
 
   def password_required?
-    authentications.empty? && super
+    !self.has_no_password? && super
   end
   private
   def user_params(params)
