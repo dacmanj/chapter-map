@@ -16,17 +16,6 @@ ActiveRecord::Schema.define(version: 20141108145039) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "Attachments", force: true do |t|
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "attachment_file_name",    limit: 255
-    t.string   "attachment_content_type", limit: 255
-    t.integer  "attachment_file_size"
-    t.datetime "attachment_updated_at"
-    t.integer  "chapter_id"
-    t.string   "tag",                     limit: 255
-  end
-
   create_table "assets", force: true do |t|
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
