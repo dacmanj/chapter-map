@@ -1,7 +1,7 @@
 require "test_helper"
 
 describe Chapter do
-  let(:chapter) { Chapter.new }
+  let(:chapter) { chapters(:pflagdc) }
 
   it "must be valid" do
     chapter.must_be :valid?
