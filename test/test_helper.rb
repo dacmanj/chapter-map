@@ -17,6 +17,7 @@ require "minitest/pride"
 
 class ActiveSupport::TestCase
     ActiveRecord::Migration.check_pending!
+	include FactoryGirl::Syntax::Methods
 
     # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #
@@ -30,4 +31,6 @@ end
 
 class ActionController::TestCase
   include Devise::TestHelpers
+  include FactoryGirl::Syntax::Methods
+
 end
