@@ -15,6 +15,8 @@ group :development do
   gem "binding_of_caller"
   gem "quiet_assets", ">= 1.0.2"
   gem "annotate"
+  gem 'guard'
+
 end
 
 group :test do

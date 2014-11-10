@@ -302,6 +302,7 @@ DEPENDENCIES
   figaro (>= 0.6.3)
   geocoder
   gmaps4rails (>= 2.1.0)
+  guard
   guard-minitest
   i18n
   jquery-fileupload-rails

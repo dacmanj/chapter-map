@@ -13,7 +13,7 @@ require 'minitest/reporters'
 # require "minitest/rails/capybara"
 
 # Uncomment for awesome colorful output
-# require "minitest/pride"
+require "minitest/pride"
 
 class ActiveSupport::TestCase
     ActiveRecord::Migration.check_pending!
@@ -25,4 +25,9 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+end
+
+
+class ActionController::TestCase
+  include Devise::TestHelpers
 end
