@@ -37,10 +37,10 @@ load_and_authorize_resource
   end
 
   def update
-    @user = User.find(params[:id].permit(User.allowed_attributes))
+    @user = User.find(params[:id])
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update_attributes(user_params)
           format.html { redirect_to users_path, notice: 'User profile successfully updated.' }
           format.json { head :no_content }
       else
@@ -85,6 +85,13 @@ load_and_authorize_resource
     end
     flash[:notice] = "Deleted users!"
     redirect_to users_path
+  end
+
+  private
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :remember_me, :name, :admin, 
+      :chapter_ids, :password, :password_confirmation, :role_ids, :override_sync)
+    
   end
 
 end

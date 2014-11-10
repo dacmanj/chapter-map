@@ -45,11 +45,6 @@ class User < ActiveRecord::Base
             :format     => { :with => email_regex },
             :uniqueness => { :case_sensitive => false }
 
-  def allowed_attributes
-    [:email, :password, :password_confirmation, :remember_me, :name, :admin, 
-      :chapter_ids, :password, :password_confirmation, :role_ids, :override_sync]
-  end
-
   def name_and_email
     unless name.blank? || email.blank?
       name + " (" + email + ")"
@@ -160,13 +155,19 @@ class User < ActiveRecord::Base
         params.delete(:password)
         params.delete(:password_confirmation)
     end
-    result = update_attributes(params, *options)
+    result = update_attributes(user_params(params), *options)
     clean_up_passwords
     result    
   end
 
   def password_required?
     authentications.empty? && super
+  end
+  private
+  def user_params(params)
+    params.permit(:email, :password, :password_confirmation, :remember_me, :name, :admin, 
+      :chapter_ids, :password, :password_confirmation, :role_ids, :override_sync)
+    
   end
 end
 
