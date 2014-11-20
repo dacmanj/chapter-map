@@ -200,14 +200,14 @@ class Chapter < ActiveRecord::Base
 
       address_lines = row.select { |k,v| /^address(_line_\d)*$/.match(k) && !v.blank? && v != "" }.map{|k,v| v}.join("\n")
       row["street"] ||= address_lines
-      logger.info("row: " + row.to_hash.slice(*accessible_attributes).map{|k,v| "#{k}=#{v}" }.join(','))
+      logger.info("row: " + row.to_hash.slice(*importable_attributes).map{|k,v| "#{k}=#{v}" }.join(','))
      
       chapter = find_by_database_identifier(row["database_identifier"]) || 
                 (find_by_ein(row["ein"]) unless row["ein"].blank?) ||
                 find_by_id(row["id"]) ||
                 new
       
-      chapter.attributes = row.to_hash.slice(*accessible_attributes)
+      chapter.attributes = row.to_hash.slice(*importable_attributes)
       chapter.geocode if chapter.address.present? and !chapter.position_lock? and chapter.address_changed?
       begin
         chapter.save!
@@ -302,6 +302,18 @@ class Chapter < ActiveRecord::Base
 
   def address_changed?
     ["street","city","state","zip", "ambiguate_address"].any? { |a| self.changed.include? a }
+  end
+
+  private
+  def self.importable_attributes
+    ["id", "name", "website", "street", "city", "state", "zip", "email_1", "email_2", "email_3",
+      "helpline", "phone_1", "phone_2", "latitude", "longitude", "ein", "gmaps", "gmaps_address",
+      "radius", "category", "separate_exemption", "inactive", "database_identifier", "email_1_import_id", 
+      "email_2_import_id", "email_3_import_id", "helpline_import_id", "phone_1_import_id", 
+      "phone_2_import_id", "address_import_id", "independent_import_id", "ein_import_id", 
+      "revoked", "revocation_date", "position_lock", "ambiguate_address", "twitter_url", 
+      "twitter_url_import_id", "facebook_url", "facebook_url_import_id", "website_import_id", 
+      "pending", "pending_reason"]
   end
 
 end
