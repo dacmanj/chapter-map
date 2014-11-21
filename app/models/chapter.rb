@@ -294,6 +294,22 @@ class Chapter < ActiveRecord::Base
     return count
   end
 
+  def gmaps_marker_params
+    # :url => "http://maps.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png",
+    #:url => "https://maps.google.com/mapfiles/ms/icons/purple.png", //(size 32x32)
+
+    params = {:width => 24, :height => 24, :url => 
+      case self.category
+        when "Representative"
+          '/assets/purple_24.png'
+        when "Chapter"
+          '/assets/purple_24.png'
+        else
+          '/assets/purple_24.png'
+        end
+        }
+  end
+
   def self.update_all_revocation_status
     count = 0
     Chapter.all.each{|h| count += h.update_revocation_status}

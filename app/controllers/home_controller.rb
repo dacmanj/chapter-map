@@ -24,22 +24,8 @@ class HomeController < ApplicationController
       marker.lng chapter.longitude
       marker.title   "#{chapter.name}"
       marker.infowindow render_to_string(:partial => "/chapters/infowindow",  :formats => [:html], :locals => { :chapter => chapter})
-      case chapter.category
-#        when "Representative"
-#          marker.picture({
-#                    :url => "http://maps.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png",
-#                    :width   => 32,
-#                    :height  => 32
-#                   });
-        when "Chapter"
-          marker.picture({
-                    #:url => "https://maps.google.com/mapfiles/ms/icons/purple.png", //(size 32x32)
-                    :url => "#{root_url}"+ view_context.image_path('purple_24.png'),
-                    :width   => 24,
-                    :height  => 24
-                   });
-        end
-      end
+      marker.picture(chapter.gmaps_marker_params);
+    end
   end
 
   def show_chapters

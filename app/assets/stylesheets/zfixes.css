@@ -27,6 +27,12 @@ a:visited.btn-primary {
 	color: white;
 }
 
+a:hover.btn-primary {
+	color: white;
+	background-color: transparent;
+
+}
+
 div.well.chapter_listing {
 	width: 40%;
 }

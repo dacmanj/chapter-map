@@ -34,7 +34,6 @@ class ChaptersController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @chapters, :only => json_fields, :callback => params['callback'], content_type: (params['callback'].present? ? "application/javascript" : "application/json") }
-#        format.json { render json: @chapters }
       format.csv { send_data Chapter.to_csv(@chapters) }
     end
   end
@@ -63,15 +62,8 @@ class ChaptersController < ApplicationController
       marker.lng chapter.longitude
       marker.title   "#{chapter.name}"
       marker.infowindow render_to_string(:partial => "/chapters/infowindow",  :formats => [:html], :locals => { :chapter => chapter})
-      case chapter.category
-        when "Representative"
-          marker.picture({
-                    :url => "http://maps.google.com/intl/en_us/mapfiles/ms/micons/purple-dot.png",
-                    :width   => 32,
-                    :height  => 32
-                   });
-        end
-      end
+      marker.picture(chapter.gmaps_marker_params)
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -86,15 +78,8 @@ class ChaptersController < ApplicationController
       marker.lng chapter.longitude
       marker.title   "#{chapter.name}"
       marker.infowindow render_to_string(:partial => "/chapters/infowindow",  :formats => [:html], :locals => { :chapter => chapter})
-      case chapter.category
-        when "Representative"
-          marker.picture({
-                    :url => "http://maps.google.com/intl/en_us/mapfiles/ms/micons/purple-dot.png",
-                    :width   => 32,
-                    :height  => 32
-                   });
-        end
-      end
+      marker.picture(chapter.gmaps_marker_params)
+    end
     respond_to do |format|
       flash.now
       format.html

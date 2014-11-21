@@ -13,3 +13,8 @@
  *= require_tree .
 */
 @import "bootstrap";
+
+.my-btn {
+  //@include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+  @include button-variant(red, white, blue);
+}
