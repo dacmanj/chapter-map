@@ -15,6 +15,10 @@
     <%= f.input :website %>
     <%= f.input :facebook_url %>
     <%= f.input :twitter_url %>
+    <%= f.input :meetings_multiple %>
+    <%= f.input :meetings_trans %>
+    <%= f.input :meetings_poc %>
+    <%= f.input :meetings_url %> 
     <%= f.input :street, :as => :text, :input_html => { :cols => 40, :rows => 3 } %>
     <%= f.input :city %>
     <%= f.input :state %>
@@ -47,6 +51,10 @@
       <%= f.input :website_import_id %>
       <%= f.input :facebook_url_import_id %>
       <%= f.input :twitter_url_import_id %>
+      <%= f.input :meetings_multiple_import_id %>
+      <%= f.input :meetings_trans_import_id %>
+      <%= f.input :meetings_poc_import_id %>
+      <%= f.input :meetings_url_import_id %>
       <%= f.input :email_1_import_id, :as => :string %>
       <%= f.input :email_2_import_id, :as => :string %>
       <%= f.input :email_3_import_id, :as => :string %>

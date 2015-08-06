@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141108145039) do
+ActiveRecord::Schema.define(version: 20150806195509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,50 +59,58 @@ ActiveRecord::Schema.define(version: 20141108145039) do
   end
 
   create_table "chapters", force: true do |t|
-    t.string   "name",                   limit: 255
-    t.string   "website",                limit: 255
-    t.string   "street",                 limit: 255
-    t.string   "city",                   limit: 255
-    t.string   "state",                  limit: 255
-    t.string   "zip",                    limit: 255
-    t.string   "email_1",                limit: 255
-    t.string   "email_2",                limit: 255
-    t.string   "email_3",                limit: 255
-    t.string   "helpline",               limit: 255
-    t.string   "phone_1",                limit: 255
-    t.string   "phone_2",                limit: 255
+    t.string   "name",                        limit: 255
+    t.string   "website",                     limit: 255
+    t.string   "street",                      limit: 255
+    t.string   "city",                        limit: 255
+    t.string   "state",                       limit: 255
+    t.string   "zip",                         limit: 255
+    t.string   "email_1",                     limit: 255
+    t.string   "email_2",                     limit: 255
+    t.string   "email_3",                     limit: 255
+    t.string   "helpline",                    limit: 255
+    t.string   "phone_1",                     limit: 255
+    t.string   "phone_2",                     limit: 255
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "ein",                    limit: 255
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.string   "ein",                         limit: 255
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.boolean  "gmaps"
-    t.string   "gmaps_address",          limit: 255
+    t.string   "gmaps_address",               limit: 255
     t.integer  "radius"
-    t.string   "category",               limit: 255
+    t.string   "category",                    limit: 255
     t.boolean  "separate_exemption"
     t.boolean  "inactive"
-    t.string   "database_identifier",    limit: 255
-    t.string   "email_1_import_id",      limit: 255
-    t.string   "email_2_import_id",      limit: 255
-    t.string   "email_3_import_id",      limit: 255
-    t.string   "helpline_import_id",     limit: 255
-    t.string   "phone_1_import_id",      limit: 255
-    t.string   "phone_2_import_id",      limit: 255
-    t.string   "address_import_id",      limit: 255
-    t.string   "independent_import_id",  limit: 255
-    t.string   "ein_import_id",          limit: 255
+    t.string   "database_identifier",         limit: 255
+    t.string   "email_1_import_id",           limit: 255
+    t.string   "email_2_import_id",           limit: 255
+    t.string   "email_3_import_id",           limit: 255
+    t.string   "helpline_import_id",          limit: 255
+    t.string   "phone_1_import_id",           limit: 255
+    t.string   "phone_2_import_id",           limit: 255
+    t.string   "address_import_id",           limit: 255
+    t.string   "independent_import_id",       limit: 255
+    t.string   "ein_import_id",               limit: 255
     t.boolean  "revoked"
     t.date     "revocation_date"
     t.boolean  "position_lock"
     t.boolean  "ambiguate_address"
-    t.string   "twitter_url",            limit: 255
-    t.string   "twitter_url_import_id",  limit: 255
-    t.string   "facebook_url",           limit: 255
-    t.string   "facebook_url_import_id", limit: 255
-    t.string   "website_import_id",      limit: 255
+    t.string   "twitter_url",                 limit: 255
+    t.string   "twitter_url_import_id",       limit: 255
+    t.string   "facebook_url",                limit: 255
+    t.string   "facebook_url_import_id",      limit: 255
+    t.string   "website_import_id",           limit: 255
     t.boolean  "pending"
-    t.string   "pending_reason",         limit: 255
+    t.string   "pending_reason",              limit: 255
+    t.boolean  "meetings_trans"
+    t.boolean  "meetings_multiple"
+    t.boolean  "meetings_poc"
+    t.string   "meetings_url"
+    t.string   "meetings_trans_import_id"
+    t.string   "meetings_multiple_import_id"
+    t.string   "meetings_poc_import_id"
+    t.string   "meetings_url_import_id"
   end
 
   create_table "chapters_users", force: true do |t|

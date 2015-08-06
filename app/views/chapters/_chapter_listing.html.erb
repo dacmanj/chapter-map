@@ -41,19 +41,25 @@
 			<%= link_to 'Edit', edit_chapter_path(chapter.id) %>
 		</div>
 	<% end %>
-	<% unless chapter.website.blank? and chapter.facebook_url.blank? and chapter.twitter_url.blank? %>
-	<div>
-
-	<% unless chapter.website.blank? %>
-		<%= link_to image_tag("link20.png",:height => "20",:alt => "#{chapter.name}'s Website"), chapter.website_url %>
-	<%end%>
-	<% unless chapter.facebook_url.blank? %>
-		<%= link_to image_tag("facebook20.png",:height => "20", :alt => "#{chapter.name}'s Facebook Page"), chapter.facebook_url %>
-	<%end%>
-	<% unless chapter.twitter_url.blank? %>
-		<%= link_to image_tag("twitter20.png",:height => "20",:alt => "#{chapter.name}'s Twitter Feed"), chapter.twitter_url %>
-	<%end%>
-
+	<div class="flags">
+        <% unless chapter.website.blank? %>
+            <%= link_to image_tag("link20.png",:height => "20",:alt => "#{chapter.name}'s Website"), chapter.website_url %>
+        <%end%>
+        <% unless chapter.facebook_url.blank? %>
+            <%= link_to image_tag("facebook20.png",:height => "20", :alt => "#{chapter.name}'s Facebook Page"), chapter.facebook_url %>
+        <%end%>
+        <% unless chapter.twitter_url.blank? %>
+            <%= link_to image_tag("twitter20.png",:height => "20",:alt => "#{chapter.name}'s Twitter Feed"), chapter.twitter_url %>
+        <%end%>
+            <% unless chapter.meetings_url.blank? %>
+            <%= link_to image_tag("meetings_url20.png",:height => "20",:alt => "#{chapter.name}'s Meetings Page"), chapter.meetings_url %>
+        <%end%>
+        <% [:meetings_multiple, :meetings_trans, :meetings_poc].each do |n| %>
+        <% next if chapter.send(n).blank? %>
+        
+            <% img = "#{n}_20.png" %>
+        <% alt = t("activerecord.attributes.chapter.#{n}").gsub!("?","") %>
+            <%=image_tag(img,:height => "20",:alt => alt)%>
+        <%end%>
 	</div>
-	<%end%>
 </div>

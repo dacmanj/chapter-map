@@ -221,6 +221,15 @@ en:
         separate_exemption: Has the chapter filed form 1023 directly with the IRS for tax exempt status?
         inactive: No longer active (hidden from map)?
         position_lock: Freeze position on the map
+        meetings_multiple: Multiple Meeting Locations?
+        meetings_multiple_import_id: Does the Chapter Have Multiple Meeting Locations?
+        meetings_trans: Trans Support Meetings?
+        meetings_poc: People of Color Support Meetings?
+        meetings_url: Meeting Location Listing Url
+        meetings_multiple_import_id: Multiple Meeting Attribute Import ID
+        meetings_trans_import_id: Trans Support Meeting Attribute Import ID
+        meetings_poc_import_id: POC Support Meeting Attribute Import ID
+        meetings_url_import_id: Meeting Location Listing Url Import ID
         email_1_import_id: Email 1 Import ID
         email_2_import_id: Email 2 Import ID
         email_3_import_id: Email 3 Import ID

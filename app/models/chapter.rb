@@ -126,6 +126,9 @@ class Chapter < ActiveRecord::Base
     "CnAttrCat_2_01_Description" => "ein",
     "CnAttrCat_2_01_Import_ID" => "ein_import_id"}
 
+  def self.export_map 
+      RAISERS_EDGE_FIELD_MAP.invert     
+  end
   def address
   #describe how to retrieve the address from your model, if you use directly a db column, you can dry your code, see wiki
     address = [self.street, (self.city + "," unless self.city.blank?), self.state, self.zip].reject{|h| h.blank?}.join(" ")
@@ -235,8 +238,9 @@ class Chapter < ActiveRecord::Base
   end
 
   def self.to_csv(chapters, options = {})
+      re_column_names = column_names.map{|h| Chapter.export_map[h] || h}
     CSV.generate(options) do |csv|
-      csv << column_names
+        csv << re_column_names
       chapters.each do |chapter|
         csv << chapter.attributes.values_at(*column_names)
       end
@@ -322,14 +326,8 @@ class Chapter < ActiveRecord::Base
 
   private
   def self.importable_attributes
-    ["id", "name", "website", "street", "city", "state", "zip", "email_1", "email_2", "email_3",
-      "helpline", "phone_1", "phone_2", "latitude", "longitude", "ein", "gmaps", "gmaps_address",
-      "radius", "category", "separate_exemption", "inactive", "database_identifier", "email_1_import_id", 
-      "email_2_import_id", "email_3_import_id", "helpline_import_id", "phone_1_import_id", 
-      "phone_2_import_id", "address_import_id", "independent_import_id", "ein_import_id", 
-      "revoked", "revocation_date", "position_lock", "ambiguate_address", "twitter_url", 
-      "twitter_url_import_id", "facebook_url", "facebook_url_import_id", "website_import_id", 
-      "pending", "pending_reason"]
+    ["id", "name", "website", "street", "city", "state", "zip", "email_1", "email_2", "email_3", "helpline", "phone_1", "phone_2", "latitude", "longitude", "ein", "gmaps", "gmaps_address",
+      "radius", "category", "separate_exemption", "inactive", "database_identifier", "email_1_import_id", "email_2_import_id", "email_3_import_id", "helpline_import_id", "phone_1_import_id", "phone_2_import_id", "address_import_id", "independent_import_id", "ein_import_id", "revoked", "revocation_date", "position_lock", "ambiguate_address", "twitter_url", "twitter_url_import_id", "facebook_url", "facebook_url_import_id", "website_import_id", "pending", "pending_reason", "meetings_trans", "meetings_multiple", "meetings_poc", "meetings_url", "meetings_trans_import_id", "meetings_multiple_import_id", "meetings_poc_import_id", "meetings_url_import_id"]
   end
 
 end
