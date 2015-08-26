@@ -13,6 +13,9 @@
 class Authentication < ActiveRecord::Base
 #  attr_accessible 
   belongs_to :user
+    scope :provider, -> (provider) { where provider: provider }
+    scope :uid, -> (uid) { where uid: uid }
+
 
   def self.allowed_attributes
   	[:provider, :uid, :user_id]
@@ -23,7 +26,7 @@ class Authentication < ActiveRecord::Base
   end
 
   def self.find_with_omniauth(auth)
-    find_by_provider_and_uid(auth['provider'], auth['uid'])
+      self.find_by_provider_and_uid(auth['provider'], auth['uid'])
   end
 
 end

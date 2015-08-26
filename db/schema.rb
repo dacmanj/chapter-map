@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20150806195509) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "assets", force: true do |t|
+  create_table "Attachments", force: :cascade do |t|
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "attachment_file_name",    limit: 255
@@ -27,7 +27,18 @@ ActiveRecord::Schema.define(version: 20150806195509) do
     t.string   "tag",                     limit: 255
   end
 
-  create_table "attachments", force: true do |t|
+  create_table "assets", force: :cascade do |t|
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "attachment_file_name",    limit: 255
+    t.string   "attachment_content_type", limit: 255
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
+    t.integer  "chapter_id"
+    t.string   "tag",                     limit: 255
+  end
+
+  create_table "attachments", force: :cascade do |t|
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "attachment_file_name",    limit: 255
@@ -39,7 +50,7 @@ ActiveRecord::Schema.define(version: 20150806195509) do
     t.integer  "user_id"
   end
 
-  create_table "authentications", force: true do |t|
+  create_table "authentications", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "provider",   limit: 255
     t.string   "uid",        limit: 255
@@ -47,7 +58,7 @@ ActiveRecord::Schema.define(version: 20150806195509) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "chapter_leaders", force: true do |t|
+  create_table "chapter_leaders", force: :cascade do |t|
     t.integer  "chapter_id"
     t.integer  "member_id"
     t.string   "position",                  limit: 255
@@ -58,7 +69,7 @@ ActiveRecord::Schema.define(version: 20150806195509) do
     t.string   "spouse_position_import_id", limit: 255
   end
 
-  create_table "chapters", force: true do |t|
+  create_table "chapters", force: :cascade do |t|
     t.string   "name",                        limit: 255
     t.string   "website",                     limit: 255
     t.string   "street",                      limit: 255
@@ -113,12 +124,12 @@ ActiveRecord::Schema.define(version: 20150806195509) do
     t.string   "meetings_url_import_id"
   end
 
-  create_table "chapters_users", force: true do |t|
+  create_table "chapters_users", force: :cascade do |t|
     t.integer "chapter_id"
     t.integer "user_id"
   end
 
-  create_table "leaders", force: true do |t|
+  create_table "leaders", force: :cascade do |t|
     t.string   "contituent_id",           limit: 255
     t.string   "first_name",              limit: 255
     t.string   "last_name",               limit: 255
@@ -141,7 +152,7 @@ ActiveRecord::Schema.define(version: 20150806195509) do
     t.integer  "chapter_id"
   end
 
-  create_table "members", force: true do |t|
+  create_table "members", force: :cascade do |t|
     t.string   "contituent_id",           limit: 255
     t.string   "first_name",              limit: 255
     t.string   "last_name",               limit: 255
@@ -164,7 +175,7 @@ ActiveRecord::Schema.define(version: 20150806195509) do
     t.string   "import_id",               limit: 255
   end
 
-  create_table "roles", force: true do |t|
+  create_table "roles", force: :cascade do |t|
     t.string   "name",          limit: 255
     t.integer  "resource_id"
     t.string   "resource_type", limit: 255
@@ -175,7 +186,7 @@ ActiveRecord::Schema.define(version: 20150806195509) do
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "name",                   limit: 255
     t.string   "email",                  limit: 255, default: "", null: false
     t.datetime "created_at",                                      null: false
@@ -200,14 +211,14 @@ ActiveRecord::Schema.define(version: 20150806195509) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "users_roles", id: false, force: true do |t|
+  create_table "users_roles", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "role_id"
   end
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
-  create_table "versions", force: true do |t|
+  create_table "versions", force: :cascade do |t|
     t.string   "item_type",  limit: 255, null: false
     t.integer  "item_id",                null: false
     t.string   "event",      limit: 255, null: false
