@@ -8,6 +8,7 @@ gem 'coffee-rails', '~> 4.1'
 gem 'uglifier', '>= 1.0.3'
 
 gem 'pg', :group => [:production, :development]
+gem 'dotenv-rails', :groups => [:development, :test]
 
 group :development do
   gem 'webrick', '~> 1.3.1'
