@@ -20,7 +20,7 @@ class ChaptersController < ApplicationController
     @chapters = @chapters.paginate(:page => params[:page]) unless index_csv? or index_json?
 
     if params[:database_identifier].present?
-      json_fields = [:database_identifier, :name,:website,:street,:city,:state,:zip,:latitude,:longitude]
+      json_fields = [:database_identifier, :name,:website,:street,:city,:state,:zip,:latitude,:longitude,:ein]
       if params[:sort] == "name"
         @chapters = @chapters.order(:name)
       else
@@ -102,7 +102,7 @@ class ChaptersController < ApplicationController
   end
 
   def import
-    errors = Chapter.import(params[:file]) 
+    errors = Chapter.import(params[:file])
     message =  (errors.length > 0) ? errors.join("<br>") : "Chapters imported."
     redirect_to chapters_path, notice: message.html_safe
   end
@@ -169,7 +169,7 @@ class ChaptersController < ApplicationController
 
 
   def chapter_params
-    params.require(:chapter).permit(:city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :meetings_multiple, :meetings_trans, :meetings_poc, :meetings_url, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes,:website_import_id, :facebook_url, :facebook_url_import_id, :twitter_url, :twitter_url_import_id, :email_1_import_id, :email_2_import_id, :email_3_import_id, :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, :independent_import_id, :ein_import_id,:meetings_multiple_import_id, :meetings_trans_import_id, :meetings_poc_import_id, :meetings_url_import_id, :revoked, :revocation_date, :position_lock, 
+    params.require(:chapter).permit(:city, :ein, :email_1, :email_2, :email_3, :helpline, :latitude, :longitude, :name, :phone_1, :phone_2, :state, :street, :website, :meetings_multiple, :meetings_trans, :meetings_poc, :meetings_url, :zip, :radius, :category, :inactive, :separate_exemption, :users_attributes, :database_identifier, :attachment_ids, :bylaws, :attachments_attributes,:website_import_id, :facebook_url, :facebook_url_import_id, :twitter_url, :twitter_url_import_id, :email_1_import_id, :email_2_import_id, :email_3_import_id, :helpline_import_id, :phone_1_import_id, :phone_2_import_id, :address_import_id, :independent_import_id, :ein_import_id,:meetings_multiple_import_id, :meetings_trans_import_id, :meetings_poc_import_id, :meetings_url_import_id, :revoked, :revocation_date, :position_lock,
      :ambiguate_address, :pending, :pending_reason)
   end
 
