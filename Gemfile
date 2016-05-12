@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.3'
+ruby '2.3.1'
 gem 'rails',                '4.2.4'
 gem 'sass-rails',           '5.0.3'
 gem 'paperclip'
@@ -58,4 +58,3 @@ gem "nested_form"
 gem "gmaps4rails", ">= 2.1.0"
 gem "geocoder"
 gem "roo"
-
