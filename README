@@ -1,6 +1,10 @@
 Chapter Map
 ========================
 
+A simple, searchable map application for searching for a database of locations for the nearest locations by state or by address/zip.
+
+========================
+
 This application was generated with the rails_apps_composer gem:
 https://github.com/RailsApps/rails_apps_composer
 provided by the RailsApps Project:
@@ -16,4 +20,30 @@ Preferences:
 
 ________________________
 
-License
+## Ruby on Rails
+
+This application requires:
+
+* Ruby version 2.3.1
+* Rails version 4.2.0
+
+## Database
+
+This application uses PostgreSQL with ActiveRecord.
+
+## Development
+
+* Template Engine: ERB
+* Testing Framework: RSpec and Factory Girl
+* Front-end Framework: Twitter Bootstrap (Sass)
+* Form Builder: SimpleForm
+* Authentication: OmniAuth
+* Authorization: CanCanCan and Rolify
+
+## Email
+
+The application is configured to send email using a Gmail account.
+
+## License
+
+CC BY-SA 2.0
